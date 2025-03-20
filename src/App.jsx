@@ -9,9 +9,9 @@ import Login from './components/Login/Login';
 function App() {
   return (
     <div className="min-vh-100 bg-light">
-      {/* <Header />
-      <Landing /> */}
-      <Login/>
+      <Header />
+      <Landing />
+      {/* <Login/> */}
 
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Login.module.css';
+import { FaGoogle } from "react-icons/fa";
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -22,13 +23,12 @@ function LoginPage() {
       {/* Right Section */}
       <div className={styles.rightSection}>
         <div className={styles.formContainer}>
-          <h2>Login to your Bizgurukul Account</h2>
-
-          <div >
+          <h2 className='text-center'>Login to your Account</h2>
+          {/* <div className={styles.mainParent}>
             <button className={styles.secondaryButton}>Login With Email</button>
             <button className={styles.secondaryButton}>Login With OTP</button>
             <button className={styles.secondaryButton}>Login with QR Code</button>
-          </div>
+          </div> */}
 
           <label>Email Address</label>
           <input
@@ -46,11 +46,15 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <a href="#">Forgot Password?</a>
+          <a href="#" >Forgot Password?</a>
 
-          <button onClick={handleLogin}>Login</button>
+         <div className={styles.loginBtn}>
+          <button onClick={handleLogin} className={styles.secondaryButton}>Login</button>
+          <button className={`${styles.secondaryButton} ${styles.regClass}`}>Don't have an account? Register Now</button>
+         </div>
+         <div className='text-center'>or</div>
+         <button className={styles.googbtn}> <FaGoogle /> Sign in with Google</button>
 
-          <button className={styles.secondaryButton}>Don't have an account? Register Now</button>
         </div>
       </div>
     </div>

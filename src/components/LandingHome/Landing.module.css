@@ -1,0 +1,30 @@
+.newsContainer {
+    padding: 20px;
+  }
+  
+  .latestNewsSection {
+    border-right: 1px solid #ddd; /* Divider between sections */
+    padding-right: 20px;
+  }
+  
+  .featuredNewsSection {
+    padding-left: 20px;
+  }
+  
+  .newsCard {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .newsCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .featuredCard {
+    background-color: #f8f9fa;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  

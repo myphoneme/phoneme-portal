@@ -1,3 +1,13 @@
+.mainParent{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.loginBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .appContainer {
     height: 100vh;
     display: flex;
@@ -37,8 +47,8 @@
   }
   
   .formContainer {
-    width: 80%;
-    max-width: 400px;
+    width: 100%;
+    max-width: 600px;
   }
   
   .formContainer h2 {
@@ -69,19 +79,27 @@
   
   button {
     width: 100%;
-    padding: 14px;
+    padding: 10px 14px;
     margin-top: 20px;
     border-radius: 8px;
     border: none;
-    font-size: 1rem;
+    font-size: 14px;
     color: white;
-    background: linear-gradient(45deg, #ff7f32, #ff5400);
     cursor: pointer;
   }
   
   .secondaryButton {
-    background-color: #e0e0e0;
-    color: black;
-    margin-top: 10px;
+    color: white;
+    margin: 10px 5px;
+    border-radius: 5px;
+    background-color: orangered;
+  }
+  .regClass{
+   background-color: transparent;
+   color: #333;
+  }
+  .googbtn{
+    background-color: rgb(240, 239, 239);
+    color: #333;
   }
   

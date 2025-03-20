@@ -1,0 +1,17 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.hover-shadow {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.sticky-top {
+  z-index: 1020;
+}

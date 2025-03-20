@@ -1,0 +1,87 @@
+.appContainer {
+    height: 100vh;
+    display: flex;
+  }
+  
+  .leftSection {
+    flex: 1;
+    background-color: #fff7f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+  
+  .rightSection {
+    flex: 1;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .leftSection img {
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .leftSection h2 {
+    font-size: 2rem;
+    margin-top: 20px;
+  }
+  
+  .leftSection p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .formContainer {
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .formContainer h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+  
+  input {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  a {
+    display: inline-block;
+    color: #007bff;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    color: white;
+    background: linear-gradient(45deg, #ff7f32, #ff5400);
+    cursor: pointer;
+  }
+  
+  .secondaryButton {
+    background-color: #e0e0e0;
+    color: black;
+    margin-top: 10px;
+  }
+  

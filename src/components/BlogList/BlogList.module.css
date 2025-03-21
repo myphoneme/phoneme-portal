@@ -1,6 +1,6 @@
 .mainContainer {
     padding: 2rem 0;
-    background-color: #f8f9fa;
+    background-color: #f1f1f1;
   }
   
   .blogCard {
@@ -58,7 +58,7 @@
     margin-bottom: 0.5rem;
     font-weight: 600;
     white-space: nowrap;
-    overflow: hidden;
+    /* overflow: hidden; */
     text-overflow: ellipsis;
     width: 100%;
     line-height: 1.2;
@@ -89,19 +89,21 @@
   
   .buttonContainer {
     display: flex;
-    gap: 0.5rem;
-    flex-shrink: 0;
+    /* gap: 0.5rem;
+    flex-shrink: 0; */
   }
   
   .button {
-    display: inline-flex;
+    /* display: inline-flex; */
     align-items: center;
-    gap: 0.25rem;
+    margin: 0 7px;
     padding: 0.25rem 0.75rem;
     border-radius: 4px;
     font-weight: 500;
     transition: all 0.2s ease;
     font-size: 0.75rem;
+    width: 100px!important;
+    text-align: left;
   }
   
   .readMoreBtn {

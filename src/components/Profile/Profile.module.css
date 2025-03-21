@@ -1,0 +1,256 @@
+.profileContainer {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 2rem 0;
+  }
+  
+  .profileHeader {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  
+  .coverImage {
+    height: 200px;
+    background: linear-gradient(120deg, #74a4d1 0%, #8fd3f4 100%);
+    position: relative;
+  }
+  
+  .profileInfo {
+    padding: 0 2rem 2rem;
+    position: relative;
+    margin-top: -60px;
+  }
+  
+  .avatarWrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    object-fit: cover;
+  }
+  
+  .onlineStatus {
+    width: 20px;
+    height: 20px;
+    background: #22c55e;
+    border: 3px solid white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+  
+  .headerContent {
+    margin-top: 1rem;
+  }
+  
+  .name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+  
+  .title {
+    color: #6b7280;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .locationInfo {
+    display: flex;
+    gap: 2rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+  }
+  
+  .locationInfo span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .socialLinks {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .socialLink {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4b5563;
+    transition: all 0.3s ease;
+  }
+  
+  .socialLink:hover {
+    background: #3b82f6;
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .statsContainer {
+    margin-bottom: 2rem;
+  }
+  
+  .statCard {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(31, 38, 135, 0.07);
+    transition: transform 0.3s ease;
+  }
+  
+  .statCard:hover {
+    transform: translateY(-5px);
+  }
+  
+  .statCard h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0.5rem 0;
+  }
+  
+  .statCard p {
+    color: #6b7280;
+    margin: 0;
+  }
+  
+  .mainContent {
+    margin-top: 2rem;
+  }
+  
+  .contentSection {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(31, 38, 135, 0.07);
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .experienceCard {
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: #f8f9fa;
+    margin-bottom: 1rem;
+  }
+  
+  .expHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .expHeader h3 {
+    font-size: 1.2rem;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  
+  .period {
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .experienceCard h4 {
+    color: #4b5563;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .experienceCard p {
+    color: #6b7280;
+    margin: 0;
+  }
+  
+  .skillsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+  
+  .skillTag {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+  }
+  
+  .skillTag:hover {
+    transform: translateY(-2px);
+  }
+  
+  .sideSection {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(31, 38, 135, 0.07);
+  }
+  
+  .achievementsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .achievement {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .achievement:hover {
+    transform: translateY(-2px);
+  }
+  
+  .achievementIcon {
+    color: #3b82f6;
+  }
+  
+  .achievement h4 {
+    font-size: 1rem;
+    color: #1a1a1a;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .achievement p {
+    color: #6b7280;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  

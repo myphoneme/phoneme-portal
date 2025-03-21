@@ -3,6 +3,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Edit2, Trash2, BookOpen, Calendar, User } from 'lucide-react';
 import styles from './BlogList.module.css';
 
+
 const blogs = [
   {
     id: 1,
@@ -49,6 +50,7 @@ const blogs = [
     createdAt: "2024-03-11",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
   }
+  
 ];
 
 const recentBlogs = blogs.slice(0, 5);

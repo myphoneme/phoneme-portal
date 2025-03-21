@@ -4,20 +4,20 @@ import { FaNewspaper, FaMagnifyingGlass, FaBell, FaGear, FaUser } from 'react-ic
 
 function Header() {
   return (
-    <Navbar bg="white" expand="lg" className="shadow-sm sticky-top">
+    <Navbar bg="white" expand="lg" className="shadow-sm sticky-top z-index-999">
       <Container fluid className="px-4">
         <Navbar.Brand href="#" className="d-flex align-items-center">
           <FaNewspaper className="text-primary" size={28} />
-          <span className="ms-2 fw-semibold fs-4">NewsEdge</span>
+          <span className="ms-2 fw-semibold fs-4">Our Blogs</span>
         </Navbar.Brand>
         
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto">
-            <Nav.Link href="#" className="fw-medium">Home</Nav.Link>
-            <Nav.Link href="#" className="fw-medium">Technology</Nav.Link>
-            <Nav.Link href="#" className="fw-medium">Business</Nav.Link>
-            <Nav.Link href="#" className="fw-medium">Health</Nav.Link>
+            <Nav.Link href="#" className="fw-medium"></Nav.Link>
+            <Nav.Link href="#" className="fw-medium"></Nav.Link>
+            <Nav.Link href="#" className="fw-medium"></Nav.Link>
+            <Nav.Link href="#" className="fw-medium"></Nav.Link>
           </Nav>
           
           <Form className="d-flex align-items-center">
@@ -28,7 +28,7 @@ function Header() {
                 className="ps-4 rounded-pill"
                 style={{ width: '300px', backgroundColor: '#f8f9fa' }}
               />
-              <FaMagnifyingGlass className="position-absolute text-muted" style={{ left: '12px', top: '12px' }} />
+              <FaMagnifyingGlass className="position-absolute text-muted" style={{ left: '5px', top: '20px' }} />
             </div>
             
             <div className="d-flex gap-3">

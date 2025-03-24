@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { Edit2, Trash2, BookOpen, Calendar, User } from 'lucide-react';
 import styles from './BlogList.module.css';
 
@@ -73,6 +73,7 @@ const BlogList = () => {
       <Container>
         <Row>
           <Col lg={8}>
+          <h3>Users Blog</h3>
             {blogs.map((blog) => (
               <div key={blog.id} className={styles.blogCard}>
                 <div className={styles.imageContainer}>
@@ -97,36 +98,16 @@ const BlogList = () => {
                     </span>
                   </div>
                   <div className={styles.buttonContainer}>
-                    <Button
-                      variant="primary"
-                      className={`${styles.button} ${styles.readMoreBtn}`}
-                      onClick={() => handleReadMore(blog.id)}
-                    >
-                      <BookOpen size={14} />
-                      Read More
-                    </Button>
-                    <Button
-                      variant="warning"
-                      className={`${styles.button} ${styles.editBtn}`}
-                      onClick={() => handleEdit(blog.id)}
-                    >
-                      <Edit2 size={14} />
-                      Edit
-                    </Button>
-                    <Button
-                      variant="danger"
-                      className={`${styles.button} ${styles.deleteBtn}`}
-                      onClick={() => handleDelete(blog.id)}
-                    >
-                      <Trash2 size={14} />
-                      Delete
-                    </Button>
+                    <Button variant="primary" className={`${styles.button} ${styles.readMoreBtn}`}onClick={() => handleReadMore(blog.id)} > <BookOpen size={14} /> Read More </Button>
+                    <Button variant="warning" className={`${styles.button} ${styles.editBtn}`} onClick={() => handleEdit(blog.id)} ><Edit2 size={14} />  Edit </Button>
+                    <Button variant="danger" className={`${styles.button} ${styles.deleteBtn}`}onClick={() => handleDelete(blog.id)}><Trash2 size={14} /> Delete</Button>
                   </div>
                 </div>
               </div>
             ))}
           </Col>
           <Col lg={4}>
+          <div className={styles.recentPost}> 
             <div className="sticky-top" style={{ top: '2rem' }}>
               <h3 className={styles.sidebarTitle}>Recent Posts</h3>
               {recentBlogs.map((blog) => (
@@ -144,6 +125,19 @@ const BlogList = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            </div>
+
+            <div className={styles.recentPost}> 
+            <div className="sticky-top" style={{ top: '2rem' }}>
+              <h3 className={styles.sidebarTitle}>Latest News</h3>
+              <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
+               <Card.Img variant="top" className={styles.imgWidth} src="https://hindimehelp.com/wp-content/uploads/2015/11/Post-Title-Before-Blog-Title-hindi-me-help.jpg" />
+                <Card.Body>
+                  <Card.Title>Canada’s New PM Mark Carney To Call Early Elections Amid Trade Tensions With US.</Card.Title>
+                </Card.Body>
+              </Card>
+            </div>
             </div>
           </Col>
         </Row>

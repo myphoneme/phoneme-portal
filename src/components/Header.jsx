@@ -1,8 +1,23 @@
 import React from 'react';
 import { Navbar, Container, Form, Button, Nav } from 'react-bootstrap';
-import { FaNewspaper, FaMagnifyingGlass, FaBell, FaGear, FaUser } from 'react-icons/fa6';
+import { FaNewspaper, FaSearch, FaBell, FaCog, FaUser, FaPencilAlt, FaMoon} from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-function Header() {
+function Header({isLoggedIn , setIsLoggedIn}) {
+  const navigate = useNavigate();
+  // Function to toggle login state
+  const handleLoginLogout = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem('accessToken'); // Clear the token on logout
+      localStorage.removeItem('userId'); // Clear user ID
+      setIsLoggedIn(false); // Update state to reflect logout
+      navigate('/login'); // Redirect to login page
+    } else {
+      navigate('/login'); // Redirect to login if not logged in
+    }
+  };
+
+
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm sticky-top z-index-999">
       <Container fluid className="px-4">
@@ -28,18 +43,34 @@ function Header() {
                 className="ps-4 rounded-pill"
                 style={{ width: '300px', backgroundColor: '#f8f9fa' }}
               />
-              <FaMagnifyingGlass className="position-absolute text-muted" style={{ left: '5px', top: '20px' }} />
+              <FaSearch className="position-absolute text-muted" style={{ left: '5px', top: '20px' }} />
             </div>
             
             <div className="d-flex gap-3">
+            {!isLoggedIn ? (
+              <>
+              <Button variant="light" className="rounded-circle p-2">
+                <FaPencilAlt size={18} />
+              </Button>
+              <Button variant="light" className="rounded-circle p-2" onClick={handleLoginLogout}>
+                Login
+              </Button>
+              </>
+              ) : (
+              <>
               <Button variant="light" className="rounded-circle p-2">
                 <FaBell size={18} />
               </Button>
               <Button variant="light" className="rounded-circle p-2">
-                <FaGear size={18} />
+                <FaCog size={18} />
               </Button>
               <Button variant="light" className="rounded-circle p-2">
                 <FaUser size={18} />
+              </Button>
+              </>
+              )}
+              <Button variant="light" className="rounded-circle p-2">
+                <FaMoon size={18} />
               </Button>
             </div>
           </Form>

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState ,useEffect } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Header from './components/Header';
 import Landing from './components/LandingHome/Landing';
 import Login from './components/Login/Login';
@@ -11,8 +10,12 @@ import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
 import BlogDetails from './components/BlogDetail/BlogDetails';
 import AppLayout from './ui/AppLayout';
+  
 
-const router = createBrowserRouter([
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  const router = createBrowserRouter([
   {
     element: <AppLayout/>,
     children:[
@@ -22,7 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <Login/>,
+        element: <Login  setIsLoggedIn={setIsLoggedIn} />,
       },
       {
         path: 'signup',
@@ -47,19 +50,19 @@ const router = createBrowserRouter([
 
     ]
   }
-])
+]);
 
-function App() {
-  return (
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  return ( 
     <div className="min-vh-100 bg-light">
-      {/* <Header /> */}
-      {/* <Landing /> */}
-      {/* <Login/> */}
-      {/* <BlogList/> */}
-      {/* <Signup/> */}
-      {/* <Home/> */}
-      {/* <Profile/> */}
-      {/* <BlogDetails/> */}
+      {/* <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> */}
       <RouterProvider router={router} />
 
     </div>

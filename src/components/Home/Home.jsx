@@ -38,6 +38,8 @@ function Home() {
     }
   ];
 
+
+  
   return (
     <div className={styles.blogContainer}>
       <Container>
@@ -58,64 +60,159 @@ function Home() {
           {/* Main Blog Post - Left Side */}
           <Col md={8}>
             <article className={styles.blogPost}>
-              <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&auto=format&fit=crop&q=60"
-                alt="Main Blog Post"
-                className={styles.blogImage}
-              />
-              <h1 className={styles.blogTitle}>
-                The Evolution of Web Development in 2024: A New Era of Innovation
-              </h1>
-             
-              <div className={styles.blogMeta}>
-                <span>
-                  <User size={18} />
-                  John Doe
-                </span>
-                <span>
-                  <Calendar size={18} />
-                  March 15, 2024
-                </span>
-                <span>
-                  <Tag size={18} />
-                  Technology
-                </span>
-                <span>
-                  <Clock size={18} />
-                  8 min read
-                </span>
+              <div>
+                <img
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&auto=format&fit=crop&q=60"
+                  alt="Main Blog Post"
+                  className={styles.blogImage}
+                />
               </div>
-
-              <div className={styles.blogContent}>
-                <p>
-                  Web development has undergone a remarkable transformation since its inception.
-                  As we navigate through 2024, we're witnessing groundbreaking changes in how
-                  websites are conceptualized, built, and deployed. From AI-powered development
-                  tools to revolutionary frameworks, the landscape continues to evolve at an
-                  unprecedented pace.
-                </p>
-                <p>
-                  Modern web development practices have shifted dramatically, placing greater
-                  emphasis on performance, accessibility, and user experience than ever before.
-                  With the emergence of Web3 technologies and decentralized applications,
-                  developers are exploring exciting new possibilities in creating interactive
-                  and secure web experiences.
-                </p>
-                <p>
-                  The integration of artificial intelligence and machine learning in web
-                  development has opened new horizons for creating intelligent, responsive,
-                  and personalized user experiences. From sophisticated chatbots to advanced
-                  recommendation systems, AI is becoming an indispensable part of modern
-                  web applications.
-                </p>
-                <h2>Key Trends Shaping the Future</h2>
-                <ul>
-                  <li>AI-Driven Development Tools & Automation</li>
-                  <li>Progressive Web Apps (PWAs) & Mobile-First Design</li>
-                  <li>Serverless Architecture & Cloud Computing</li>
-                  <li>Web3 Integration & Blockchain Technology</li>
-                  <li>Enhanced Security Measures & Privacy Features</li>
-                </ul>
+              <div className={styles.homeBlog}>
+                <h1 className={styles.blogTitle}>
+                  The Evolution of Web Development in 2024: A New Era of Innovation
+                </h1>       
+                <div className={styles.blogContent}>
+                  <p>
+                    Web development has undergone a remarkable transformation since its inception.
+                    As we navigate through 2024, we're witnessing groundbreaking changes in how
+                    websites are conceptualized, built, and deployed.                 
+                  </p>
+                </div>   
+                <div className={styles.blogMeta}>
+                  <span>
+                    <User size={18} />
+                    John Doe
+                  </span>
+                  <span>
+                    <Calendar size={18} />
+                    March 15, 2024
+                  </span>
+                  <span>
+                    <Tag size={18} />
+                    Technology
+                  </span>
+                  <span>
+                    <Clock size={18} />
+                    8 min read
+                  </span>
+                </div>
+              </div>
+            </article>
+            <article className={styles.blogPost}>
+              <div>
+                <img
+                  src="https://png.pngtree.com/thumb_back/fh260/background/20230704/pngtree-office-essentials-technology-and-gadgets-illustration-featuring-laptop-printer-camera-tablet-image_3748458.jpg"
+                  alt="Main Blog Post"
+                  className={styles.blogImage}
+                />
+              </div>
+              <div className={styles.homeBlog}>
+                <h1 className={styles.blogTitle}>
+                  The Evolution of Web Development in 2024: A New Era of Innovation
+                </h1>       
+                <div className={styles.blogContent}>
+                  <p>
+                    Web development has undergone a remarkable transformation since its inception.
+                    As we navigate through 2024, we're witnessing groundbreaking changes in how
+                    websites are conceptualized, built, and deployed.                 
+                  </p>
+                </div>   
+                <div className={styles.blogMeta}>
+                  <span>
+                    <User size={18} />
+                    John Doe
+                  </span>
+                  <span>
+                    <Calendar size={18} />
+                    March 15, 2024
+                  </span>
+                  <span>
+                    <Tag size={18} />
+                    Technology
+                  </span>
+                  <span>
+                    <Clock size={18} />
+                    8 min read
+                  </span>
+                </div>
+              </div>
+            </article>
+            <article className={styles.blogPost}>
+              <div>
+                <img
+                  src="https://img.freepik.com/free-photo/business-desk-arrangement-with-laptop-high-angle_23-2149073040.jpg"
+                  alt="Main Blog Post"
+                  className={styles.blogImage}
+                />
+              </div>
+              <div className={styles.homeBlog}>
+                <h1 className={styles.blogTitle}>
+                  The Evolution of Web Development in 2024: A New Era of Innovation
+                </h1>       
+                <div className={styles.blogContent}>
+                  <p>
+                    Web development has undergone a remarkable transformation since its inception.
+                    As we navigate through 2024, we're witnessing groundbreaking changes in how
+                    websites are conceptualized, built, and deployed.                 
+                  </p>
+                </div>   
+                <div className={styles.blogMeta}>
+                  <span>
+                    <User size={18} />
+                    John Doe
+                  </span>
+                  <span>
+                    <Calendar size={18} />
+                    March 15, 2024
+                  </span>
+                  <span>
+                    <Tag size={18} />
+                    Technology
+                  </span>
+                  <span>
+                    <Clock size={18} />
+                    8 min read
+                  </span>
+                </div>
+              </div>
+            </article>
+            <article className={styles.blogPost}>
+              <div>
+                <img
+                  src="https://images.pexels.com/photos/705164/computer-laptop-work-place-camera-705164.jpeg"
+                  alt="Main Blog Post"
+                  className={styles.blogImage}
+                />
+              </div>
+              <div className={styles.homeBlog}>
+                <h1 className={styles.blogTitle}>
+                  The Evolution of Web Development in 2024: A New Era of Innovation
+                </h1>       
+                <div className={styles.blogContent}>
+                  <p>
+                    Web development has undergone a remarkable transformation since its inception.
+                    As we navigate through 2024, we're witnessing groundbreaking changes in how
+                    websites are conceptualized, built, and deployed.                 
+                  </p>
+                </div>   
+                <div className={styles.blogMeta}>
+                  <span>
+                    <User size={18} />
+                    John Doe
+                  </span>
+                  <span>
+                    <Calendar size={18} />
+                    March 15, 2024
+                  </span>
+                  <span>
+                    <Tag size={18} />
+                    Technology
+                  </span>
+                  <span>
+                    <Clock size={18} />
+                    8 min read
+                  </span>
+                </div>
               </div>
             </article>
           </Col>

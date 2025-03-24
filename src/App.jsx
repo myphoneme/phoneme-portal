@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Header from './components/Header';
-import Landing from './components/Landing';
+import Landing from './components/LandingHome/Landing';
 import Login from './components/Login/Login';
 import BlogList from './components/BlogList/BlogList';
 import Signup from './components/Signup/Signup';

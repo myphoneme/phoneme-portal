@@ -1,9 +1,9 @@
-.newsContainer {
+/* .newsContainer {
     padding: 20px;
   }
   
   .latestNewsSection {
-    border-right: 1px solid #ddd; /* Divider between sections */
+    border-right: 1px solid #ddd; 
     padding-right: 20px;
   }
   
@@ -27,4 +27,89 @@
   .cursor-pointer {
     cursor: pointer;
   }
-  
+
+   */
+   /* General Styles */
+  .mainWrap{
+  background-color: #f1f1f1;
+  }
+.mainContainer{
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 2px 1px 8px 5px #b9b8b8;
+}
+.bodyCard{
+  border: 0;
+  box-shadow: 2px 1px 8px 5px #eeeded;
+  margin: 10px 0;
+  border: 1px solid #f1f1f1;
+}
+.Card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  border: none;
+  border: 0!important;
+}
+
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.card img {
+  object-fit: cover;
+  height: 250px;
+}
+
+/* Top Stories Section */
+ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+/* Market Section */
+.text-success {
+  color: #28a745;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+/* Reactions */
+.d-flex svg {
+  color: #6c757d;
+  cursor: pointer;
+}
+
+div.d-flex svg:hover {
+  color: #007bff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card img {
+    height: 150px;
+  }
+  .card-title {
+    font-size: 1rem;
+  }
+} 
+.mainImage{
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+}

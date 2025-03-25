@@ -10,6 +10,7 @@ import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
 import BlogDetails from './components/BlogDetail/BlogDetails';
 import AppLayout from './ui/AppLayout';
+import CategoriesList from './components/CategoriesList/CategoriesList';
   
 
 function App() {
@@ -46,6 +47,10 @@ function App() {
       {
         path: 'details',
         element: <BlogDetails/>
+      },
+      {
+        path: 'categorieslist',
+        element: <CategoriesList/>
       }
 
     ]

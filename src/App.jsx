@@ -11,6 +11,7 @@ import Profile from './components/Profile/Profile';
 import BlogDetails from './components/BlogDetail/BlogDetails';
 import AppLayout from './ui/AppLayout';
 import CategoriesList from './components/CategoriesList/CategoriesList';
+import Auth from './auth';
   
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
       },
       {
         path: 'login',
-        element: <Login  setIsLoggedIn={setIsLoggedIn} />,
+        // element: <Login  setIsLoggedIn={setIsLoggedIn} />,
+        element: <Auth/>
       },
       {
         path: 'signup',

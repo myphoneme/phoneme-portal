@@ -8,9 +8,9 @@ function Auth() {
     const { isLoaded, user, signOut } = useClerk();  // Access Clerk's user object and signOut function
 
     // Redirect after sign-in
-    const handleSignInSuccess = () => {
-        navigate('/home'); // Redirect to /home after successful sign-in
-    };
+    // const handleSignInSuccess = () => {
+    //     navigate('/home'); // Redirect to /home after successful sign-in
+    // };
 
     // Redirect after sign-out
     const handleSignOut = () => {
@@ -26,16 +26,13 @@ function Auth() {
                     {/* <h1>Welcome, You are signed in!</h1> */}
                     {/* <UserButton /> */}
                     {/* <UserProfile/> */}
-                    {handleSignInSuccess()}
+                    {navigate('/home')}
                 </div>
             </SignedIn>
 
             <SignedOut>
-                <SignIn path="/login" 
-                    routing="path" 
-                    signUpUrl="/signup" 
-                    afterSignInUrl="/home"/>
-                    <button onClick={handleSignOut}>Sign Out</button>
+                <SignIn />
+                    {/* <button onClick={handleSignOut}>Sign Out</button> */}
             </SignedOut>
         </div>
     );

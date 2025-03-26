@@ -14,6 +14,7 @@ import CategoriesList from './components/CategoriesList/CategoriesList';
 import Auth from './auth';
 import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import { Footer } from './components/Footer/Footer';
+import CreateBlog from './components/CreateBlog/CreateBlog';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -72,6 +73,15 @@ function App() {
         element: (
           <SignedIn>
             <CategoriesList />
+          </SignedIn>
+        ),
+      }
+      ,
+      {
+        path: 'createBlog',
+        element: (
+          <SignedIn>
+            <CreateBlog/>
           </SignedIn>
         ),
       }

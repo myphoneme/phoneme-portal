@@ -1,0 +1,14 @@
+.mainFooter{
+    display: flex;
+    align-items: center!important;
+    justify-content: space-between;
+    padding: 10px;
+}
+.mainFoot{
+    background-color: #e2e3e4;
+    color: #000000;
+}
+.footIcon{
+    color: #000000!important;
+    padding: 0 10px;
+}

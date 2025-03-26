@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import styles from './AddCategory.module.css';
 
-const AddCategory = ({ onAdd }) => {
+const AddCategory = ({ onAdd, onClose }) => {
   const [categoryName, setCategoryName] = useState('');
   const [categoryDescription, setCategoryDescription] = useState('');
   const [categoryImage, setCategoryImage] = useState('');
@@ -20,7 +20,7 @@ const AddCategory = ({ onAdd }) => {
       description: categoryDescription,
       count: 0,
       icon: Plus,
-      image: categoryImage || 'https://via.placeholder.com/300', // Use user-provided or default image
+      image: categoryImage || 'https://via.placeholder.com/300',
     };
 
     onAdd(newCategory);
@@ -29,6 +29,7 @@ const AddCategory = ({ onAdd }) => {
     setCategoryImage('');
     setError('');
     alert(`Category "${categoryName}" added successfully!`);
+    onClose(); // Close modal after adding
   };
 
   return (
@@ -71,11 +72,16 @@ const AddCategory = ({ onAdd }) => {
         />
       </div>
 
-      {/* Add Category Button */}
-      <button onClick={handleAddCategory} className={styles.addButton}>
-        <Plus className={styles.icon} />
-        Add Category
-      </button>
+      {/* Add & Cancel Buttons */}
+      <div className={styles.buttonGroup}>
+        <button onClick={handleAddCategory} className={styles.addButton}>
+          <Plus className={styles.icon} />
+          Add Category
+        </button>
+        <button onClick={onClose} className={styles.cancelButton}>
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BookOpen,
   Code,
@@ -76,7 +76,17 @@ const initialCategories = [
 function CategoriesList() {
   const [categories, setCategories] = useState(initialCategories);
   const [isGridView, setIsGridView] = useState(true);
-  const [showAddCategory, setShowAddCategory] = useState(false); // Control AddCategory modal
+  const [showAddCategory, setShowAddCategory] = useState(false);
+
+  // Disable background scroll when modal is open
+  useEffect(() => {
+    if (showAddCategory) {
+      document.body.classList.add(styles.noScroll);
+    } else {
+      document.body.classList.remove(styles.noScroll);
+    }
+    return () => document.body.classList.remove(styles.noScroll);
+  }, [showAddCategory]);
 
   // Handle Add New Category
   const handleAddCategory = (newCategory) => {
@@ -91,7 +101,9 @@ function CategoriesList() {
 
   // Handle Delete Category
   const handleDelete = (id) => {
-    const updatedCategories = categories.filter((category) => category.id !== id);
+    const updatedCategories = categories.filter(
+      (category) => category.id !== id
+    );
     setCategories(updatedCategories);
     alert(`Category deleted successfully!`);
   };
@@ -114,7 +126,9 @@ function CategoriesList() {
               <button
                 className={styles.viewToggle}
                 onClick={() => setIsGridView(!isGridView)}
-                aria-label={isGridView ? 'Switch to list view' : 'Switch to grid view'}
+                aria-label={
+                  isGridView ? 'Switch to list view' : 'Switch to grid view'
+                }
               >
                 {isGridView ? (
                   <List className={styles.buttonIcon} />
@@ -129,11 +143,18 @@ function CategoriesList() {
 
       {/* Add Category Modal */}
       {showAddCategory && (
-        <AddCategory onAdd={handleAddCategory} onClose={() => setShowAddCategory(false)} />
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <AddCategory
+              onAdd={handleAddCategory}
+              onClose={() => setShowAddCategory(false)}
+            />
+          </div>
+        </div>
       )}
 
       {/* Main Content Section */}
-      <main className={styles.main}>
+      <div className={`${styles.main} ${showAddCategory ? styles.modalBlur : ''}`}>
         <div className={isGridView ? styles.grid : styles.list}>
           {categories.map((category) => {
             const Icon = category.icon;
@@ -187,7 +208,7 @@ function CategoriesList() {
             );
           })}
         </div>
-      </main>
+      </div>
     </div>
   );
 }

@@ -13,6 +13,7 @@ import AppLayout from './ui/AppLayout';
 import CategoriesList from './components/CategoriesList/CategoriesList';
 import Auth from './auth';
 import { SignedIn, SignedOut } from '@clerk/clerk-react';
+import { Footer } from './components/Footer/Footer';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -91,6 +92,7 @@ function App() {
     <div className="min-vh-100 bg-light">
       {/* <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> */}
       <RouterProvider router={router} />
+      <Footer/>
 
     </div>
   );

@@ -15,7 +15,10 @@ import {
 import AddCategory from './AddCategory'; // Import AddCategory
 import styles from './Categories.module.css';
 
-// Initial categories data
+// API base URL
+const API_URL = 'http://fastapi.phoneme.in/categories';
+
+// Initial categories data (displayed immediately)
 const initialCategories = [
   {
     id: 'technology',
@@ -73,39 +76,94 @@ const initialCategories = [
   },
 ];
 
+// Icon mapping for dynamic assignment
+const iconMapping = {
+  technology: Code,
+  literature: BookOpen,
+  photography: Camera,
+  music: Music,
+  art: Palette,
+  food: Utensils,
+};
+
 function CategoriesList() {
-  const [categories, setCategories] = useState(initialCategories);
+  const [categories, setCategories] = useState(initialCategories); // Initial categories load immediately
   const [isGridView, setIsGridView] = useState(true);
   const [showAddCategory, setShowAddCategory] = useState(false);
 
-  // Disable background scroll when modal is open
-  useEffect(() => {
-    if (showAddCategory) {
-      document.body.classList.add(styles.noScroll);
-    } else {
-      document.body.classList.remove(styles.noScroll);
+  // Fetch categories from FastAPI
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) throw new Error('Failed to fetch categories');
+
+      const data = await response.json();
+
+      // Only replace initialCategories if API returns valid data
+      if (data && data.length > 0) {
+        const formattedData = data.map((cat) => ({
+          ...cat,
+          icon: iconMapping[cat.id] || BookOpen, // Default icon fallback
+        }));
+        setCategories(formattedData);
+      } else {
+        console.warn('API returned empty or invalid categories. Keeping initial categories.');
+      }
+    } catch (error) {
+      console.error('Error fetching categories, using initial categories:', error);
+      // Keep initialCategories in case of error
     }
-    return () => document.body.classList.remove(styles.noScroll);
-  }, [showAddCategory]);
+  };
+
+  // Load categories from API after initial render
+  useEffect(() => {
+    fetchCategories(); // Fetch categories from API after initial categories load
+  }, []);
 
   // Handle Add New Category
-  const handleAddCategory = (newCategory) => {
-    setCategories([...categories, newCategory]);
-    setShowAddCategory(false); // Close modal after adding
+  const handleAddCategory = async (newCategory) => {
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newCategory),
+      });
+      if (!response.ok) throw new Error('Failed to add category');
+      await fetchCategories(); // Refresh categories after adding
+      setShowAddCategory(false);
+    } catch (error) {
+      console.error('Error adding category:', error);
+    }
   };
 
   // Handle Edit Category
-  const handleEdit = (id) => {
-    alert(`Edit category: ${id}`);
+  const handleEdit = async (id, updatedCategory) => {
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedCategory),
+      });
+      if (!response.ok) throw new Error('Failed to update category');
+      await fetchCategories(); // Refresh after edit
+    } catch (error) {
+      console.error('Error editing category:', error);
+    }
   };
 
   // Handle Delete Category
-  const handleDelete = (id) => {
-    const updatedCategories = categories.filter(
-      (category) => category.id !== id
-    );
-    setCategories(updatedCategories);
-    alert(`Category deleted successfully!`);
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this category?')) {
+      return;
+    }
+    try {
+      const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error('Failed to delete category');
+      await fetchCategories(); // Refresh after delete
+      alert('Category deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting category:', error);
+    }
   };
 
   return (
@@ -156,13 +214,15 @@ function CategoriesList() {
       {/* Main Content Section */}
       <div className={`${styles.main} ${showAddCategory ? styles.modalBlur : ''}`}>
         <div className={isGridView ? styles.grid : styles.list}>
-          {categories.map((category) => {
-            const Icon = category.icon;
+          {initialCategories.map((category) => {
+            const Icon = category.icon || BookOpen;
+            console.log(category.image);
             return (
               <div key={category.id} className={styles.card}>
                 <div className={styles.imageContainer}>
+                {/* src="http://fastapi.phoneme.in/static/images/07.jpg" */}
                   <img
-                    src={category.image}
+                    src={category.image}  
                     alt={category.name}
                     className={styles.image}
                   />
@@ -181,7 +241,13 @@ function CategoriesList() {
                   <p className={styles.description}>{category.description}</p>
                   <div className={styles.actions}>
                     <button
-                      onClick={() => handleEdit(category.id)}
+                      onClick={() =>
+                        handleEdit(category.id, {
+                          name: category.name,
+                          description: category.description,
+                          count: category.count,
+                        })
+                      }
                       className={styles.actionButton}
                       aria-label={`Edit ${category.name}`}
                     >

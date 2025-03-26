@@ -87,3 +87,5 @@ const AddCategory = ({ onAdd, onClose }) => {
 };
 
 export default AddCategory;
+
+

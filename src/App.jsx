@@ -12,7 +12,7 @@ import BlogDetails from './components/BlogDetail/BlogDetails';
 import AppLayout from './ui/AppLayout';
 import CategoriesList from './components/CategoriesList/CategoriesList';
 import Auth from './auth';
-  
+import { SignedIn, SignedOut } from '@clerk/clerk-react';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,23 +36,43 @@ function App() {
       },
       {
         path: 'home',
-        element: <Home/>
+        element: (
+          <SignedIn>
+            <Home />
+          </SignedIn>
+        ),
       },
       {
         path: 'profile',
-        element: <Profile/>,
+        element: (
+          <SignedIn>
+            <Profile />
+          </SignedIn>
+        ),
       },
       {
         path: 'list',
-        element: <BlogList/>,
+        element: (
+          <SignedIn>
+            <BlogList />
+          </SignedIn>
+        ),
       },
       {
         path: 'details',
-        element: <BlogDetails/>
+        element: (
+          <SignedIn>
+            <BlogDetails />
+          </SignedIn>
+        ),
       },
       {
         path: 'categorieslist',
-        element: <CategoriesList/>
+        element: (
+          <SignedIn>
+            <CategoriesList />
+          </SignedIn>
+        ),
       }
 
     ]

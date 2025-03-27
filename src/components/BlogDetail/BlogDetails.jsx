@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'; 
 import { Container, Row, Col } from 'react-bootstrap';
+// import UserProfile from "../../User";
+// import { useUser } from "@clerk/clerk-react";
+
 import {
   Calendar,
   Clock,
@@ -15,6 +19,7 @@ import {
   Tag
 } from 'lucide-react';
 import styles from './BlogDetail.module.css';
+import { UserProfile } from '@clerk/clerk-react';
 
 function BlogDetails() {
   const relatedPosts = [
@@ -30,26 +35,44 @@ function BlogDetails() {
     }
   ];
 
+
+
+  const { id } = useParams(); // Get the id from the URL
+  const [post, setPost] = useState(null);
+
+  useEffect(() => {
+    // Fetch the full post using the id from the URL
+    fetch(`http://fastapi.phoneme.in/posts/${id}`)
+      .then((response) => response.json())
+      .then((data) => setPost(data))
+      .catch((error) => console.error('Error fetching post details:', error));
+  }, [id]);
+
+  if (!post) {
+    return <p>Loading...</p>;
+  }
+  // const { user } = useUser();
   return (
     <div className={styles.blogDetailsContainer}>
       <div className={styles.heroSection}>
         <Container>
           <div className={styles.heroContent}>
             <div className={styles.categories}>
-              <span className={styles.category}>Technology</span>
-              <span className={styles.category}>Innovation</span>
+              <span className={styles.category}>{post.category.category_name}</span>
+              {/* <span className={styles.category}>Innovation</span> */}
             </div>
-            <h1>The Evolution of Web Development in 2024: A New Era of Innovation</h1>
+            
+            <h1>{post.title}</h1>
             <div className={styles.postMeta}>
               <div className={styles.author}>
                 <img
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60"
                   alt="Author"
                 />
-                <span>John Doe</span>
+                <span>{post.created_user?.name || 'Anonymous'}</span>
               </div>
               <div className={styles.metaInfo}>
-                <span><Calendar size={16} /> March 15, 2024</span>
+                <span><Calendar size={16} /> {new Date(post.created_at).toLocaleDateString()}</span>
                 <span><Clock size={16} /> 8 min read</span>
                 <span><MessageCircle size={16} /> 24 Comments</span>
               </div>
@@ -63,26 +86,24 @@ function BlogDetails() {
           <Col lg={8}>
             <div className={styles.featuredImage}>
               <img
-                src="https://images.squarespace-cdn.com/content/v1/5bfe852a96d4555a304afa99/9471db3c-0441-400b-bff1-8267f4a28e35/dT11-18+showroom.jpg"
+                src={`http://fastapi.phoneme.in/${post.image}`} 
                 alt="Featured"
               />
             </div>
            
             <div className={styles.contentWrapper}>
-              <div className={styles.socialShare}>
+              {/* <div className={styles.socialShare}>
                 <button className={styles.shareButton}><Heart size={20} /> 245</button>
                 <button className={styles.shareButton}><Share2 size={20} /></button>
                 <button className={styles.shareButton}><Bookmark size={20} /></button>
-              </div>
+              </div> */}
 
               <div className={styles.articleContent}>
                 <p className={styles.lead}>
-                  Web development has undergone a remarkable transformation since its inception.
-                  As we navigate through 2024, we're witnessing groundbreaking changes in how
-                  websites are conceptualized, built, and deployed.
+                  {post.post}
                 </p>
 
-                <h2>The Rise of AI-Powered Development</h2>
+                {/* <h2>The Rise of AI-Powered Development</h2>
                 <p>
                   Artificial Intelligence has become an integral part of modern web development.
                   From code completion to automated testing, AI tools are revolutionizing how
@@ -115,7 +136,7 @@ function BlogDetails() {
                   <li>Improved data ownership and privacy</li>
                   <li>New monetization opportunities</li>
                   <li>Community-driven development</li>
-                </ul>
+                </ul> */}
               </div>
 
               <div className={styles.tagSection}>
@@ -144,6 +165,7 @@ function BlogDetails() {
               <div className={styles.authorBox}>
                 <img
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60"
+                  
                   alt="Author"
                 />
                 <div className={styles.authorInfo}>
@@ -182,6 +204,7 @@ function BlogDetails() {
                   <span className={styles.tag}>Web3</span>
                   <span className={styles.tag}>AI</span>
                   <span className={styles.tag}>Cloud</span>
+                
                   <span className={styles.tag}>DevOps</span>
                 </div>
               </div>

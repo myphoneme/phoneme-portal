@@ -35,6 +35,13 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
   }
+
+  .category.active{
+    background: linear-gradient(145deg, #007bff, #0056b3);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+  }
   
   .mainContent {
     margin-top: 2rem;
@@ -210,4 +217,10 @@
     left: 0;
     color: #007bff;
     font-weight: bold;
+  }
+
+  .selectedCategory {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 5px 10px;
   }

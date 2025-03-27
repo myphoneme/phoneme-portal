@@ -61,7 +61,7 @@ function App() {
         ),
       },
       {
-        path: 'details',
+        path: 'details/:id',
         element: (
           <SignedIn>
             <BlogDetails />

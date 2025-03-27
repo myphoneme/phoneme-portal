@@ -224,3 +224,16 @@
     border-radius: 5px;
     padding: 5px 10px;
   }
+  .articleLink {
+    display: block;
+    text-decoration: none; 
+    color: inherit; 
+  }
+
+
+  .recentPostLink {
+    display: block;  /* Make the link span the entire div */
+    text-decoration: none;  /* Remove default link underlines */
+    color: inherit;  /* Inherit text color */
+  }
+  

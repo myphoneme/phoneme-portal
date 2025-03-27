@@ -68,6 +68,7 @@ function Home() {
             ) : (
               filteredPosts.map((post) => (
             <article key={post.id} className={styles.blogPost}>
+               <Link to={`/details/${post.id}`} className={styles.articleLink}>
               <div>
                 <img
                   // src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&auto=format&fit=crop&q=60"
@@ -79,7 +80,7 @@ function Home() {
               <div className={styles.homeBlog}>
                 <h1 className={styles.blogTitle}>
                 {/* {post.title} */}
-                <Link to={`/details/${post.id}`}>{post.title}</Link>
+                {post.title}
                 </h1>       
                 <div className={styles.blogContent}>
                 <p>{post.post ? post.post.substring(0, 150) + "..." : "Content not available"}</p>
@@ -104,6 +105,7 @@ function Home() {
                   </span>
                 </div>
               </div>
+              </Link>
             </article>
             ))
           )}
@@ -117,6 +119,7 @@ function Home() {
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))  // Sort by created_at in descending order
               .slice(0, 5)  // Get the latest 5 posts
               .map(post => (
+                <Link to={`/details/${post.id}`} key={post.id} className={styles.recentPostLink}>
               <div key={post.id} className={styles.recentPost}>
                 <img
                   src={`http://fastapi.phoneme.in/${post.image}`}
@@ -124,8 +127,8 @@ function Home() {
                   className={styles.recentPostImage}
                 />
                 <h5 className={styles.recentPostTitle}>
-                  {/* {post.title} */}
-                  <Link to={`/details/${post.id}`}>{post.title}</Link>
+                  {post.title}
+                  
                 </h5>
                 <div className={styles.recentPostDate}>
                   <Clock size={16} />
@@ -135,6 +138,7 @@ function Home() {
                   {post.created_user.name || 'Anonymous'}
                 </div>
               </div>
+              </Link>
             ))}
           </Col>
         </Row>

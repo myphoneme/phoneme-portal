@@ -12,69 +12,9 @@ import {
   Edit,
   Trash2,
 } from 'lucide-react';
-import AddCategory from './AddCategory'; // Import AddCategory
+import { Modal, Button } from 'react-bootstrap';
+import AddCategory from './AddCategory';
 import styles from './Categories.module.css';
-
-// API base URL
-const API_URL = 'http://fastapi.phoneme.in/categories';
-
-// Initial categories data (displayed immediately)
-const initialCategories = [
-  {
-    id: 'technology',
-    name: 'Technology',
-    description: 'Latest in tech, programming, and digital innovations',
-    count: 42,
-    icon: Code,
-    image:
-      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1600',
-  },
-  {
-    id: 'literature',
-    name: 'Literature',
-    description: 'Book reviews, literary analysis, and writing tips',
-    count: 28,
-    icon: BookOpen,
-    image:
-      'https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&q=80&w=1600',
-  },
-  {
-    id: 'photography',
-    name: 'Photography',
-    description: 'Photography techniques, gear reviews, and stunning shots',
-    count: 35,
-    icon: Camera,
-    image:
-      'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&q=80&w=1600',
-  },
-  {
-    id: 'music',
-    name: 'Music',
-    description: 'Music reviews, artist spotlights, and industry news',
-    count: 31,
-    icon: Music,
-    image:
-      'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80&w=1600',
-  },
-  {
-    id: 'art',
-    name: 'Art & Design',
-    description: 'Visual arts, design trends, and creative inspiration',
-    count: 24,
-    icon: Palette,
-    image:
-      'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=1600',
-  },
-  {
-    id: 'food',
-    name: 'Food & Cooking',
-    description: 'Recipes, cooking tips, and culinary adventures',
-    count: 38,
-    icon: Utensils,
-    image:
-      'https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&q=80&w=1600',
-  },
-];
 
 // Icon mapping for dynamic assignment
 const iconMapping = {
@@ -84,83 +24,93 @@ const iconMapping = {
   music: Music,
   art: Palette,
   food: Utensils,
+  fashion: Palette,
+  default: BookOpen,
 };
 
 function CategoriesList() {
-  const [categories, setCategories] = useState(initialCategories); // Initial categories load immediately
+  const [categories, setCategories] = useState([]);
   const [isGridView, setIsGridView] = useState(true);
-  const [showAddCategory, setShowAddCategory] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [categoryToEdit, setCategoryToEdit] = useState(null);
 
   // Fetch categories from FastAPI
   const fetchCategories = async () => {
     try {
-      const response = await fetch(API_URL);
-      if (!response.ok) throw new Error('Failed to fetch categories');
-
-      const data = await response.json();
-
-      // Only replace initialCategories if API returns valid data
-      if (data && data.length > 0) {
-        const formattedData = data.map((cat) => ({
-          ...cat,
-          icon: iconMapping[cat.id] || BookOpen, // Default icon fallback
-        }));
-        setCategories(formattedData);
-      } else {
-        console.warn('API returned empty or invalid categories. Keeping initial categories.');
+      const response = await fetch('http://fastapi.phoneme.in/categories');
+      if (!response.ok) {
+        throw new Error('Error fetching categories');
       }
+      const data = await response.json();
+      const formattedData = data.map((cat) => ({
+        id: cat.id,
+        name: cat.category_name,
+        description: `Explore posts related to ${cat.category_name}`,
+        count: Math.floor(Math.random() * 50) + 1,
+        icon: iconMapping[cat.category_name.toLowerCase()] || iconMapping.default,
+        image: `https://source.unsplash.com/400x300/?${cat.category_name}`,
+      }));
+      setCategories(formattedData);
     } catch (error) {
-      console.error('Error fetching categories, using initial categories:', error);
-      // Keep initialCategories in case of error
+      console.error('Error fetching categories:', error);
     }
   };
 
-  // Load categories from API after initial render
   useEffect(() => {
-    fetchCategories(); // Fetch categories from API after initial categories load
+    fetchCategories();
   }, []);
 
-  // Handle Add New Category
-  const handleAddCategory = async (newCategory) => {
+  // Add or Edit Category
+  const handleSaveCategory = async (category) => {
+    const url = category.id
+      ? `http://fastapi.phoneme.in/categories/${category.id}`
+      : 'http://fastapi.phoneme.in/categories';
+
+    const method = category.id ? 'PUT' : 'POST';
+
     try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
+      const response = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newCategory),
+        body: JSON.stringify({
+          category_name: category.name,
+        }),
       });
-      if (!response.ok) throw new Error('Failed to add category');
-      await fetchCategories(); // Refresh categories after adding
-      setShowAddCategory(false);
+
+      if (response.ok) {
+        alert(
+          `Category "${category.name}" ${
+            category.id ? 'updated' : 'added'
+          } successfully!`
+        );
+        fetchCategories(); // Refresh categories
+      } else {
+        console.error(`Failed to ${category.id ? 'update' : 'add'} category`);
+      }
     } catch (error) {
-      console.error('Error adding category:', error);
+      console.error(`Error ${category.id ? 'updating' : 'adding'} category:`, error);
     }
+
+    setShowModal(false);
+    setCategoryToEdit(null);
   };
 
-  // Handle Edit Category
-  const handleEdit = async (id, updatedCategory) => {
-    try {
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedCategory),
-      });
-      if (!response.ok) throw new Error('Failed to update category');
-      await fetchCategories(); // Refresh after edit
-    } catch (error) {
-      console.error('Error editing category:', error);
-    }
-  };
+  // Delete Category
+  const handleDeleteCategory = async (categoryId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this category?');
+    if (!confirmDelete) return;
 
-  // Handle Delete Category
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this category?')) {
-      return;
-    }
     try {
-      const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-      if (!response.ok) throw new Error('Failed to delete category');
-      await fetchCategories(); // Refresh after delete
-      alert('Category deleted successfully!');
+      const response = await fetch(`http://fastapi.phoneme.in/categories/${categoryId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        alert('Category deleted successfully!');
+        fetchCategories();
+      } else {
+        console.error('Failed to delete category');
+      }
     } catch (error) {
       console.error('Error deleting category:', error);
     }
@@ -168,64 +118,53 @@ function CategoriesList() {
 
   return (
     <div className={styles.container}>
-      {/* Header Section */}
       <header className={styles.header}>
         <div className={styles.headerContent}>
-          <div className={styles.headerRow}>
-            <h1 className={styles.headerTitle}>Blog Categories</h1>
-            <div className={styles.headerActions}>
-              <button
-                className={styles.addButton}
-                onClick={() => setShowAddCategory(true)}
-              >
-                <Plus className={styles.buttonIcon} />
-                Add Category
-              </button>
-              <button
-                className={styles.viewToggle}
-                onClick={() => setIsGridView(!isGridView)}
-                aria-label={
-                  isGridView ? 'Switch to list view' : 'Switch to grid view'
-                }
-              >
-                {isGridView ? (
-                  <List className={styles.buttonIcon} />
-                ) : (
-                  <LayoutGrid className={styles.buttonIcon} />
-                )}
-              </button>
-            </div>
+          <h1 className={styles.headerTitle}>Blog Categories</h1>
+          <div className={styles.headerActions}>
+            <button
+              className={styles.addButton}
+              onClick={() => {
+                setCategoryToEdit(null);
+                setShowModal(true);
+              }}
+            >
+              <Plus className={styles.buttonIcon} />
+              Add Category
+            </button>
+            <button
+              className={styles.viewToggle}
+              onClick={() => setIsGridView(!isGridView)}
+              aria-label={isGridView ? 'Switch to list view' : 'Switch to grid view'}
+            >
+              {isGridView ? <List className={styles.buttonIcon} /> : <LayoutGrid className={styles.buttonIcon} />}
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Add Category Modal */}
-      {showAddCategory && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <AddCategory
-              onAdd={handleAddCategory}
-              onClose={() => setShowAddCategory(false)}
-            />
-          </div>
-        </div>
-      )}
+      {/* Modal Wrapper */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>{categoryToEdit ? 'Edit Category' : 'Add Category'}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddCategory
+            onSave={handleSaveCategory}
+            onClose={() => setShowModal(false)}
+            categoryToEdit={categoryToEdit}
+          />
+        </Modal.Body>
+      </Modal>
 
-      {/* Main Content Section */}
-      <div className={`${styles.main} ${showAddCategory ? styles.modalBlur : ''}`}>
+      <div className={`${styles.main}`}>
         <div className={isGridView ? styles.grid : styles.list}>
-          {initialCategories.map((category) => {
+          {categories.map((category) => {
             const Icon = category.icon || BookOpen;
-            console.log(category.image);
             return (
               <div key={category.id} className={styles.card}>
                 <div className={styles.imageContainer}>
-                {/* src="http://fastapi.phoneme.in/static/images/07.jpg" */}
-                  <img
-                    src={category.image}  
-                    alt={category.name}
-                    className={styles.image}
-                  />
+                  <img src={category.image} alt={category.name} className={styles.image} />
                   <div className={styles.gradient} />
                 </div>
 
@@ -241,23 +180,18 @@ function CategoriesList() {
                   <p className={styles.description}>{category.description}</p>
                   <div className={styles.actions}>
                     <button
-                      onClick={() =>
-                        handleEdit(category.id, {
-                          name: category.name,
-                          description: category.description,
-                          count: category.count,
-                        })
-                      }
                       className={styles.actionButton}
-                      aria-label={`Edit ${category.name}`}
+                      onClick={() => {
+                        setCategoryToEdit(category);
+                        setShowModal(true);
+                      }}
                     >
                       <Edit className={styles.actionIcon} />
                       Edit
                     </button>
                     <button
-                      onClick={() => handleDelete(category.id)}
                       className={`${styles.actionButton} ${styles.deleteButton}`}
-                      aria-label={`Delete ${category.name}`}
+                      onClick={() => handleDeleteCategory(category.id)}
                     >
                       <Trash2 className={styles.actionIcon} />
                       Delete

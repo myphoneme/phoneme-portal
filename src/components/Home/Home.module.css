@@ -8,7 +8,7 @@
     margin-bottom: 2.5rem;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 16px;
-    padding: 2rem;
+    padding: 10px 20px;
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
     backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.18);
@@ -16,7 +16,7 @@
   
   .categoryTag {
     margin: 0.5rem;
-    padding: 0.75rem 1.5rem;
+    padding: 8px 15px;
     border-radius: 25px;
     background: linear-gradient(145deg, #ffffff, #f0f0f0);
     box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
@@ -148,9 +148,9 @@
     overflow: hidden;
     object-fit: cover;
     margin-bottom: 1.25rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
-    margin-top: -30px;
+    /* margin-top: -30px; */
   }
   
   .recentPostImage:hover {
@@ -174,7 +174,7 @@
   }
   
   .sectionTitle {
-    font-size: 1.75rem;
+    font-size: 20px;
     color: #1a1a1a;
     margin-bottom: 1.5rem;
     font-weight: 700;

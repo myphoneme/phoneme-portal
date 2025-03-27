@@ -48,7 +48,8 @@ function CategoriesList() {
         description: `Explore posts related to ${cat.category_name}`,
         count: Math.floor(Math.random() * 50) + 1,
         icon: iconMapping[cat.category_name.toLowerCase()] || iconMapping.default,
-        image: `https://source.unsplash.com/400x300/?${cat.category_name}`,
+        // image: "https://don16obqbay2c.cloudfront.net/wp-content/uploads/Storefront_Images_C-1481632060.png",
+        image : "https://www.jaggaer.com/wp-content/uploads/2024/06/Category-intelligence-product.jpg",
       }));
       setCategories(formattedData);
     } catch (error) {

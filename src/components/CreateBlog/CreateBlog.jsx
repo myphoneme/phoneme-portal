@@ -68,6 +68,12 @@ const CreateBlog = () => {
         </div>
 
         {/* Toolbar */}
+        <div>
+           <label className={styles.toolbarButton}>
+              <ImagePlus size={20} />
+              <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
+            </label>
+          </div>
         <div className={styles.toolbar}>
           <div className={styles.toolbarButtons}>
             <button onClick={() => editor?.chain().focus().toggleBold().run()} className={styles.toolbarButton}><Bold size={20} /></button>
@@ -76,11 +82,9 @@ const CreateBlog = () => {
             <button onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()} className={styles.toolbarButton}><Heading2 size={20} /></button>
             <button onClick={() => editor?.chain().focus().toggleBulletList().run()} className={styles.toolbarButton}><List size={20} /></button>
             <button onClick={() => editor?.chain().focus().toggleOrderedList().run()} className={styles.toolbarButton}><ListOrdered size={20} /></button>
-            <label className={styles.toolbarButton}>
-              <ImagePlus size={20} />
-              <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
-            </label>
           </div>
+          
+           
         </div>
 
         {/* Editor Content */}

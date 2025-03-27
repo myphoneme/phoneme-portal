@@ -54,12 +54,12 @@ function BlogDetails() {
   // const { user } = useUser();
   return (
     <div className={styles.blogDetailsContainer}>
-      <div className={styles.heroSection}>
+      {/* <div className={styles.heroSection}>
         <Container>
           <div className={styles.heroContent}>
             <div className={styles.categories}>
               <span className={styles.category}>{post.category.category_name}</span>
-              {/* <span className={styles.category}>Innovation</span> */}
+              <span className={styles.category}>Innovation</span>
             </div>
             
             <h1>{post.title}</h1>
@@ -79,10 +79,11 @@ function BlogDetails() {
             </div>
           </div>
         </Container>
-      </div>
+      </div> */}
 
       <Container>
         <Row className={styles.mainContent}>
+        <h3>{post.title}</h3>
           <Col lg={8}>
             <div className={styles.featuredImage}>
               <img
@@ -161,11 +162,9 @@ function BlogDetails() {
                   </button>
                 </div>
               </div>
-
               <div className={styles.authorBox}>
                 <img
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60"
-                  
                   alt="Author"
                 />
                 <div className={styles.authorInfo}>
@@ -204,7 +203,7 @@ function BlogDetails() {
                   <span className={styles.tag}>Web3</span>
                   <span className={styles.tag}>AI</span>
                   <span className={styles.tag}>Cloud</span>
-                
+        
                   <span className={styles.tag}>DevOps</span>
                 </div>
               </div>

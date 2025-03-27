@@ -1,14 +1,14 @@
 blogDetailsContainer {
     min-height: 100vh;
-    background: #f8f9fa;
+    background: #b8b8b9!important;
   }
   
-  .heroSection {
+  /* .heroSection {
     background: linear-gradient(135deg, #0061ff 0%, #60efff 100%);
     padding: 4rem 0;
     color: white;
     margin-bottom: 2rem;
-  }
+  } */
   
   .heroContent {
     max-width: 800px;
@@ -70,6 +70,9 @@ blogDetailsContainer {
   
   .mainContent {
     margin: 2rem 0;
+    background-color: #f1f1f1;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 20px 30px;
   }
   
   .featuredImage {
@@ -130,8 +133,8 @@ blogDetailsContainer {
   }
   
   .lead {
-    font-size: 1.25rem;
-    color: #1a1a1a;
+    font-size: 14px;
+    color: hsla(0, 0%, 46%, 0.902);
     margin-bottom: 2rem;
     line-height: 1.6;
   }

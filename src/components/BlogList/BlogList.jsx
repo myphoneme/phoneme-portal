@@ -2,64 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { Edit2, Trash2, BookOpen, Calendar, User } from 'lucide-react';
 import styles from './BlogList.module.css';
-
-
-// const blogs = [
-//   {
-//     id: 1,
-//     title: "The Future of Web Development: What's Next in 2024",
-//     category: "Technology",
-//     content: "As we dive deeper into 2024, the web development landscape continues to evolve at an unprecedented pace. From AI-powered development tools to new framework innovations, discover what's shaping the future of web development...",
-//     author: "John Doe",
-//     createdAt: "2024-03-15",
-//     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
-//   },
-//   {
-//     id: 2,
-//     title: "Mastering Modern UI Design Principles",
-//     category: "Design",
-//     content: "Understanding modern UI design principles is crucial for creating engaging and user-friendly applications. Learn about the latest trends in typography, color theory, and layout design that are defining today's digital experiences...",
-//     author: "Jane Smith",
-//     createdAt: "2024-03-14",
-//     image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80"
-//   },
-//   {
-//     id: 3,
-//     title: "Building Scalable Applications with React",
-//     category: "Programming",
-//     content: "React continues to be a powerhouse in frontend development. Discover best practices for building scalable applications, managing state effectively, and optimizing performance in large-scale React applications...",
-//     author: "Alex Johnson",
-//     createdAt: "2024-03-13",
-//     image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80"
-//   },
-//   {
-//     id: 4,
-//     title: "The Rise of AI in Modern Development",
-//     category: "Technology",
-//     content: "Artificial Intelligence is revolutionizing how we approach software development. From code completion to automated testing, explore how AI is changing the development landscape...",
-//     author: "Sarah Wilson",
-//     createdAt: "2024-03-12",
-//     image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80"
-//   },
-//   {
-//     id: 5,
-//     title: "Optimizing Performance in Web Applications",
-//     category: "Performance",
-//     content: "Performance optimization is crucial for modern web applications. Learn about the latest techniques and best practices for building fast and efficient web applications...",
-//     author: "Mike Brown",
-//     createdAt: "2024-03-11",
-//     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-//   }
-  
-// ];
-
-// const recentBlogs = blogs.slice(0, 5);
-
+import { Link , useNavigate } from 'react-router-dom';
 const BlogList = () => {
 
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -90,8 +40,9 @@ const BlogList = () => {
   };
 
   const handleReadMore = (id) => {
-    console.log(`Reading blog ${id}`);
+    navigate(`/details/${id}`);  // Redirect to the details page for the clicked blog
   };
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -150,7 +101,7 @@ const BlogList = () => {
             <div className="sticky-top" style={{ top: '2rem' }}>
               <h3 className={styles.sidebarTitle}>Recent Posts</h3>
               {sortedBlogs.slice(0, 5).map((blog) => (
-                <div key={blog.id} className={styles.recentPost}>
+                <div key={blog.id} className={styles.recentPost} onClick={() => handleReadMore(blog.id)}>
                   <img
                     src={`http://fastapi.phoneme.in/${blog.image}`}
                     alt={blog.title}

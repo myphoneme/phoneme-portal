@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import { useParams , useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './CreateBlog.module.css';
 
 const CreateBlog = () => {
+  const { id } = useParams();
   const [categories, setCategories] = useState([]);
   const [formData, setFormdata] = useState({
     category: '',
@@ -11,6 +13,29 @@ const CreateBlog = () => {
     body: '',
     image: null, 
   });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch('http://fastapi.phoneme.in/categories')
+      .then((response) => response.json())
+      .then((data) => setCategories(data))
+      .catch((error) => console.error('Error fetching categories:', error));
+     
+      if (id) {
+        fetch(`http://fastapi.phoneme.in/posts/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setFormdata({
+              category: data.category.id.toString(),
+              title: data.title,
+              body: data.post,
+              image: null,
+            });
+          })
+          .catch((error) => console.error('Error fetching blog data:', error));
+      }
+  }, [id]);
+
 
   const handleChange = (e) => {
     if (typeof e === 'string') {
@@ -24,17 +49,19 @@ const CreateBlog = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormdata((prev) => ({ ...prev, image: file }));
+    
   };
 
-  useEffect(() => {
-    fetch('http://fastapi.phoneme.in/categories')
-      .then((response) => response.json())
-      .then((data) => setCategories(data))
-      .catch((error) => console.error('Error fetching categories:', error));
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
+    if (!formData.category || !formData.title || !formData.body) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
     const data = new FormData();
     console.log('formdata:', formData);
 
@@ -45,30 +72,49 @@ const CreateBlog = () => {
 
     if (formData.image) {
       data.append('image', formData.image);
-    }
+    } else {
+    alert('Please upload an image.');
+    return;
+  }
 
     console.log('Sending FormData:', [...data.entries()]);
 
     try {
-      const response = await fetch('http://fastapi.phoneme.in/posts', {
-        method: 'POST',
-        body: data,
+      // const response = await fetch('http://fastapi.phoneme.in/posts', {
+      //   method: 'POST',
+      //   body: data,
+      const url = id
+      ? `http://fastapi.phoneme.in/posts/${id}`
+      : 'http://fastapi.phoneme.in/posts';
+
+    const method = id ? 'PUT' : 'POST';
+
+    const response = await fetch(url, {
+      method,
+      body: data,
+
       });
 
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Error creating blog:', errorData);
+        alert(errorData.detail || 'Failed to create/update blog');
       } else {
-        console.log('Blog created successfully!');
+        // console.log('Blog created successfully!');
+        console.log('Blog submitted successfully!');
+        alert('Blog submitted successfully!');
+        navigate('/list');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
+      alert('An error occurred. Please try again.');
     }
   };
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.heading}>Create a New Blog</h1>
+      {/* <h1 className={styles.heading}>Create a New Blog</h1> */}
+      <h1 className={styles.heading}>{id ? 'Edit Blog' : 'Create a New Blog'}</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <label className={styles.label}>Title:</label>
         <input
@@ -124,7 +170,11 @@ const CreateBlog = () => {
           }}
         />
 
-        <button type="submit" className={styles.submitButton}>Submit</button>
+        {/* <button type="submit" className={styles.submitButton}>Submit</button> */}
+        <button type="submit" className={styles.submitButton}>
+          {id ? 'Update Blog' : 'Submit'}
+        </button>
+
       </form>
     </div>
   );

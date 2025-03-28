@@ -32,11 +32,22 @@ const BlogList = () => {
 
 
   const handleEdit = (id) => {
-    console.log(`Editing blog ${id}`);
+    navigate(`/createBlog/${id}`);
   };
 
-  const handleDelete = (id) => {
-    console.log(`Deleting blog ${id}`);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this blog?')) return;
+    try {
+      const response = await fetch(`http://fastapi.phoneme.in/posts/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Failed to delete blog');
+      setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
+      alert('Blog deleted successfully');
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
   };
 
   const handleReadMore = (id) => {

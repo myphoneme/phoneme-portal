@@ -84,7 +84,15 @@ function App() {
             <CreateBlog/>
           </SignedIn>
         ),
-      }
+      },
+      {
+        path: 'createBlog/:id', // ✅ Dynamic Route for Editing
+        element: (
+          <SignedIn>
+            <CreateBlog />
+          </SignedIn>
+        ),
+      },
 
     ]
   }

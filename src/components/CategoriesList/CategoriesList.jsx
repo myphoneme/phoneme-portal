@@ -181,7 +181,7 @@ function CategoriesList() {
                   <p className={styles.description}>{category.description}</p>
                   <div className={styles.actions}>
                     <button
-                      className={styles.actionButton}
+                      className={`${styles.actionButton} ${styles.editButton}`}
                       onClick={() => {
                         setCategoryToEdit(category);
                         setShowModal(true);

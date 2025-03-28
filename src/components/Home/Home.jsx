@@ -34,15 +34,12 @@ function Home() {
   const filteredPosts = selectedCategoryId
     ? posts.filter(post => post.category?.id === selectedCategoryId)
     : posts;
-
   // Get the posts for the current page
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
-
   // Handle page change
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   return (
     <div className={styles.blogContainer}>
       <Container>
@@ -66,16 +63,17 @@ function Home() {
             )}
           </div>
         </div>
-
         <Row className={styles.mainContent}>
           {/* Main Blog Post - Left Side */}
-          <Col md={8}>
+          <Col md={8} >
             {currentPosts.length === 0 ? (
               <p>No posts available for this category...</p>
             ) : (
               currentPosts.map((post) => (
                 <article key={post.id} className={styles.blogPost}>
                   <Link to={`/details/${post.id}`} className={styles.articleLink}>
+                  <Row>
+                  <Col md={4}>
                     <div>
                       <img
                         src={`http://fastapi.phoneme.in/${post.image}`}
@@ -83,6 +81,9 @@ function Home() {
                         className={styles.blogImage}
                       />
                     </div>
+                  </Col>
+                  <Col md={8}>
+                  
                     <div className={styles.homeBlog}>
                       <h1 className={styles.blogTitle}>{post.title}</h1>
                       <div className={styles.blogContent}>
@@ -107,11 +108,12 @@ function Home() {
                         </span>
                       </div>
                     </div>
+                    </Col>
+                    </Row>
                   </Link>
                 </article>
               ))
             )}
-
             {/* Pagination Controls */}
             {filteredPosts.length > postsPerPage && (
               <div className={styles.pagination}>
@@ -127,7 +129,6 @@ function Home() {
               </div>
             )}
           </Col>
-
           {/* Recent Posts Section - Right Side */}
           <Col md={4}>
             <h3 className={styles.sectionTitle}>Recent Posts</h3>

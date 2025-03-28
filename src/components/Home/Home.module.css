@@ -68,8 +68,9 @@
   }
   
   .blogImage {
+    width: 100%;
     height: 180px;
-    max-width: 280px;
+    /* max-width: 280px; */
     border-radius: 0 10px 10px 0;
     object-fit: cover;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -307,21 +308,13 @@
   @media only screen and (max-width: 480px) {
     .blogImage {
       height: 150px;
-      
     }
-  
     .blogTitle {
       font-size: 14px;
     }
-  
     .recentPost {
       flex-direction: column;
       gap: 12px;
     }
-/*   
-    .recentPostImage {
-      width: 100%;
-      height: 120px;
-    } */
   } 
   

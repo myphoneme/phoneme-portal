@@ -6,19 +6,10 @@ import { SignedIn, SignedOut, SignIn, UserButton } from "@clerk/clerk-react";
 
 function Header() {
   const navigate = useNavigate();
-  // Function to toggle login state
-  // const handleLoginLogout = () => {
-  //   if (isLoggedIn) {
-  //     localStorage.removeItem('accessToken'); // Clear the token on logout
-  //     localStorage.removeItem('userId'); // Clear user ID
-  //     setIsLoggedIn(false); // Update state to reflect logout
-  //     navigate('/login'); // Redirect to login page
-  //   } else {
-  //     navigate('/login'); // Redirect to login if not logged in
-  //   }
-  // };
 
- 
+  const handleCreateBlog = () => {
+    navigate('/createblog');
+  };
 
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm sticky-top z-index-999">
@@ -54,7 +45,7 @@ function Header() {
             <div className="d-flex gap-3">
             <SignedOut>
               
-              <Button variant="light" className="rounded-circle p-2">
+              <Button variant="light" className="rounded-circle p-2" onClick={() => navigate('/login')}>
                 <FaPencilAlt size={18} />
               </Button>
               <Button variant="light" className="rounded-circle p-2" onClick={() => navigate('/login')}> 
@@ -67,7 +58,7 @@ function Header() {
               {/* <Button variant="light" className="rounded-circle p-2">
                 <FaBell size={18} />
               </Button> */}
-              <Button variant="light" className="rounded-circle p-2">
+              <Button variant="light" className="rounded-circle p-2"  onClick={handleCreateBlog}  >
                 <FaPencilAlt size={18} />
               </Button>
               {/* <Button variant="light" className="rounded-circle p-2">

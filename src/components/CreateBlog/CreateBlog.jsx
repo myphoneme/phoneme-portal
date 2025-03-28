@@ -1,107 +1,131 @@
-import React, { useState } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Image from '@tiptap/extension-image';
-import { ImagePlus, Bold, Italic, List, ListOrdered, Heading1, Heading2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
+import axios from 'axios';
 import styles from './CreateBlog.module.css';
 
-const categories = [
-  'Technology', 'Travel', 'Food', 'Lifestyle', 'Business',
-  'Health', 'Education', 'Entertainment'
-];
-
 const CreateBlog = () => {
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
-
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Image.configure({ HTMLAttributes: { class: styles.image } }),
-    ],
-    content: '',
-    editorProps: {
-      attributes: { class: styles.editor },
-    },
+  const [categories, setCategories] = useState([]);
+  const [formData, setFormdata] = useState({
+    category: '',
+    title: '',
+    body: '',
+    image: null, 
   });
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files?.[0];
-    if (file && editor) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        editor.chain().focus().setImage({ src: e.target.result }).run();
-      };
-      reader.readAsDataURL(file);
+  const handleChange = (e) => {
+    if (typeof e === 'string') {
+      setFormdata((prev) => ({ ...prev, body: e }));
+    } else {
+      const { name, value } = e.target;
+      setFormdata((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormdata((prev) => ({ ...prev, image: file }));
+  };
+
+  useEffect(() => {
+    fetch('http://fastapi.phoneme.in/categories')
+      .then((response) => response.json())
+      .then((data) => setCategories(data))
+      .catch((error) => console.error('Error fetching categories:', error));
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    console.log('formdata:', formData);
+
+    data.append('category_id', parseInt(formData.category, 10));
+    data.append('title', formData.title);
+    data.append('post', formData.body);
+    data.append('created_by', 1);
+
+    if (formData.image) {
+      data.append('image', formData.image);
+    }
+
+    console.log('Sending FormData:', [...data.entries()]);
+
+    try {
+      const response = await fetch('http://fastapi.phoneme.in/posts', {
+        method: 'POST',
+        body: data,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error creating blog:', errorData);
+      } else {
+        console.log('Blog created successfully!');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
     }
   };
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Create New Blog Post</h1>
-      <div className={styles.formGroup}>
-        <div>
-          <label htmlFor="title" className={styles.label}>Title</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className={styles.input}
-            placeholder="Enter your blog title"
-          />
-        </div>
+      <h1 className={styles.heading}>Create a New Blog</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label className={styles.label}>Title:</label>
+        <input
+          type="text"
+          name='title'
+          value={formData.title}
+          onChange={handleChange}
+          className={styles.input}
+          placeholder="Enter Blog Title"
+          required
+        />
 
-        <div>
-          <label htmlFor="category" className={styles.label}>Category</label>
-          <select
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className={styles.input}
-          >
-            <option value="">Select a category</option>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
-        </div>
+        <label className={styles.label}>Category:</label>
+        <select
+          name='category'
+          value={formData.category}
+          onChange={handleChange}
+          className={styles.select}
+          required
+        >
+          <option value="">Select Category</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>{category.category_name}</option>
+          ))}
+        </select>
 
-        {/* Toolbar */}
-        <div>
-           <label className={styles.toolbarButton}>
-              <ImagePlus size={20} />
-              <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
-            </label>
-          </div>
-        <div className={styles.toolbar}>
-          <div className={styles.toolbarButtons}>
-            <button onClick={() => editor?.chain().focus().toggleBold().run()} className={styles.toolbarButton}><Bold size={20} /></button>
-            <button onClick={() => editor?.chain().focus().toggleItalic().run()} className={styles.toolbarButton}><Italic size={20} /></button>
-            <button onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()} className={styles.toolbarButton}><Heading1 size={20} /></button>
-            <button onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()} className={styles.toolbarButton}><Heading2 size={20} /></button>
-            <button onClick={() => editor?.chain().focus().toggleBulletList().run()} className={styles.toolbarButton}><List size={20} /></button>
-            <button onClick={() => editor?.chain().focus().toggleOrderedList().run()} className={styles.toolbarButton}><ListOrdered size={20} /></button>
-          </div>
-          
-           
-        </div>
+        <label className={styles.label}>Upload Image:</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className={styles.fileInput}
+        />
 
-        {/* Editor Content */}
-        <div className={styles.editorContainer}>
-          {editor ? <EditorContent editor={editor} /> : <p>Loading editor...</p>}
-        </div>
+        <label className={styles.label}>Content:</label>
+        <Editor
+          apiKey="udbl2vt3syyp9hwrtvtuuky6he9qixn2nqevk4vnqdzzlmbx"
+          value={formData.body}
+          onEditorChange={(content) => handleChange(content)}
+          init={{
+            height: 400,
+            menubar: true,
+            plugins: [
+              'advlist autolink lists link image charmap print preview anchor',
+              'searchreplace visualblocks code fullscreen',
+              'insertdatetime media table paste code help wordcount',
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+                     'bold italic backcolor | alignleft aligncenter ' +
+                     'alignright alignjustify | bullist numlist outdent indent | ' +
+                     'removeformat | image | help',
+            image_upload_url: '/upload',
+          }}
+        />
 
-        {/* Submit Button */}
-        <div className={styles.buttonContainer}>
-          <button
-            className={styles.submitButton}
-            onClick={() => console.log({ title, category, content: editor?.getHTML() })}
-          >
-            Publish Post
-          </button>
-        </div>
-      </div>
+        <button type="submit" className={styles.submitButton}>Submit</button>
+      </form>
     </div>
   );
 };

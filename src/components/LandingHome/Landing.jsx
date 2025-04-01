@@ -70,8 +70,8 @@ const NewsDashboard = () => {
               <p>NIFTY <span className="text-success">+1.24%</span></p>
               <p>SENSEX <span className="text-success">+1.29%</span></p>
               <p>Gold <span className="text-success">+0.28%</span></p>
-              <p>Silver <span className="text-success">+0.80%</span></p>
-              <p>USD/INR <span className="text-danger">-0.28%</span></p>
+              {/* <p>Silver <span className="text-success">+0.80%</span></p>
+              <p>USD/INR <span className="text-danger">-0.28%</span></p> */}
             </Card.Body>
           </Card>
         
@@ -79,10 +79,10 @@ const NewsDashboard = () => {
       </Row>
 
       {/* Additional News and Ads */}
-      <Row>
+      <Row className='mb-4'>
         <Col md={4}>
         {articles.length > 0 && (
-            <Link to={articles[0].url} target="_blank" className="text-decoration-none">
+            <Link to={articles[0].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[0].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
@@ -94,7 +94,7 @@ const NewsDashboard = () => {
         </Col>
         <Col md={4}>
         {articles.length > 1 && (
-            <Link to={articles[1].url} target="_blank" className="text-decoration-none">
+            <Link to={articles[1].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[1].urlToImage || "https://via.placeholder.com/150"} />
           
@@ -107,7 +107,7 @@ const NewsDashboard = () => {
         </Col>
         <Col md={4}>
         {articles.length > 2 && (
-            <Link to={articles[2].url} target="_blank" className="text-decoration-none">
+            <Link to={articles[2].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[2].urlToImage || "https://via.placeholder.com/150"} />
            <Card.Body>
@@ -189,13 +189,13 @@ const NewsDashboard = () => {
             </Row>
         </div>
           {/* Some More News Section */}
-        <Row>
+        <Row className='my-4'>
           <h2>
           <span className="fw-bold">Some More News</span>
           </h2>
         <Col md={3}>
         {articles.length > 5 && (
-           <Link to={articles[5].url} target="_blank" className="text-decoration-none">
+           <Link to={articles[5].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[5].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
@@ -207,7 +207,7 @@ const NewsDashboard = () => {
         </Col>
         <Col md={3}>
         {articles.length > 6 && (
-          <Link to={articles[6].url} target="_blank" className="text-decoration-none">
+          <Link to={articles[6].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[6].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
@@ -219,7 +219,7 @@ const NewsDashboard = () => {
         </Col>
         <Col md={6}>
         {articles.length > 7 && (
-          <Link to={articles[7].url} target="_blank" className="text-decoration-none">
+          <Link to={articles[7].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
             <Card.Img variant="top" className={styles.imgWidth}  src={articles[7].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>

@@ -82,12 +82,12 @@ function BlogDetails() {
         <Row className={styles.mainContent}>
         <h3>{post.title}</h3>
           <Col lg={8}>
-            <div className={styles.featuredImage}>
+            {/* <div className={styles.featuredImage}>
               <img
                 src={`http://fastapi.phoneme.in/${post.image}`} 
                 alt="Featured"
               />
-            </div>
+            </div> */}
            
             <div className={styles.contentWrapper}>
               {/* <div className={styles.socialShare}>
@@ -95,7 +95,12 @@ function BlogDetails() {
                 <button className={styles.shareButton}><Share2 size={20} /></button>
                 <button className={styles.shareButton}><Bookmark size={20} /></button>
               </div> */}
-
+               <div className={styles.featuredImage}>
+              <img
+                src={`http://fastapi.phoneme.in/${post.image}`} 
+                alt="Featured"
+              />
+            </div>
               <div className={styles.articleContent}>
                 {/* <p className={styles.lead}>
                   {post.post}

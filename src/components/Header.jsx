@@ -26,7 +26,6 @@ function Header() {
           <FaNewspaper className="text-primary" size={28} />
           <span className="ms-2 fw-semibold fs-4">Our Blogs</span>
         </Navbar.Brand>
-        
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto">
@@ -47,29 +46,33 @@ function Header() {
               />
               <FaSearch className="position-absolute text-muted" style={{ left: '5px', top: '20px' }} />
             </div>
-            <Button variant="light" className="rounded-circle p-2">
+            <Button style={{ backgroundColor: 'transparent', border:'0', color:'#000', margin:'0' }}>
                 <FaMoon size={18} />
               </Button>
             <div className="d-flex gap-3">
             <SignedOut>
-              <Button variant="light" className="rounded-circle p-2" onClick={() => navigate('/login')}>
+              <Button  onClick={() => navigate('/login')}>
                 <FaPencilAlt size={18} />
               </Button>
-              <Button variant="light" className="rounded-circle p-2" onClick={() => navigate('/login')}> 
+              <Button onClick={() => navigate('/login')}> 
                 Login
               </Button>
               </SignedOut> 
               <SignedIn>
+
               {/* <Button variant="light" className="rounded-circle p-2">
                 <FaBell size={18} />
               </Button> */}
-              <Button variant="light" className="rounded-circle p-2"  onClick={handleCreateBlog}  >
+
+              <Button  onClick={handleCreateBlog} style={{ backgroundColor: 'transparent', border:'0', color:'#000', margin:'0' }}>
                 <FaPencilAlt size={18} />
               </Button>
+
               {/* <Button variant="light" className="rounded-circle p-2">
                 <FaCog size={18} />
               </Button> */}
-              <Button variant="light" className="rounded-circle p-2">
+
+              <Button style={{ backgroundColor: 'transparent', border:'0', color:'#000', margin:'0'}}>
               <UserButton />  
               </Button>
               </SignedIn>           

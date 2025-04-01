@@ -1,6 +1,8 @@
 .recentPost{
   background-color: #fff;
   padding: 10px!important;
+  position: sticky;
+  top: 0;
 }
 .mainContainer {
     padding: 2rem 0;
@@ -105,7 +107,7 @@
     transition: all 0.2s ease;
     font-size: 0.75rem;
     width: 100px!important;
-    text-align: center;
+    text-align: center; 
     display: flex;
     justify-content: space-around;
   }

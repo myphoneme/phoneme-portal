@@ -147,10 +147,12 @@
   position: absolute;
   inset: 0;
   background-image: linear-gradient(to top, rgb(0 0 0 / 0.6), transparent);
+  /* background-image: linear-gradient(to top, rgba(83, 133, 226, 0.6), transparent); */
 }
 
 .list .gradient {
-  background-image: linear-gradient(to right, rgb(0 0 0 / 0.6), transparent);
+  /* background-image: linear-gradient(to right, rgb(0 0 0 / 0.6), transparent); */
+  background-image: linear-gradient(to right, rgba(2, 17, 44, 0.6), transparent);
 }
 
 .iconContainer {
@@ -278,7 +280,7 @@ top: 0;
 left: 0;
 width: 100vw;
 height: 100vh;
-background-color: rgba(0, 0, 0, 0.6);
+/* background-color: rgba(0, 0, 0, 0.6); */
 display: flex;
 align-items: center;
 justify-content: center;

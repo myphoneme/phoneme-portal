@@ -334,6 +334,10 @@ blogDetailsContainer {
     text-decoration: none;  /* Remove underline */
     color: inherit;  /* Keep the original text color */
     display: block;  /* Make it act like a div */
+    border-bottom: 1px solid #b8b4b4;
+    margin: 10px 0;
+    padding: 10px 0;
+    
   }
   
   .relatedPostLink:hover {

@@ -87,7 +87,15 @@ function Home() {
                     <div className={styles.homeBlog}>
                       <h1 className={styles.blogTitle}>{post.title}</h1>
                       <div className={styles.blogContent}>
-                        <p>{post.post ? post.post.substring(0, 150) + "..." : "Content not available"}</p>
+                        {/* <p>{post.post ? post.post.substring(0, 150) + "..." : "Content not available"}</p> */}
+                        <p>
+                           {post.post ? (
+                            <span dangerouslySetInnerHTML={{ __html: post.post.substring(0, 150) + "..." }} />
+                          ) : (
+                            "Content not available"
+                            )}
+                        </p>
+
                       </div>
                       <div className={styles.blogMeta}>
                         <span>

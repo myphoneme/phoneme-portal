@@ -68,7 +68,7 @@ const CreateBlog = () => {
     data.append('category_id', parseInt(formData.category, 10));
     data.append('title', formData.title);
     data.append('post', formData.body);
-    data.append('created_by', 1);
+    data.append('created_by', 53);
 
     if (formData.image) {
       data.append('image', formData.image);

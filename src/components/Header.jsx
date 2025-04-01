@@ -11,6 +11,14 @@ function Header() {
     navigate('/createblog');
   };
 
+  const handleBlogListClick = () => {
+    navigate('/list');
+  };
+
+  const handleCategoryListClick = () => {
+    navigate('/categorieslist');
+  };
+
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm sticky-top z-index-999">
       <Container fluid className="px-4">
@@ -22,10 +30,12 @@ function Header() {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto">
-            <Nav.Link href="#" className="fw-medium">BlogList</Nav.Link>
-            <Nav.Link href="#" className="fw-medium">Category List</Nav.Link>
-            <Nav.Link href="#" className="fw-medium"></Nav.Link>
-            <Nav.Link href="#" className="fw-medium"></Nav.Link>
+          <SignedIn>
+            <Nav.Link href="#" className="fw-medium" onClick={handleBlogListClick}>BlogList</Nav.Link>
+            <Nav.Link href="#" className="fw-medium" onClick={handleCategoryListClick}>Category List</Nav.Link>
+            {/* <Nav.Link href="#" className="fw-medium"></Nav.Link> */}
+            {/* <Nav.Link href="#" className="fw-medium"></Nav.Link> */}
+          </SignedIn>
           </Nav>
           <Form className="d-flex align-items-center">
             <div className="position-relative me-3">

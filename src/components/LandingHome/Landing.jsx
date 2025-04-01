@@ -163,7 +163,13 @@ const NewsDashboard = () => {
                     <Card.Body>
                     <Badge bg="primary" className="mb-2">{blog.category.category_name}</Badge>
                     <Card.Title className="fw-bold mb-3">{blog.title}</Card.Title>
-                    <Card.Text className="text-muted">{blog.post ? blog.post.substring(0, 150) + "..." : "Content not available"}</Card.Text>
+                    <Card.Text className="text-muted">{blog.post ?(
+                      <span dangerouslySetInnerHTML={{ __html: blog.post.substring(0, 150) + "..." }} />
+                      //  blog.post.substring(0, 150) + "..." : "Content not available"}</Card.Text>
+                    ) : (
+                      "Content not available"
+                    )}
+                  </Card.Text>
                     <div className="d-flex justify-content-between align-items-center mt-3">
                         <div className="d-flex align-items-center text-muted">
                         <FaClock size={14} />

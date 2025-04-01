@@ -85,7 +85,8 @@ const BlogList = () => {
                 <div className={styles.contentContainer}>
                   <span className={styles.category}>{blog.category.category_name}</span>
                   <h2 className={styles.blogTitle}>{blog.title}</h2>
-                  <p className={styles.blogContent}>{blog.post}</p>
+                  {/* <p className={styles.blogContent} >{blog.post}</p> */}
+                  <div className={styles.blogContent} dangerouslySetInnerHTML={{ __html: blog.post }} />
                   <div className={styles.metadata}>
                     <span className="d-flex align-items-center gap-2">
                       <User size={14} />

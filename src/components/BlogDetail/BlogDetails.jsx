@@ -97,8 +97,16 @@ function BlogDetails() {
               </div> */}
 
               <div className={styles.articleContent}>
-                <p className={styles.lead}>
+                {/* <p className={styles.lead}>
                   {post.post}
+                </p> */}
+
+                <p className={styles.lead}>
+                  {post.post ? (
+                    <span dangerouslySetInnerHTML={{ __html: post.post.substring(0, 150) + "..." }} />
+                  ) : (
+                    "Content not available"
+                    )}
                 </p>
 
                 {/* <h2>The Rise of AI-Powered Development</h2>

@@ -329,6 +329,17 @@ blogDetailsContainer {
     flex-wrap: wrap;
     gap: 0.75rem;
   }
+
+  .relatedPostLink {
+    text-decoration: none;  /* Remove underline */
+    color: inherit;  /* Keep the original text color */
+    display: block;  /* Make it act like a div */
+  }
+  
+  .relatedPostLink:hover {
+    color: inherit;  /* Prevents color change on hover */
+  }
+  
   
   @media (max-width: 768px) {
     .heroContent h1 {

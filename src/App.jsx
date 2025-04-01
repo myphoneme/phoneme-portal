@@ -17,7 +17,6 @@ import { Footer } from './components/Footer/Footer';
 import CreateBlog from './components/CreateBlog/CreateBlog';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   const router = createBrowserRouter([
   {
@@ -29,7 +28,6 @@ function App() {
       },
       {
         path: 'login',
-        // element: <Login  setIsLoggedIn={setIsLoggedIn} />,
         element: <Auth/>
       },
       {
@@ -99,19 +97,18 @@ function App() {
 ]);
 
 
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('accessToken');
+  //   if (token) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, []);
 
   return ( 
     <div className="min-vh-100 bg-light">
       {/* <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> */}
       <RouterProvider router={router} />
       <Footer/>
-
     </div>
   );
 }

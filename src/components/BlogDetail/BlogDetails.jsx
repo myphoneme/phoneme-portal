@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; 
+import { useParams , Link } from 'react-router-dom'; 
 import { Container, Row, Col } from 'react-bootstrap';
 // import UserProfile from "../../User";
-// import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@clerk/clerk-react";
 
 import {
   Calendar,
@@ -22,23 +22,11 @@ import styles from './BlogDetail.module.css';
 import { UserProfile } from '@clerk/clerk-react';
 
 function BlogDetails() {
-  const relatedPosts = [
-    {
-      title: "The Impact of AI on Software Development",
-      date: "March 12, 2024",
-      image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500&auto=format&fit=crop&q=60"
-    },
-    {
-      title: "Future of Cloud Computing in 2024",
-      date: "March 10, 2024",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60"
-    }
-  ];
-
-
 
   const { id } = useParams(); // Get the id from the URL
   const [post, setPost] = useState(null);
+  const [relatedPosts, setRelatedPosts] = useState([]);
+  const { user } = useUser();
 
   useEffect(() => {
     // Fetch the full post using the id from the URL
@@ -46,12 +34,21 @@ function BlogDetails() {
       .then((response) => response.json())
       .then((data) => setPost(data))
       .catch((error) => console.error('Error fetching post details:', error));
+
+      fetch(`http://fastapi.phoneme.in/posts?limit=5`)
+      .then((response) => response.json())
+      .then((data) => {
+        const sortedPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        setRelatedPosts(sortedPosts.slice(0, 5));
+      })
+      .catch((error) => console.error('Error fetching related posts:', error));
+
   }, [id]);
 
   if (!post) {
     return <p>Loading...</p>;
   }
-  // const { user } = useUser();
+  
   return (
     <div className={styles.blogDetailsContainer}>
       {/* <div className={styles.heroSection}>
@@ -140,13 +137,13 @@ function BlogDetails() {
                 </ul> */}
               </div>
 
-              <div className={styles.tagSection}>
-                <Tag size={20} />
-                <span className={styles.tag}>Web Development</span>
-                <span className={styles.tag}>Technology</span>
-                <span className={styles.tag}>Innovation</span>
-                <span className={styles.tag}>AI</span>
-              </div>
+                {/* <div className={styles.tagSection}>
+                  <Tag size={20} />
+                  <span className={styles.tag}>Web Development</span>
+                  <span className={styles.tag}>Technology</span>
+                  <span className={styles.tag}>Innovation</span>
+                  <span className={styles.tag}>AI</span>
+                </div> */}
 
               <div className={styles.socialShareBottom}>
                 <p>Share this article:</p>
@@ -164,11 +161,12 @@ function BlogDetails() {
               </div>
               <div className={styles.authorBox}>
                 <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60"
+                  src={user?.imageUrl || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60"}
+                
                   alt="Author"
                 />
                 <div className={styles.authorInfo}>
-                  <h3>John Doe</h3>
+                  <h3>{post.created_user.name}</h3>
                   <p>Senior Tech Writer & Developer Advocate</p>
                   <p>
                     John is a seasoned developer and tech enthusiast with over 10 years
@@ -184,19 +182,21 @@ function BlogDetails() {
             <div className={styles.sidebar}>
               <div className={styles.sidebarSection}>
                 <h3>Related Articles</h3>
-                {relatedPosts.map((post, index) => (
+                {relatedPosts.map((blog, index) => (
+                  <Link to={`/details/${blog.id}`} key={blog.id} className={styles.relatedPostLink}>
                   <div key={index} className={styles.relatedPost}>
-                    <img src={post.image} alt={post.title} />
+                    <img src={`http://fastapi.phoneme.in/${blog.image}`} alt={blog.title} />
                     <div>
-                      <h4>{post.title}</h4>
-                      <span><Calendar size={14} /> {post.date}</span>
+                      <h4>{blog.title}</h4>
+                      <span><Calendar size={14} />  {new Date(blog.created_at).toLocaleDateString()}</span>
                     </div>
                   </div>
+                  </Link>
                 ))}
               </div>
 
-              <div className={styles.sidebarSection}>
-                <h3>Popular Tags</h3>
+              {/* <div className={styles.sidebarSection}>
+                <h3>Popular Categories</h3>
                 <div className={styles.tagCloud}>
                   <span className={styles.tag}>JavaScript</span>
                   <span className={styles.tag}>React</span>
@@ -206,7 +206,7 @@ function BlogDetails() {
         
                   <span className={styles.tag}>DevOps</span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </Col>
         </Row>

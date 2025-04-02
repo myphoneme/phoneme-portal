@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext,useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Calendar, Clock, User, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './Home.module.css';
+import { globalContext } from '../Context';
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -11,6 +12,8 @@ function Home() {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);  // Track current page
   const postsPerPage = 5;  // Number of posts per page
+ 
+   const { mode } = useContext(globalContext);//theme
 
   useEffect(() => {
     // Fetch data from API using fetch
@@ -44,7 +47,7 @@ function Home() {
     <div className={styles.blogContainer}>
       <Container>
         {/* Categories Section */}
-        <div className={styles.categorySection}>
+        <div className={`${styles.categorySection} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
           <h3 className={styles.sectionTitle}>Explore Categories</h3>
           <div className="d-flex flex-wrap">
             {categories.length === 0 ? (
@@ -70,9 +73,9 @@ function Home() {
               <p>No posts available for this category...</p>
             ) : (
               currentPosts.map((post) => (
-                <article key={post.id} className={styles.blogPost}>
-                  <Link to={`/details/${post.id}`} className={styles.articleLink}>
-                  <Row>
+                <article key={post.id} className={`${styles.blogPost} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+                  <Link to={`/details/${post.id}`} className={`${styles.articleLink} `}>
+                  <Row className='align-items-center'>
                   <Col md={4}>
                     <div>
                       <img
@@ -145,7 +148,7 @@ function Home() {
               .slice(0,5 )  // Get the latest 5 posts
               .map(post => (
                 <Link to={`/details/${post.id}`} key={post.id} className={styles.recentPostLink}>
-                  <div key={post.id} className={styles.recentPost}>
+                  <div key={post.id} className={`${styles.recentPost} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
                    
                    <div>
                     <h5 className={styles.recentPostTitle}>

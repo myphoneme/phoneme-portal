@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Badge, Button } from 'react-bootstrap';
 import { FaRegThumbsUp, FaRegCommentAlt, FaShare, FaClock ,FaRegBookmark } from 'react-icons/fa';
 import styles from './Landing.module.css';
 // import { Link } from 'react-router-dom';  
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import { globalContext } from '../Context';
 
 const NewsDashboard = () => {
 
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
   const [articles, setArticles] = useState([]);
+  const { mode } = useContext(globalContext);
 
   useEffect(() => {
     fetch('http://fastapi.phoneme.in/posts')
@@ -38,7 +40,7 @@ const NewsDashboard = () => {
         <Col md={8}>
         {articles.length > 20 && (
           <a href={articles[20].url} target="_blank" rel="noopener noreferrer" className={styles.newsLink}>
-          <Card className={styles.bodyCard}>
+          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Img variant="top" className={styles.mainImage} src={articles[20].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             <Card.Title>{articles[20].title}</Card.Title>
@@ -54,7 +56,7 @@ const NewsDashboard = () => {
         </Col>
         {/* Top Stories and Market Section */}
         <Col md={4}>
-          <Card className={styles.bodyCard}>
+          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Body>
               <Card.Title>Top Stories</Card.Title>
               <ul>
@@ -64,7 +66,7 @@ const NewsDashboard = () => {
               </ul> 
             </Card.Body>
           </Card>
-          <Card className={styles.bodyCard}>
+          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Body>
               <Card.Title>Markets</Card.Title>
               <p>NIFTY <span className="text-success">+1.24%</span></p>
@@ -83,7 +85,7 @@ const NewsDashboard = () => {
         <Col md={4}>
         {articles.length > 0 && (
             <Link to={articles[0].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[0].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             {articles.length > 0 && <Card.Title>{articles[0].title}</Card.Title>}
@@ -95,7 +97,7 @@ const NewsDashboard = () => {
         <Col md={4}>
         {articles.length > 1 && (
             <Link to={articles[1].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[1].urlToImage || "https://via.placeholder.com/150"} />
           
             <Card.Body>
@@ -108,7 +110,7 @@ const NewsDashboard = () => {
         <Col md={4}>
         {articles.length > 2 && (
             <Link to={articles[2].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[2].urlToImage || "https://via.placeholder.com/150"} />
            <Card.Body>
            {articles.length > 2 && <Card.Title>{articles[2].title}</Card.Title>}
@@ -123,7 +125,7 @@ const NewsDashboard = () => {
         <Col md={6}>
         {articles.length > 3 && (
             <Link to={articles[3].url} target="_blank" className="text-decoration-none">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Img variant="top" className={styles.mainImage} src={articles[3].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
               {articles.length > 3 && <Card.Title>{articles[3].title}</Card.Title>}
@@ -134,7 +136,7 @@ const NewsDashboard = () => {
         </Col>
         <Col md={6}>  {articles.length > 4 && (
             <Link to={articles[4].url} target="_blank" className="text-decoration-none">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Img variant="top" className={styles.mainImage}  src={articles[4].urlToImage || "https://via.placeholder.com/150"}/>
             <Card.Body>
               {articles.length > 4 && <Card.Title>{articles[4].title}</Card.Title>}
@@ -154,7 +156,7 @@ const NewsDashboard = () => {
             <Row>
             {featuredBlogs.map((blog, index) => (
                 <Col key={index} lg={4} md={6} className="mb-4">
-                <Card className="h-100 border-0 shadow-sm hover-shadow">
+                <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
                     <Card.Img 
                     variant="top" 
                     src={`http://fastapi.phoneme.in/${blog.image}`}
@@ -163,7 +165,7 @@ const NewsDashboard = () => {
                     <Card.Body>
                     <Badge bg="primary" className="mb-2">{blog.category.category_name}</Badge>
                     <Card.Title className="fw-bold mb-3">{blog.title}</Card.Title>
-                    <Card.Text className="text-muted">{blog.post ?(
+                    <Card.Text >{blog.post ?(
                       <span dangerouslySetInnerHTML={{ __html: blog.post.substring(0, 150) + "..." }} />
                       //  blog.post.substring(0, 150) + "..." : "Content not available"}</Card.Text>
                     ) : (
@@ -196,7 +198,7 @@ const NewsDashboard = () => {
         <Col md={3}>
         {articles.length > 5 && (
            <Link to={articles[5].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[5].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             <Card.Title>{articles[5].title}</Card.Title>
@@ -208,7 +210,7 @@ const NewsDashboard = () => {
         <Col md={3}>
         {articles.length > 6 && (
           <Link to={articles[6].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[6].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             <Card.Title>{articles[6].title}</Card.Title>
@@ -220,7 +222,7 @@ const NewsDashboard = () => {
         <Col md={6}>
         {articles.length > 7 && (
           <Link to={articles[7].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
             <Card.Img variant="top" className={styles.imgWidth}  src={articles[7].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             <Card.Title>{articles[7].title}</Card.Title>

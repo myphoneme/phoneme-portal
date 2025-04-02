@@ -16,6 +16,7 @@ import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import { Footer } from './components/Footer/Footer';
 import CreateBlog from './components/CreateBlog/CreateBlog';
 import { globalContext } from "./components/Context";
+import FlashMessage from './FlashMessage';
 
 function App() {
   const[isLoggedIn, setIsLoggedIn] = useState(false);
@@ -96,6 +97,10 @@ function App() {
           </SignedIn>
         ),
       },
+      {
+        path:'flash',
+        element: <FlashMessage/>
+      }
 
     ]
   }

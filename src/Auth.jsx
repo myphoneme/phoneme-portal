@@ -2,6 +2,7 @@ import { SignedIn, SignedOut, SignIn, UserButton,  useClerk  } from "@clerk/cler
 import './Auth.css';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from "./User";
+import { useEffect } from "react";
 
 function Auth() {
     const navigate = useNavigate();
@@ -12,27 +13,41 @@ function Auth() {
     //     navigate('/home'); // Redirect to /home after successful sign-in
     // };
 
+    useEffect(() => {
+        if (localStorage.getItem("clerk-sign-in")) {
+            navigate("/home");
+        }
+    }, [navigate]);
+
+
     // Redirect after sign-out
-    const handleSignOut = () => {
-        signOut(); // Sign the user out
-        navigate('/'); // Redirect to the landing page after sign-out
-    };
+    // const handleSignOut = () => {
+    //     signOut(); // Sign the user out
+    //     navigate('/'); // Redirect to the landing page after sign-out
+    // };
 
 
     return (
         <div className="custom-container" >
-            <SignedIn>
+            {/* <SignedIn>
                 <div className="flex flex-col items-center gap-4">
+                <h1>Welcome! Redirecting...</h1> */}
                     {/* <h1>Welcome, You are signed in!</h1> */}
                     {/* <UserButton /> */}
                     {/* <UserProfile/> */}
-                    {navigate('/home')}
-                </div>
+                    {/* {navigate('/home')} */}
+                {/* </div>
+            </SignedIn> */}
+             <SignedIn>
+                {() => {
+                    localStorage.setItem("clerk-sign-in", "true"); // Store login state
+                    navigate("/home"); // Redirect after sign-in
+                    return <h1>Redirecting to Home...</h1>;
+                }}
             </SignedIn>
 
             <SignedOut>
-                <SignIn />
-                    {/* <button onClick={handleSignOut}>Sign Out</button> */}
+                <SignIn afterSignInUrl="/home" /> {/* ✅ Fix: Redirecting after login */}
             </SignedOut>
         </div>
     );

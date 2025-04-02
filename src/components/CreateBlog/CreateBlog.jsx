@@ -56,7 +56,6 @@ const CreateBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
     if (!formData.category || !formData.title || !formData.body) {
       alert('Please fill in all required fields.');
       return;
@@ -65,6 +64,10 @@ const CreateBlog = () => {
     const data = new FormData();
     console.log('formdata:', formData);
 
+    if (id) {
+      data.append('id', parseInt(id, 10));
+    }
+
     data.append('category_id', parseInt(formData.category, 10));
     data.append('title', formData.title);
     data.append('post', formData.body);
@@ -72,35 +75,30 @@ const CreateBlog = () => {
 
     if (formData.image) {
       data.append('image', formData.image);
-    } else {
-    alert('Please upload an image.');
-    return;
-  }
+    } else if (!id) {
+      alert('Please upload an image.');
+      return;
+    }
 
     console.log('Sending FormData:', [...data.entries()]);
 
     try {
-      // const response = await fetch('http://fastapi.phoneme.in/posts', {
-      //   method: 'POST',
-      //   body: data,
       const url = id
-      ? `http://fastapi.phoneme.in/posts/${id}`
-      : 'http://fastapi.phoneme.in/posts';
+        ? `http://fastapi.phoneme.in/posts/${id}`
+        : 'http://fastapi.phoneme.in/posts';
 
-    const method = id ? 'PUT' : 'POST';
+      const method = id ? 'PUT' : 'POST';
 
-    const response = await fetch(url, {
-      method,
-      body: data,
-
+      const response = await fetch(url, {
+        method,
+        body: data,
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Error creating blog:', errorData);
+        console.error('Error creating/updating blog:', errorData);
         alert(errorData.detail || 'Failed to create/update blog');
       } else {
-        // console.log('Blog created successfully!');
         console.log('Blog submitted successfully!');
         alert('Blog submitted successfully!');
         navigate('/list');
@@ -170,7 +168,6 @@ const CreateBlog = () => {
           }}
         />
 
-        {/* <button type="submit" className={styles.submitButton}>Submit</button> */}
         <button type="submit" className={styles.submitButton}>
           {id ? 'Update Blog' : 'Submit'}
         </button>

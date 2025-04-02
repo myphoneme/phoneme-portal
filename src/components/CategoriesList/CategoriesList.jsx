@@ -16,7 +16,6 @@ import { Modal, Button } from 'react-bootstrap';
 import AddCategory from './AddCategory';
 import styles from './Categories.module.css';
 
-// Icon mapping for dynamic assignment
 const iconMapping = {
   technology: Code,
   literature: BookOpen,
@@ -28,13 +27,25 @@ const iconMapping = {
   default: BookOpen,
 };
 
+const fetchImageForCategory = async (categoryName) => {
+  try {
+    const response = await fetch(`https://api.pexels.com/v1/search?query=${categoryName}&per_page=1`, {
+      headers: { Authorization: "mDQv97YgInpiiB7lDK2rdkwvusNMjNA2aalf8TI57b99Rg5xle9oPBy5" },
+    });
+    const data = await response.json();
+    return data.photos.length > 0 ? data.photos[0].src.medium : "https://www.jaggaer.com/wp-content/uploads/2024/06/Category-intelligence-product.jpg";
+  } catch (error) {
+    console.error("Error fetching image for category:", error);
+    return "https://www.jaggaer.com/wp-content/uploads/2024/06/Category-intelligence-product.jpg";
+  }
+};
+
 function CategoriesList() {
   const [categories, setCategories] = useState([]);
   const [isGridView, setIsGridView] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [categoryToEdit, setCategoryToEdit] = useState(null);
 
-  // Fetch categories from FastAPI
   const fetchCategories = async () => {
     try {
       const response = await fetch('http://fastapi.phoneme.in/categories');
@@ -42,15 +53,14 @@ function CategoriesList() {
         throw new Error('Error fetching categories');
       }
       const data = await response.json();
-      const formattedData = data.map((cat) => ({
+      const formattedData = await Promise.all(data.map(async (cat) => ({
         id: cat.id,
         name: cat.category_name,
         description: `Explore posts related to ${cat.category_name}`,
         count: Math.floor(Math.random() * 50) + 1,
         icon: iconMapping[cat.category_name.toLowerCase()] || iconMapping.default,
-        // image: "https://don16obqbay2c.cloudfront.net/wp-content/uploads/Storefront_Images_C-1481632060.png",
-        image : "https://www.jaggaer.com/wp-content/uploads/2024/06/Category-intelligence-product.jpg",
-      }));
+        image: await fetchImageForCategory(cat.category_name),
+      })));
       setCategories(formattedData);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -61,7 +71,6 @@ function CategoriesList() {
     fetchCategories();
   }, []);
 
-  // Add or Edit Category
   const handleSaveCategory = async (category) => {
     const url = category.id
       ? `http://fastapi.phoneme.in/categories/${category.id}`
@@ -79,12 +88,8 @@ function CategoriesList() {
       });
 
       if (response.ok) {
-        alert(
-          `Category "${category.name}" ${
-            category.id ? 'updated' : 'added'
-          } successfully!`
-        );
-        fetchCategories(); // Refresh categories
+        alert(`Category "${category.name}" ${category.id ? 'updated' : 'added'} successfully!`);
+        fetchCategories();
       } else {
         console.error(`Failed to ${category.id ? 'update' : 'add'} category`);
       }
@@ -96,7 +101,6 @@ function CategoriesList() {
     setCategoryToEdit(null);
   };
 
-  // Delete Category
   const handleDeleteCategory = async (categoryId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this category?');
     if (!confirmDelete) return;
@@ -123,42 +127,27 @@ function CategoriesList() {
         <div className={styles.headerContent}>
           <h1 className={styles.headerTitle}>Blog Categories</h1>
           <div className={styles.headerActions}>
-            <button
-              className={styles.addButton}
-              onClick={() => {
-                setCategoryToEdit(null);
-                setShowModal(true);
-              }}
-            >
+            <button className={styles.addButton} onClick={() => { setCategoryToEdit(null); setShowModal(true); }}>
               <Plus className={styles.buttonIcon} />
               Add Category
             </button>
-            <button
-              className={styles.viewToggle}
-              onClick={() => setIsGridView(!isGridView)}
-              aria-label={isGridView ? 'Switch to list view' : 'Switch to grid view'}
-            >
+            <button className={styles.viewToggle} onClick={() => setIsGridView(!isGridView)}>
               {isGridView ? <List className={styles.buttonIcon} /> : <LayoutGrid className={styles.buttonIcon} />}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Modal Wrapper */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>{categoryToEdit ? 'Edit Category' : 'Add Category'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddCategory
-            onSave={handleSaveCategory}
-            onClose={() => setShowModal(false)}
-            categoryToEdit={categoryToEdit}
-          />
+          <AddCategory onSave={handleSaveCategory} onClose={() => setShowModal(false)} categoryToEdit={categoryToEdit} />
         </Modal.Body>
       </Modal>
 
-      <div className={`${styles.main}`}>
+      <div className={styles.main}>
         <div className={isGridView ? styles.grid : styles.list}>
           {categories.map((category) => {
             const Icon = category.icon || BookOpen;
@@ -168,11 +157,7 @@ function CategoriesList() {
                   <img src={category.image} alt={category.name} className={styles.image} />
                   <div className={styles.gradient} />
                 </div>
-
-                <div className={styles.iconContainer}>
-                  <Icon className={styles.icon} />
-                </div>
-
+                <div className={styles.iconContainer}><Icon className={styles.icon} /></div>
                 <div className={styles.content}>
                   <div className={styles.titleRow}>
                     <h2 className={styles.title}>{category.name}</h2>
@@ -205,6 +190,7 @@ function CategoriesList() {
                   className={styles.link}
                   aria-label={`View ${category.name} category`}
                 />
+                {/* </div> */}
               </div>
             );
           })}

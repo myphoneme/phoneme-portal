@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext,useEffect, useState } from 'react';
 import { useParams , Link } from 'react-router-dom'; 
 import { Container, Row, Col } from 'react-bootstrap';
 // import UserProfile from "../../User";
 import { useUser } from "@clerk/clerk-react";
+import { globalContext } from '../Context';
 
 import {
   Calendar,
@@ -28,6 +29,8 @@ function BlogDetails() {
   const [relatedPosts, setRelatedPosts] = useState([]);
   const { user } = useUser();
 
+  const { mode } = useContext(globalContext);//theme
+
   useEffect(() => {
     // Fetch the full post using the id from the URL
     fetch(`http://fastapi.phoneme.in/posts/${id}`)
@@ -50,7 +53,7 @@ function BlogDetails() {
   }
   
   return (
-    <div className={styles.blogDetailsContainer}>
+    <div className={`${styles.blogDetailsContainer} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
       {/* <div className={styles.heroSection}>
         <Container>
           <div className={styles.heroContent}>
@@ -78,9 +81,9 @@ function BlogDetails() {
         </Container>
       </div> */}
 
-      <Container>
+      <Container >
         <Row className={styles.mainContent}>
-        <h3>{post.title}</h3>
+        <h5 className='text-dark'>{post.title}</h5>
           <Col lg={8}>
             {/* <div className={styles.featuredImage}>
               <img
@@ -89,7 +92,7 @@ function BlogDetails() {
               />
             </div> */}
            
-            <div className={styles.contentWrapper}>
+            <div className={`${styles.contentWrapper} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
               {/* <div className={styles.socialShare}>
                 <button className={styles.shareButton}><Heart size={20} /> 245</button>
                 <button className={styles.shareButton}><Share2 size={20} /></button>
@@ -172,7 +175,7 @@ function BlogDetails() {
                   </button>
                 </div>
               </div>
-              <div className={styles.authorBox}>
+              <div className={`${styles.authorBox} `}>
                 <img
                   src={user?.imageUrl || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60"}
                 
@@ -180,8 +183,8 @@ function BlogDetails() {
                 />
                 <div className={styles.authorInfo}>
                   <h3>{post.created_user.name}</h3>
-                  <p>Senior Tech Writer & Developer Advocate</p>
-                  <p>
+                  <p className='text-dark'>Senior Tech Writer & Developer Advocate</p>
+                  <p className='text-dark'>
                     John is a seasoned developer and tech enthusiast with over 10 years
                     of experience in web development. He writes about emerging technologies
                     and their impact on the future of software development.
@@ -192,8 +195,8 @@ function BlogDetails() {
           </Col>
 
           <Col lg={4}>
-            <div className={styles.sidebar}>
-              <div className={styles.sidebarSection}>
+            <div className={`${styles.sidebar}`}>
+              <div className={`${styles.sidebarSection} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
                 <h3>Related Articles</h3>
                 {relatedPosts.map((blog, index) => (
                   <Link to={`/details/${blog.id}`} key={blog.id} className={styles.relatedPostLink}>

@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext,useEffect, useState } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { Edit2, Trash2, BookOpen, Calendar, User } from 'lucide-react';
 import styles from './BlogList.module.css';
 import { Link , useNavigate } from 'react-router-dom';
+import { globalContext } from '../Context';
 const BlogList = () => {
 
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -26,16 +25,11 @@ const BlogList = () => {
         setLoading(false);
       }
     };
-
     fetchBlogs();
   }, []);
-
-
   const handleEdit = (id) => {
     navigate(`/createBlog/${id}`);
   };
-
-
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this blog?')) return;
     try {
@@ -49,22 +43,17 @@ const BlogList = () => {
       alert(`Error: ${error.message}`);
     }
   };
-
   const handleReadMore = (id) => {
     navigate(`/details/${id}`);  // Redirect to the details page for the clicked blog
   };
-
-
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
-
   const sortedBlogs = [...blogs].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
+  const { mode } = useContext(globalContext);//theme
 
   return (
     <div className={styles.mainContainer}>
@@ -74,7 +63,7 @@ const BlogList = () => {
           <Col lg={8}>
           <h3>Users Blog</h3>
             {blogs.map((blog) => (
-              <div key={blog.id} className={styles.blogCard}>
+              <div key={blog.id} className={`${styles.blogCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
                 <div className={styles.imageContainer}>
                   <img
                     src={`http://fastapi.phoneme.in/${blog.image}`}
@@ -109,7 +98,7 @@ const BlogList = () => {
 
           {/* recent posts */}
           <Col lg={4}>
-          <div className={styles.recentPost}> 
+          <div className={`${styles.recentPost} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}> 
             <div className="sticky-top" style={{ top: '2rem' }}>
               <h3 className={styles.sidebarTitle}>Recent Posts</h3>
               {sortedBlogs.slice(0, 5).map((blog) => (

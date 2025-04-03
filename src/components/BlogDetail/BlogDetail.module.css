@@ -283,7 +283,7 @@ blogDetailsContainer {
   
   .sidebarSection h3 {
     font-size: 1.25rem;
-    color: #1a1a1a;
+    /* relatedPost */
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid #f8f9fa;
@@ -313,7 +313,7 @@ blogDetailsContainer {
   .relatedPost h4 {
     font-size: 1rem;
     margin: 0 0 0.5rem;
-    color: #1a1a1a;
+    /* color: #1a1a1a; */
   }
   
   .relatedPost span {

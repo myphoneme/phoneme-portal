@@ -60,7 +60,7 @@
   
   .blogTitle {
     font-size: 1.125rem;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     margin-bottom: 0.5rem;
     font-weight: 600;
     white-space: nowrap;
@@ -70,7 +70,7 @@
   }
   
   .blogContent {
-    color: #596677;
+    /* color: #596677; */
     font-size: 0.875rem;
     line-height: 1.4;
     display: -webkit-box;
@@ -145,7 +145,7 @@
   .sidebarTitle {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     margin-bottom: 1rem;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid #e2e8f0;

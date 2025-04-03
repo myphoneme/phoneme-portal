@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext,useEffect, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useParams , useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './CreateBlog.module.css';
+import { globalContext } from '../Context';
 
 const CreateBlog = () => {
   const { id } = useParams();
@@ -51,6 +52,7 @@ const CreateBlog = () => {
     setFormdata((prev) => ({ ...prev, image: file }));
     
   };
+  const { mode } = useContext(globalContext);//theme
 
 
   const handleSubmit = async (e) => {
@@ -110,10 +112,11 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}>
+    <div className={`${styles.container} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
       {/* <h1 className={styles.heading}>Create a New Blog</h1> */}
-      <h1 className={styles.heading}>{id ? 'Edit Blog' : 'Create a New Blog'}</h1>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <h3 className={styles.heading}>{id ? 'Edit Blog' : 'Create a New Blog'}</h3>
+      <form onSubmit={handleSubmit} className={`${styles.form} `}>
         <label className={styles.label}>Title:</label>
         <input
           type="text"
@@ -124,7 +127,6 @@ const CreateBlog = () => {
           placeholder="Enter Blog Title"
           required
         />
-
         <label className={styles.label}>Category:</label>
         <select
           name='category'
@@ -146,9 +148,9 @@ const CreateBlog = () => {
           onChange={handleImageChange}
           className={styles.fileInput}
         />
-
         <label className={styles.label}>Content:</label>
         <Editor
+          // className={mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}
           apiKey="udbl2vt3syyp9hwrtvtuuky6he9qixn2nqevk4vnqdzzlmbx"
           value={formData.body}
           onEditorChange={(content) => handleChange(content)}
@@ -165,6 +167,9 @@ const CreateBlog = () => {
                      'alignright alignjustify | bullist numlist outdent indent | ' +
                      'removeformat | image | help',
             image_upload_url: '/upload',
+            // content_style: mode === 'light'
+            // ? 'body { background-color: white; color: black; }' 
+            // : 'body { background-color: #1a1a1a; color: white; }',
           }}
         />
 
@@ -173,6 +178,7 @@ const CreateBlog = () => {
         </button>
 
       </form>
+    </div>
     </div>
   );
 };

@@ -2,9 +2,10 @@
   max-width: 64rem; 
   margin: 20px auto;
   padding: 1.5rem;
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 1rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* border-top: 20px solid #1D4ED8; */
 }
 
 .title {
@@ -28,7 +29,7 @@
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #4B5563; 
+  /* color: #4B5563;  */
   margin-bottom: 0.5rem;
 } 
 
@@ -102,4 +103,10 @@
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
+}
+.select{
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border: 1px solid #f1f1f1;
 }

@@ -1,0 +1,73 @@
+/* FlashMessage.module.css */
+.container {
+    padding-top: 60px; /* Prevents overlap with header */
+    text-align: center;
+  }
+  
+  .flashMessage {
+      position: fixed;
+      top: 80px; /* Adjust to ensure no overlap with the header */
+      right: 10px;
+      padding: 12px 20px;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Ensures the message and button are spaced apart */
+      min-width: 300px;
+      max-width: 400px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      gap: 10px; 
+      white-space: nowrap; /* Ensures text stays in one line */
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .flashMessage .messageText {
+      flex-grow: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .closeBtn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+      margin-left: auto; /* Pushes close button to the right */
+    }
+    
+  
+  .add {
+    background-color: #38a169;
+  }
+  
+  .update {
+    background-color: #3182ce;
+  }
+  
+  .delete {
+    background-color: #e53e3e;
+  }
+  
+  .error {
+    background-color: #d9534f;
+  }
+  
+  .buttonGroup {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  

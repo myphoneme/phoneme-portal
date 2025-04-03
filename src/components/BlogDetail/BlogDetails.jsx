@@ -53,7 +53,8 @@ function BlogDetails() {
   }
   
   return (
-    <div className={`${styles.blogDetailsContainer} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+    <div  className={`${styles.blogDetailsContainer} ${mode === 'light' ? 'bg-light text-dark' : 'text-light'}`}
+        style={mode === 'dark' ? { backgroundColor: '#1a1a1a' } : {}}>
       {/* <div className={styles.heroSection}>
         <Container>
           <div className={styles.heroContent}>
@@ -83,7 +84,7 @@ function BlogDetails() {
 
       <Container >
         <Row className={styles.mainContent}>
-        <h5 className='text-dark'>{post.title}</h5>
+        <h5 >{post.title}</h5>
           <Col lg={8}>
             {/* <div className={styles.featuredImage}>
               <img
@@ -175,7 +176,7 @@ function BlogDetails() {
                   </button>
                 </div>
               </div>
-              <div className={`${styles.authorBox} `}>
+              <div className={`${styles.authorBox} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
                 <img
                   src={user?.imageUrl || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60"}
                 
@@ -183,8 +184,8 @@ function BlogDetails() {
                 />
                 <div className={styles.authorInfo}>
                   <h3>{post.created_user.name}</h3>
-                  <p className='text-dark'>Senior Tech Writer & Developer Advocate</p>
-                  <p className='text-dark'>
+                  <p >Senior Tech Writer & Developer Advocate</p>
+                  <p >
                     John is a seasoned developer and tech enthusiast with over 10 years
                     of experience in web development. He writes about emerging technologies
                     and their impact on the future of software development.

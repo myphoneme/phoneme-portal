@@ -38,15 +38,15 @@ useEffect(() => {
   }
 }, []);
   return (
-    <div className={styles.mainWrap}>
+    <div className={`${styles.mainWrap} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}  style={mode === 'dark' ? { backgroundColor: '#1a1a1a' } : {}}>
 
-    <Container className={styles.mainContainer}>
+    <Container className={`${styles.mainContainer} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}  style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
       <Row className="my-3">
         {/* Main News Section with Slider */}
         <Col md={8}>
         {articles.length > 20 && (
           <a href={articles[20].url} target="_blank" rel="noopener noreferrer" className={styles.newsLink}>
-          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.mainImage} src={articles[20].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             <Card.Title>{articles[20].title}</Card.Title>
@@ -62,7 +62,7 @@ useEffect(() => {
         </Col>
         {/* Top Stories and Market Section */}
         <Col md={4}>
-          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Body>
               <Card.Title>Top Stories</Card.Title>
               <ul>
@@ -72,7 +72,7 @@ useEffect(() => {
               </ul> 
             </Card.Body>
           </Card>
-          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Body>
               <Card.Title>Markets</Card.Title>
               <p>NIFTY <span className="text-success">+1.24%</span></p>
@@ -91,7 +91,7 @@ useEffect(() => {
         <Col md={4}>
         {articles.length > 0 && (
             <Link to={articles[0].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[0].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             {articles.length > 0 && <Card.Title>{articles[0].title}</Card.Title>}
@@ -103,7 +103,7 @@ useEffect(() => {
         <Col md={4}>
         {articles.length > 1 && (
             <Link to={articles[1].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[1].urlToImage || "https://via.placeholder.com/150"} />
           
             <Card.Body>
@@ -116,7 +116,7 @@ useEffect(() => {
         <Col md={4}>
         {articles.length > 2 && (
             <Link to={articles[2].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[2].urlToImage || "https://via.placeholder.com/150"} />
            <Card.Body>
            {articles.length > 2 && <Card.Title>{articles[2].title}</Card.Title>}
@@ -131,7 +131,7 @@ useEffect(() => {
         <Col md={6}>
         {articles.length > 3 && (
             <Link to={articles[3].url} target="_blank" className="text-decoration-none">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.mainImage} src={articles[3].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
               {articles.length > 3 && <Card.Title>{articles[3].title}</Card.Title>}
@@ -142,7 +142,7 @@ useEffect(() => {
         </Col>
         <Col md={6}>  {articles.length > 4 && (
             <Link to={articles[4].url} target="_blank" className="text-decoration-none">
-          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.mainImage}  src={articles[4].urlToImage || "https://via.placeholder.com/150"}/>
             <Card.Body>
               {articles.length > 4 && <Card.Title>{articles[4].title}</Card.Title>}
@@ -162,7 +162,7 @@ useEffect(() => {
             <Row>
             {featuredBlogs.map((blog, index) => (
                 <Col key={index} lg={4} md={6} className="mb-4">
-                <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+                <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
                     <Card.Img 
                     variant="top" 
                     src={`http://fastapi.phoneme.in/${blog.image}`}
@@ -206,7 +206,7 @@ useEffect(() => {
         <Col md={3}>
         {articles.length > 5 && (
            <Link to={articles[5].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[5].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             <Card.Title>{articles[5].title}</Card.Title>
@@ -218,7 +218,7 @@ useEffect(() => {
         <Col md={3}>
         {articles.length > 6 && (
           <Link to={articles[6].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.imgWidth} src={articles[6].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             <Card.Title>{articles[6].title}</Card.Title>
@@ -230,7 +230,7 @@ useEffect(() => {
         <Col md={6}>
         {articles.length > 7 && (
           <Link to={articles[7].url} target="_blank" className="text-decoration-none h-100">
-          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+          <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.imgWidth}  src={articles[7].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
             <Card.Title>{articles[7].title}</Card.Title>

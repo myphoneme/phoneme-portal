@@ -56,14 +56,19 @@ const BlogList = () => {
   const { mode } = useContext(globalContext);//theme
 
   return (
-    <div className={styles.mainContainer}>
-      <Container>
+    // <div className={`${styles.mainContainer} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"} `}  style={mode === 'dark' ? { backgroundColor: '#1a1a1a' } : {}}>
+    <div
+    className={`${styles.mainContainer} ${mode === 'light' ? 'bg-light text-dark' : 'text-light'}`}
+    style={mode === 'dark' ? { backgroundColor: '#1a1a1a' } : {}}
+  >
+  
+   <Container>
         <Row>
           {/* Users blog */}
           <Col lg={8}>
           <h3>Users Blog</h3>
             {blogs.map((blog) => (
-              <div key={blog.id} className={`${styles.blogCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+              <div key={blog.id} className={`${styles.blogCard} ${mode === 'light' ? "bg-white text-dark" : "bg-dark text-light"}`}>
                 <div className={styles.imageContainer}>
                   <img
                     src={`http://fastapi.phoneme.in/${blog.image}`}
@@ -98,11 +103,11 @@ const BlogList = () => {
 
           {/* recent posts */}
           <Col lg={4}>
-          <div className={`${styles.recentPost} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}> 
+          <div className={`${styles.recentPost} ${mode === 'light' ? "bg-white text-dark" : "bg-dark text-light"}`}> 
             <div className="sticky-top" style={{ top: '2rem' }}>
               <h3 className={styles.sidebarTitle}>Recent Posts</h3>
               {sortedBlogs.slice(0, 5).map((blog) => (
-                <div key={blog.id} className={styles.recentPost} onClick={() => handleReadMore(blog.id)}>
+                <div key={blog.id} className={`${styles.recentPost} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} onClick={() => handleReadMore(blog.id)}>
                   <img
                     src={`http://fastapi.phoneme.in/${blog.image}`}
                     alt={blog.title}

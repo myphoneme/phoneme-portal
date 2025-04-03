@@ -174,7 +174,7 @@
   .recentPostTitle {
     font-size: 0.875rem;
     font-weight: 500;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     margin-bottom: 0.25rem;
     display: -webkit-box;
     /* -webkit-line-clamp: 2; */
@@ -184,6 +184,6 @@
   
   .recentPostDate {
     font-size: 0.75rem;
-    color: #64748b;
+    /* color: #64748b; */
   }
   

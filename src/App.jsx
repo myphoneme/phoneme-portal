@@ -1,5 +1,5 @@
 import React, { useState ,useEffect } from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import Landing from './components/LandingHome/Landing';
@@ -11,7 +11,7 @@ import Profile from './components/Profile/Profile';
 import BlogDetails from './components/BlogDetail/BlogDetails';
 import AppLayout from './ui/AppLayout';
 import CategoriesList from './components/CategoriesList/CategoriesList';
-import Auth from './auth';
+import Auth from './Auth';
 import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import { Footer } from './components/Footer/Footer';
 import CreateBlog from './components/CreateBlog/CreateBlog';
@@ -23,6 +23,7 @@ function App() {
   const[mode, setMode] =useState(
     localStorage.getItem("theme") || "light"
   );
+  
 
   const router = createBrowserRouter([
   {
@@ -30,7 +31,8 @@ function App() {
     children:[
       { 
         path: '/',
-        element: <Landing/>,
+        // element: <Landing/>,
+        element: !isLoggedIn ? <Landing /> : <Navigate to="/home" replace />,
       },
       {
         path: 'login',

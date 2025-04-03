@@ -30,7 +30,7 @@ const NewsDashboard = () => {
         .catch(error => console.error(error));
 }, []);
 
-
+const isLoggedIn = localStorage.getItem('accessToken');
   return (
     <div className={styles.mainWrap}>
 
@@ -178,7 +178,9 @@ const NewsDashboard = () => {
                         <small className="ms-2">2 hours ago</small>
                         </div>
                         {/* Link to the individual blog details page */}
-                    <Link to={`/details/${blog.id}`} className="btn btn-success mt-3">
+                    {/* <Link to={`/details/${blog.id}`} className="btn btn-success mt-3"> */}
+                    {/* <Link to = '/login' className='btn btn-success mt-3'> */}
+                    <Link to={isLoggedIn ? `/details/${blog.id}` : '/login'} className='btn btn-success mt-3'>
                       Read More
                     </Link>
                         {/* <FaRegBookmark className="text-muted cursor-pointer" size={16} /> */}

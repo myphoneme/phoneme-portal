@@ -12,6 +12,7 @@ const NewsDashboard = () => {
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
   const [articles, setArticles] = useState([]);
   const { mode } = useContext(globalContext);
+  const[isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
     fetch('http://fastapi.phoneme.in/posts')
@@ -30,7 +31,12 @@ const NewsDashboard = () => {
         .catch(error => console.error(error));
 }, []);
 
-const isLoggedIn = localStorage.getItem('accessToken');
+useEffect(() => {
+  const token = localStorage.getItem('accessToken');
+  if (token) {
+    setIsLoggedIn(true);
+  }
+}, []);
   return (
     <div className={styles.mainWrap}>
 
@@ -179,8 +185,8 @@ const isLoggedIn = localStorage.getItem('accessToken');
                         </div>
                         {/* Link to the individual blog details page */}
                     {/* <Link to={`/details/${blog.id}`} className="btn btn-success mt-3"> */}
-                    {/* <Link to = '/login' className='btn btn-success mt-3'> */}
-                    <Link to={isLoggedIn ? `/details/${blog.id}` : '/login'} className='btn btn-success mt-3'>
+                    <Link to = '/login' className='btn btn-success mt-3'>
+                    {/* <Link to={isLoggedIn ? `/details/${blog.id}` : '/login'} className='btn btn-success mt-3'> */}
                       Read More
                     </Link>
                         {/* <FaRegBookmark className="text-muted cursor-pointer" size={16} /> */}

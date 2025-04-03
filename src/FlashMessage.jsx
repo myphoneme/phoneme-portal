@@ -17,9 +17,9 @@ const FlashMessage = ({ message, type, onClose }) => {
   return (
     <div className={`${styles.flashMessage} ${styles[type]}`}> 
       <span>{message}</span>
-      {onClose && (
+      {/* {onClose && (
         <button className={styles.closeBtn} onClick={onClose}>×</button>
-      )}
+      )} */}
     </div>
   );
 };

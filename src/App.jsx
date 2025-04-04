@@ -17,6 +17,7 @@ import { Footer } from './components/Footer/Footer';
 import CreateBlog from './components/CreateBlog/CreateBlog';
 import { globalContext } from "./components/Context";
 import FlashMessage from './FlashMessage';
+import { useAuth } from "@clerk/clerk-react";
 
 function App() {
   const[isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,15 +25,19 @@ function App() {
     localStorage.getItem("theme") || "light"
   );
   
-
+  const { isSignedIn } = useAuth(); 
   const router = createBrowserRouter([
   {
     element: <AppLayout/>,
     children:[
+      // { 
+      //   path: '/',
+      //   // element: <Landing/>,
+      //   element: !isLoggedIn ? <Landing /> : <Navigate to="/home" replace />,
+      // },
       { 
         path: '/',
-        // element: <Landing/>,
-        element: !isLoggedIn ? <Landing /> : <Navigate to="/home" replace />,
+        element: !isSignedIn ? <Landing /> : <Navigate to="/home" replace />,
       },
       {
         path: 'login',

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {  useContext,useState, useEffect } from 'react';
 import {
   BookOpen,
   Code,
@@ -11,12 +11,12 @@ import {
   List,
   Edit,
   Trash2,
-} from "lucide-react";
-import { Modal, Button } from "react-bootstrap";
-import { FlashMessage } from "../../FlashMessage";
-import AddCategory from "./AddCategory";
-import styles from "./Categories.module.css";
-import { globalContext } from "../Context";
+} from 'lucide-react';
+import { Modal, Button } from 'react-bootstrap';
+import { FlashMessage } from '../../FlashMessage';
+import AddCategory from './AddCategory';
+import styles from './Categories.module.css';
+import { globalContext } from '../Context';
 
 const iconMapping = {
   technology: Code,
@@ -31,18 +31,11 @@ const iconMapping = {
 
 const fetchImageForCategory = async (categoryName) => {
   try {
-    const response = await fetch(
-      `https://api.pexels.com/v1/search?query=${categoryName}&per_page=1`,
-      {
-        headers: {
-          Authorization: "mDQv97YgInpiiB7lDK2rdkwvusNMjNA2aalf8TI57b99Rg5xle9oPBy5",
-        },
-      }
-    );
+    const response = await fetch(`https://api.pexels.com/v1/search?query=${categoryName}&per_page=1`, {
+      headers: { Authorization: "mDQv97YgInpiiB7lDK2rdkwvusNMjNA2aalf8TI57b99Rg5xle9oPBy5" },
+    });
     const data = await response.json();
-    return data.photos.length > 0
-      ? data.photos[0].src.medium
-      : "https://www.jaggaer.com/wp-content/uploads/2024/06/Category-intelligence-product.jpg";
+    return data.photos.length > 0 ? data.photos[0].src.medium : "https://www.jaggaer.com/wp-content/uploads/2024/06/Category-intelligence-product.jpg";
   } catch (error) {
     console.error("Error fetching image for category:", error);
     return "https://www.jaggaer.com/wp-content/uploads/2024/06/Category-intelligence-product.jpg";
@@ -50,67 +43,123 @@ const fetchImageForCategory = async (categoryName) => {
 };
 
 function CategoriesList() {
-  const { mode } = useContext(globalContext); // theme
+  const { mode } = useContext(globalContext);//theme
   const [categories, setCategories] = useState([]);
-  const [blogs, setBlogs] = useState([]);
   const [isGridView, setIsGridView] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [categoryToEdit, setCategoryToEdit] = useState(null);
   const [flash, setFlash] = useState({ message: "", type: "" });
 
-  useEffect(() => {
-    fetchCategories();
-    fetchBlogs();
-  }, []);
-
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://fastapi.phoneme.in/categories");
+      const response = await fetch('http://fastapi.phoneme.in/categories');
       if (!response.ok) {
-        throw new Error("Error fetching categories");
+        throw new Error('Error fetching categories');
       }
       const data = await response.json();
-      const formattedData = await Promise.all(
-        data.map(async (cat) => ({
-          id: cat.id,
-          name: cat.category_name,
-          description: `Explore posts related to ${cat.category_name}`,
-          icon: iconMapping[cat.category_name.toLowerCase()] || iconMapping.default,
-          image: await fetchImageForCategory(cat.category_name),
-        }))
-      );
+      const formattedData = await Promise.all(data.map(async (cat) => ({
+        id: cat.id,
+        name: cat.category_name,
+        description: `Explore posts related to ${cat.category_name}`,
+        count: Math.floor(Math.random() * 50) + 1,
+        icon: iconMapping[cat.category_name.toLowerCase()] || iconMapping.default,
+        image: await fetchImageForCategory(cat.category_name),
+      })));
       setCategories(formattedData);
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.error('Error fetching categories:', error);
       setFlash({
         message: "Failed to fetch categories. Please try again.",
-        type: "error",
+        type: "error"
       });
     }
   };
 
-  const fetchBlogs = async () => {
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const handleSaveCategory = async (category) => {
+    const url = category.id
+      ? `http://fastapi.phoneme.in/categories/${category.id}`
+      : 'http://fastapi.phoneme.in/categories';
+
+    const method = category.id ? 'PUT' : 'POST';
+
     try {
-      const response = await fetch("http://fastapi.phoneme.in/posts");
-      if (!response.ok) {
-        throw new Error("Failed to fetch blogs");
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          category_name: category.name,
+        }),
+      });
+
+      if (response.ok) {
+        setFlash({
+          message: `Category "${category.name}" ${category.id ? 'updated' : 'added'} successfully!`,
+          type: category.id ? 'update' : 'add'
+        });
+        fetchCategories();
+      } else {
+        const errorData = await response.json();
+        setFlash({
+          message: errorData.detail || `Failed to ${category.id ? 'update' : 'add'} category`,
+          type: "error"
+        });
       }
-      const data = await response.json();
-      setBlogs(data);
     } catch (error) {
-      console.error("Error fetching blogs:", error);
+      console.error(`Error ${category.id ? 'updating' : 'adding'} category:`, error);
+      setFlash({
+        message: `An error occurred while ${category.id ? 'updating' : 'adding'} the category`,
+        type: "error"
+      });
+    }
+
+    setShowModal(false);
+    setCategoryToEdit(null);
+  };
+
+  const handleDeleteCategory = async (categoryId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this category?');
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://fastapi.phoneme.in/categories/${categoryId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setFlash({
+          message: "Category deleted successfully!",
+          type: "delete"
+        });
+        fetchCategories();
+      } else {
+        const errorData = await response.json();
+        setFlash({
+          message: errorData.detail || "Failed to delete category",
+          type: "error"
+        });
+      }
+    } catch (error) {
+      console.error('Error deleting category:', error);
+      setFlash({
+        message: "An error occurred while deleting the category",
+        type: "error"
+      });
     }
   };
 
-  const getCategoryBlogCount = (categoryName) => {
-    return blogs.filter((blog) => blog.category.category_name === categoryName).length;
-  };
-
   return (
-    <div className={`${styles.container} ${mode === "light" ? "bg-light text-dark" : "bg-dark text-light"}`}>
-      <FlashMessage message={flash.message} type={flash.type} onClose={() => setFlash({ message: "", type: "" })} />
+    <div className={`${styles.container} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+      <FlashMessage
+        message={flash.message}
+        type={flash.type}
+        onClose={() => setFlash({ message: "", type: "" })}
+      />
 
-      <header className={`${styles.header} ${mode === "light" ? "bg-light text-dark" : "bg-dark text-light"}`}>
+      <header className={`${styles.header} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
         <div className={styles.headerContent}>
           <h1 className={styles.headerTitle}>Blog Categories</h1>
           <div className={styles.headerActions}>
@@ -127,10 +176,10 @@ function CategoriesList() {
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{categoryToEdit ? "Edit Category" : "Add Category"}</Modal.Title>
+          <Modal.Title>{categoryToEdit ? 'Edit Category' : 'Add Category'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddCategory onSave={fetchCategories} onClose={() => setShowModal(false)} categoryToEdit={categoryToEdit} />
+          <AddCategory onSave={handleSaveCategory} onClose={() => setShowModal(false)} categoryToEdit={categoryToEdit} />
         </Modal.Body>
       </Modal>
 
@@ -138,21 +187,17 @@ function CategoriesList() {
         <div className={isGridView ? styles.grid : styles.list}>
           {categories.map((category) => {
             const Icon = category.icon || BookOpen;
-            const blogCount = getCategoryBlogCount(category.name);
-
             return (
               <div key={category.id} className={styles.card}>
                 <div className={styles.imageContainer}>
                   <img src={category.image} alt={category.name} className={styles.image} />
                   <div className={styles.gradient} />
                 </div>
-                <div className={styles.iconContainer}>
-                  <Icon className={styles.icon} />
-                </div>
+                <div className={styles.iconContainer}><Icon className={styles.icon} /></div>
                 <div className={styles.content}>
                   <div className={styles.titleRow}>
                     <h2 className={styles.title}>{category.name}</h2>
-                    <span className={styles.count}>{blogCount} posts</span>
+                    <span className={styles.count}>{category.count} posts</span>
                   </div>
                   <p className={styles.description}>{category.description}</p>
                   <div className={styles.actions}>
@@ -175,7 +220,12 @@ function CategoriesList() {
                     </button>
                   </div>
                 </div>
-                {/* <a href={`/category/${category.id}`} className={styles.link} aria-label={`View ${category.name} category`} /> */}
+
+                {/* <a
+                  href={`/category/${category.id}`}
+                  className={styles.link}
+                  aria-label={`View ${category.name} category`}
+                /> */}
               </div>
             );
           })}
@@ -188,7 +238,7 @@ function CategoriesList() {
 export default CategoriesList;
 
 
-// import React, {  useContext,useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 // import {
 //   BookOpen,
 //   Code,
@@ -203,10 +253,9 @@ export default CategoriesList;
 //   Trash2,
 // } from 'lucide-react';
 // import { Modal, Button } from 'react-bootstrap';
-// import { FlashMessage } from '../../FlashMessage';
+// import FlashMessage from '../../FlashMessage';
 // import AddCategory from './AddCategory';
 // import styles from './Categories.module.css';
-// import { globalContext } from '../Context';
 
 // const iconMapping = {
 //   technology: Code,
@@ -233,12 +282,10 @@ export default CategoriesList;
 // };
 
 // function CategoriesList() {
-//   const { mode } = useContext(globalContext);//theme
 //   const [categories, setCategories] = useState([]);
 //   const [isGridView, setIsGridView] = useState(true);
 //   const [showModal, setShowModal] = useState(false);
 //   const [categoryToEdit, setCategoryToEdit] = useState(null);
-//   const [flash, setFlash] = useState({ message: "", type: "" });
 
 //   const fetchCategories = async () => {
 //     try {
@@ -258,10 +305,6 @@ export default CategoriesList;
 //       setCategories(formattedData);
 //     } catch (error) {
 //       console.error('Error fetching categories:', error);
-//       setFlash({
-//         message: "Failed to fetch categories. Please try again.",
-//         type: "error"
-//       });
 //     }
 //   };
 
@@ -286,24 +329,13 @@ export default CategoriesList;
 //       });
 
 //       if (response.ok) {
-//         setFlash({
-//           message: `Category "${category.name}" ${category.id ? 'updated' : 'added'} successfully!`,
-//           type: category.id ? 'update' : 'add'
-//         });
+//         alert(`Category "${category.name}" ${category.id ? 'updated' : 'added'} successfully!`);
 //         fetchCategories();
 //       } else {
-//         const errorData = await response.json();
-//         setFlash({
-//           message: errorData.detail || `Failed to ${category.id ? 'update' : 'add'} category`,
-//           type: "error"
-//         });
+//         console.error(`Failed to ${category.id ? 'update' : 'add'} category`);
 //       }
 //     } catch (error) {
 //       console.error(`Error ${category.id ? 'updating' : 'adding'} category:`, error);
-//       setFlash({
-//         message: `An error occurred while ${category.id ? 'updating' : 'adding'} the category`,
-//         type: "error"
-//       });
 //     }
 
 //     setShowModal(false);
@@ -320,36 +352,19 @@ export default CategoriesList;
 //       });
 
 //       if (response.ok) {
-//         setFlash({
-//           message: "Category deleted successfully!",
-//           type: "delete"
-//         });
+//         alert('Category deleted successfully!');
 //         fetchCategories();
 //       } else {
-//         const errorData = await response.json();
-//         setFlash({
-//           message: errorData.detail || "Failed to delete category",
-//           type: "error"
-//         });
+//         console.error('Failed to delete category');
 //       }
 //     } catch (error) {
 //       console.error('Error deleting category:', error);
-//       setFlash({
-//         message: "An error occurred while deleting the category",
-//         type: "error"
-//       });
 //     }
 //   };
 
 //   return (
-//     <div className={`${styles.container} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
-//       <FlashMessage
-//         message={flash.message}
-//         type={flash.type}
-//         onClose={() => setFlash({ message: "", type: "" })}
-//       />
-
-//       <header className={`${styles.header} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
+//     <div className={styles.container}>
+//       <header className={styles.header}>
 //         <div className={styles.headerContent}>
 //           <h1 className={styles.headerTitle}>Blog Categories</h1>
 //           <div className={styles.headerActions}>
@@ -416,6 +431,7 @@ export default CategoriesList;
 //                   className={styles.link}
 //                   aria-label={`View ${category.name} category`}
 //                 />
+//                 {/* </div> */}
 //               </div>
 //             );
 //           })}
@@ -426,4 +442,3 @@ export default CategoriesList;
 // }
 
 // export default CategoriesList;
-

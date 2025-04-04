@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Navbar, Container, Form, Button, Nav, ListGroup } from 'react-bootstrap';
 import { FaNewspaper, FaSearch, FaMoon, FaSun, FaPencilAlt} from 'react-icons/fa';  // Ensure FaSun is imported
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { globalContext } from "./Context";
 
 function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { mode, setMode } = useContext(globalContext);  
   const [searchQuery, setSearchQuery] = useState("");
   const [blogs, setBlogs] = useState([]);
@@ -99,6 +101,7 @@ function Header() {
               <Nav.Link href="#" className={mode === 'light' ? 'text-dark' : 'text-light fw-medium'} onClick={handleCategoryListClick}>Category List</Nav.Link>
             </SignedIn>
           </Nav>
+          <SignedIn>
           <Form className="d-flex align-items-center" onSubmit={handleSearchSubmit}>
             <div className="position-relative me-3" ref={searchRef}>
               <Form.Control
@@ -142,10 +145,14 @@ function Header() {
                   ))}
                 </ListGroup>
               )}
+            
 
             </div>
+            </Form>
+            </SignedIn>
 
             {/* Theme Toggle Button */}
+            <div className="d-flex align-items-center gap-2">
             <Button
               variant={mode === 'light' ? 'light' : 'secondary'}
               style={{ backgroundColor: 'transparent', border:'0', margin:'0' }}
@@ -166,7 +173,7 @@ function Header() {
                 <Button
                   variant={mode === 'light' ? 'light' : 'secondary'}
                   style={{ backgroundColor: 'transparent', border:'0', margin:'0' }}
-                  onClick={() => navigate('/login')}
+                  onClick={() => navigate('/login', { state: { from: location.pathname } })}
                 >
                   Login
                 </Button>
@@ -188,7 +195,8 @@ function Header() {
                 </Button>
               </SignedIn>
             </div>
-          </Form>
+            </div>
+       
         </Navbar.Collapse>
       </Container>
     </Navbar>

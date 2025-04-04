@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Navbar, Container, Form, Button, Nav } from 'react-bootstrap';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Navbar, Container, Form, Button, Nav, ListGroup } from 'react-bootstrap';
 import { FaNewspaper, FaSearch, FaMoon, FaSun, FaPencilAlt} from 'react-icons/fa';  // Ensure FaSun is imported
 import { useNavigate } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
@@ -8,6 +8,11 @@ import { globalContext } from "./Context";
 function Header() {
   const navigate = useNavigate();
   const { mode, setMode } = useContext(globalContext);  
+  const [searchQuery, setSearchQuery] = useState("");
+  const [blogs, setBlogs] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const searchRef = useRef(null);
 
   const handleCreateBlog = () => {
     navigate('/createblog');
@@ -20,6 +25,60 @@ function Header() {
   const handleCategoryListClick = () => {
     navigate('/categorieslist');
   };
+
+  useEffect(() => {
+    fetch("http://fastapi.phoneme.in/posts")
+      .then(response => response.json())
+      .then(data => setBlogs(data))
+      .catch(error => console.error("Error fetching blogs:", error));
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleSearch = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    if (query.trim() === '') {
+      setFilteredBlogs([]);
+      setShowDropdown(false);
+      return;
+    }
+
+    const filtered = blogs.filter(blog => 
+      blog.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredBlogs(filtered);
+    setShowDropdown(true);
+  };
+
+  const handleBlogClick = (blogId) => {
+    setShowDropdown(false);
+    setSearchQuery('');
+    navigate(`/details/${blogId}`); // Adjust this path according to your routing setup
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (searchQuery.trim()) {
+      const filtered = blogs.filter(blog => 
+        blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      navigate('/search-results', { state: { results: filtered } });
+    }
+  };
+
 
   return (
     <Navbar
@@ -40,18 +99,40 @@ function Header() {
               <Nav.Link href="#" className={mode === 'light' ? 'text-dark' : 'text-light fw-medium'} onClick={handleCategoryListClick}>Category List</Nav.Link>
             </SignedIn>
           </Nav>
-          <Form className="d-flex align-items-center">
-            <div className="position-relative me-3">
+          <Form className="d-flex align-items-center" onSubmit={handleSearchSubmit}>
+            <div className="position-relative me-3" ref={searchRef}>
               <Form.Control
                 type="search"
                 placeholder="Search news..."
+                value={searchQuery}
+                onChange={handleSearch}
                 className={`ps-4 rounded-pill ${mode === 'light' ? 'bg-light' : 'bg-secondary text-light'}`}
                 style={{ width: '300px' }}
               />
               <FaSearch
                 className={`position-absolute ${mode === 'light' ? 'text-muted' : 'text-light'}`}
-                style={{ left: '5px', top: '20px' }}
+                style={{ left: '10px', top: '25px',   transform: 'translateY(-50%)', cursor: 'pointer' }}
+                onClick={handleSearchSubmit}
               />
+              {showDropdown && filteredBlogs.length > 0 && (
+                <ListGroup 
+                  // className="position-absolute w-100 mt-1 shadow-lg"
+                  style={{ maxHeight: '300px', overflowY: 'auto', zIndex: 1000 }}
+                >
+                  {filteredBlogs.map((blog) => (
+                    <ListGroup.Item 
+                      key={blog.id}
+                      action
+                      onClick={() => handleBlogClick(blog.id)}
+                      className={`${mode === 'dark' ? 'bg-dark text-light' : ''} border-0`}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {blog.title}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
+
             </div>
 
             {/* Theme Toggle Button */}

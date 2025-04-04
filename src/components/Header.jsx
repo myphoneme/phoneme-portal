@@ -106,26 +106,36 @@ function Header() {
                 placeholder="Search news..."
                 value={searchQuery}
                 onChange={handleSearch}
-                className={`ps-4 rounded-pill ${mode === 'light' ? 'bg-light' : 'bg-secondary text-light'}`}
+                className={`ps-5 rounded-pill ${mode === 'light' ? 'bg-light' : 'bg-secondary text-light'}`}
                 style={{ width: '300px' }}
               />
               <FaSearch
                 className={`position-absolute ${mode === 'light' ? 'text-muted' : 'text-light'}`}
-                style={{ left: '10px', top: '25px',   transform: 'translateY(-50%)', cursor: 'pointer' }}
+                style={{ left: '15px', top: '25px',   transform: 'translateY(-50%)', cursor: 'pointer' }}
                 onClick={handleSearchSubmit}
               />
               {showDropdown && filteredBlogs.length > 0 && (
                 <ListGroup 
                   // className="position-absolute w-100 mt-1 shadow-lg"
-                  style={{ maxHeight: '300px', overflowY: 'auto', zIndex: 1000 }}
+                  // style={{ maxHeight: '300px', overflowY: 'auto', zIndex: 1000 }}
+                  className="position-absolute bg-white shadow-lg w-100"
+                   style={{
+                    top: "100%",  // Pushes it below the search bar
+                    left: 0,
+                    zIndex: 1050,  // Ensures it stays on top
+                    maxHeight: "300px",
+                    overflowY: "auto",
+                  }}
                 >
                   {filteredBlogs.map((blog) => (
                     <ListGroup.Item 
                       key={blog.id}
                       action
                       onClick={() => handleBlogClick(blog.id)}
-                      className={`${mode === 'dark' ? 'bg-dark text-light' : ''} border-0`}
-                      style={{ cursor: 'pointer' }}
+                      className={`${mode === 'dark' ? 'bg-dark text-light' : ''} border-bottom`}
+                      style={{ cursor: 'pointer',
+                      borderColor: mode === 'dark' ? '#555' : '#ddd'
+                       }}
                     >
                       {blog.title}
                     </ListGroup.Item>

@@ -137,7 +137,29 @@ const CreateBlog = () => {
           <input type="file" accept="image/*" onChange={handleImageChange} className={styles.fileInput} />
 
           <label className={styles.label}>Content:</label>
-          <Editor apiKey="udbl2vt3syyp9hwrtvtuuky6he9qixn2nqevk4vnqdzzlmbx" value={formData.body} onEditorChange={handleChange} init={{ height: 400, menubar: true }} />
+          <Editor
+  apiKey="udbl2vt3syyp9hwrtvtuuky6he9qixn2nqevk4vnqdzzlmbx"
+  value={formData.body}
+  onEditorChange={handleChange}
+  init={{
+    height: 400,
+    menubar: true,
+    skin: mode === 'dark' ? 'oxide-dark' : 'oxide',
+    content_css: mode === 'dark' ? 'dark' : 'default',
+    toolbar: 'undo redo | formatselect | bold italic backcolor | \
+              alignleft aligncenter alignright alignjustify | \
+              bullist numlist outdent indent | removeformat | help',
+    content_style: `
+      body {
+        background-color: ${mode === 'dark' ? '#1e1e1e' : '#ffffff'};
+        color: ${mode === 'dark' ? '#f5f5f5' : '#000000'};
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        padding: 15px;
+      }
+    `,
+  }}
+/>
 
           <div className={styles.buttonGroup}>
             <button type="submit" className={styles.submitButton}>{id ? 'Update Blog' : 'Create Blog'}</button>

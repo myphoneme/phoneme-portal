@@ -38,17 +38,24 @@ useEffect(() => {
   }
 }, []);
   return (
-    <div className={`${styles.mainWrap} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}  style={mode === 'dark' ? { backgroundColor: '#1a1a1a' } : {}}>
+    <div
+  className={`${styles.mainWrap} ${mode === 'light' ? "bg-light text-dark" : "text-light"}`}
+  style={mode === 'dark' ? { backgroundColor: '#2c2c2c' } : {}}
+>
 
-    <Container className={`${styles.mainContainer} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}  style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
+
+    <Container  className={`${styles.mainContainer} ${mode === 'light' ? "bg-light text-dark" : "text-light"}`}
+  style={mode === 'dark' ? { backgroundColor: '#2c2c2c', boxShadow: 'none' } : {}}
+>
       <Row className="my-3">
         {/* Main News Section with Slider */}
         <Col md={8}>
         {articles.length > 20 && (
           <a href={articles[20].url} target="_blank" rel="noopener noreferrer" className={styles.newsLink}>
-          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
+          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none'  } : {}}>
             <Card.Img variant="top" className={styles.mainImage} src={articles[20].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
+              
             <Card.Title>{articles[20].title}</Card.Title>
               <div className="d-flex align-items-center">
                 <FaRegThumbsUp className="me-2" /> 54
@@ -62,7 +69,7 @@ useEffect(() => {
         </Col>
         {/* Top Stories and Market Section */}
         <Col md={4}>
-          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
+          <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}} >
             <Card.Body>
               <Card.Title>Top Stories</Card.Title>
               <ul>

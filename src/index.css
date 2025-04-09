@@ -1,6 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-.hover-shadow {
+/* .hover-shadow {
   transition: box-shadow 0.3s ease-in-out;
 }
 
@@ -14,4 +14,13 @@
 
 .sticky-top {
   z-index: 1020;
+} */
+
+@media (max-width: 768px) {
+  .navbar-toggler {
+    width: 100px;
+  }
+  .left-btn{
+    width: 150px;
+  }
 }

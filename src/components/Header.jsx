@@ -4,6 +4,7 @@ import { FaNewspaper, FaSearch, FaMoon, FaSun, FaPencilAlt} from 'react-icons/fa
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { globalContext } from "./Context";
+import '../index.css';
 
 function Header() {
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ function Header() {
 
   return (
     <Navbar
+    
       bg={mode === 'light' ? 'white' : 'dark'}
       expand="lg"
       className={`shadow-sm sticky-top z-index-999 ${mode === 'dark' ? 'navbar-dark' : ''}`}
@@ -152,7 +154,7 @@ function Header() {
             </SignedIn>
 
             {/* Theme Toggle Button */}
-            <div className="d-flex align-items-center gap-2">
+            <div className="d-flex align-items-center gap-2 left-btn">
             <Button
               variant={mode === 'light' ? 'light' : 'secondary'}
               style={{ backgroundColor: 'transparent', border:'0', margin:'0' }}
@@ -201,6 +203,7 @@ function Header() {
       </Container>
     </Navbar>
   );
+  
 }
 
 

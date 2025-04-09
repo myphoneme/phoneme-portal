@@ -181,8 +181,6 @@ function BlogDetails() {
                   src={user?.imageUrl || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60"}
                 
                   alt="Author"
-
-
                 />
                 <div className={styles.authorInfo}>
                   <h3>{post.created_user.name}</h3>

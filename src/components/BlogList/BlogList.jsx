@@ -46,6 +46,7 @@ const BlogList = () => {
   const handleReadMore = (id) => {
     navigate(`/details/${id}`);  // Redirect to the details page for the clicked blog
   };
+  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -69,40 +70,50 @@ const BlogList = () => {
           <h3>Users Blog</h3>
             {blogs.map((blog) => (
               <div key={blog.id} className={`${styles.blogCard} ${mode === 'light' ? "bg-white text-dark" : "bg-dark text-light"}`}>
-                <div className={styles.imageContainer}>
-                  <img
-                    src={`http://fastapi.phoneme.in/${blog.image}`}
-                    alt={blog.title}
-                    className={styles.blogImage}
-                  />
-                </div>
-                <div className={styles.contentContainer}>
-                  <span className={styles.category}>{blog.category.category_name}</span>
-                  <h2 className={styles.blogTitle}>{blog.title}</h2>
-                  {/* <p className={styles.blogContent} >{blog.post}</p> */}
-                  <div className={styles.blogContent} dangerouslySetInnerHTML={{ __html: blog.post }} />
-                  <div className={styles.metadata}>
-                    <span className="d-flex align-items-center gap-2">
-                      <User size={14} />
-                      {blog.created_user.name}
-                    </span>
-                    <span className="d-flex align-items-center gap-2">
-                      <Calendar size={14} />
-                      {new Date(blog.created_at).toLocaleDateString()}
-                    </span>
+                <Row >
+                  <Col md={4}>
+                  <div className={styles.imageContainer}>
+                    <img
+                      src={`http://fastapi.phoneme.in/${blog.image}`}
+                      alt={blog.title}
+                      className={styles.blogImage}
+                    />
                   </div>
-                  <div className={styles.buttonContainer}>
-                    <Button variant="primary" className={`${styles.button} ${styles.readMoreBtn}`}onClick={() => handleReadMore(blog.id)} > <BookOpen size={14} /> Read More </Button>
-                    <Button variant="warning" className={`${styles.button} ${styles.editBtn}`} onClick={() => handleEdit(blog.id)} ><Edit2 size={14} />  Edit </Button>
-                    <Button variant="danger" className={`${styles.button} ${styles.deleteBtn}`}onClick={() => handleDelete(blog.id)}><Trash2 size={14} /> Delete</Button>
+                  </Col>
+                  <Col md={8}>
+                  <div className={styles.contentContainer}>
+                    <span className={styles.category}>{blog.category.category_name}</span>
+                    <h2 className={styles.blogTitle}>{blog.title}</h2>
+                    {/* <p className={styles.blogContent} >{blog.post}</p> */}
+                    {/* <div className={styles.blogContent} dangerouslySetInnerHTML={{ __html: blog.post }} /> */}
+                    <p className={styles.blogContent}>
+                      {blog.post.replace(/<[^>]+>/g, '').slice(0, 200)}...
+                    </p>
+                    <div className={styles.metadata}>
+                      <span className="d-flex align-items-center gap-2">
+                        <User size={14} />
+                        {blog.created_user.name}
+                      </span>
+        
+                      <span className="d-flex align-items-center gap-2">
+                        <Calendar size={14} />
+                        {new Date(blog.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <div className={styles.buttonContainer}>
+                      <Button variant="primary" className={`${styles.button} ${styles.readMoreBtn}`}onClick={() => handleReadMore(blog.id)} > <BookOpen size={14} /> Read More </Button>
+                      <Button variant="warning" className={`${styles.button} ${styles.editBtn}`} onClick={() => handleEdit(blog.id)} ><Edit2 size={14} />  Edit </Button>
+                      <Button variant="danger" className={`${styles.button} ${styles.deleteBtn}`}onClick={() => handleDelete(blog.id)}><Trash2 size={14} /> Delete</Button>
+                    </div>
                   </div>
-                </div>
+                  </Col>
+                </Row>
               </div>
             ))}
           </Col>
 
           {/* recent posts */}
-          <Col lg={4}>
+          <Col lg={4} >
           <div className={`${styles.recentPost} ${mode === 'light' ? "bg-white text-dark" : "bg-dark text-light"}`}> 
             <div className="sticky-top" style={{ top: '2rem' }}>
               <h3 className={styles.sidebarTitle}>Recent Posts</h3>

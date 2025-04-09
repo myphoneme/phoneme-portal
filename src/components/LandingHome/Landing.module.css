@@ -7,7 +7,7 @@
   box-shadow: 2px 1px 8px 5px #b9b8b8;
 }
 .bodyCard{
-  border: 0;
+  border: 1px solid #fff;
   box-shadow: 2px 1px 8px 5px #eeeded;
   margin: 10px 0;
   background-color: #f1f1f1;

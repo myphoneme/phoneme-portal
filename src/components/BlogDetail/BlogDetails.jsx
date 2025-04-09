@@ -85,7 +85,7 @@ function BlogDetails() {
       <Container >
         <Row className={styles.mainContent}>
         <h5 >{post.title}</h5>
-          <Col lg={8}>
+          <Col lg={8} className='mt-4'>
             {/* <div className={styles.featuredImage}>
               <img
                 src={`http://fastapi.phoneme.in/${post.image}`} 
@@ -181,6 +181,8 @@ function BlogDetails() {
                   src={user?.imageUrl || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60"}
                 
                   alt="Author"
+
+
                 />
                 <div className={styles.authorInfo}>
                   <h3>{post.created_user.name}</h3>
@@ -195,7 +197,7 @@ function BlogDetails() {
             </div>
           </Col>
 
-          <Col lg={4}>
+          <Col lg={4} className='mt-4'>
             <div className={`${styles.sidebar}`}>
               <div className={`${styles.sidebarSection} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
                 <h3>Related Articles</h3>

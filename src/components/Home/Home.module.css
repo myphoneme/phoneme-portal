@@ -288,7 +288,7 @@
     .blogPost {
       flex-direction: column;
       padding: 12px;
-      text-align: center;
+      /* text-align: center; */
       padding: 0;
     }
     .homeBlog{

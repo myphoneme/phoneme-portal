@@ -95,7 +95,7 @@ useEffect(() => {
 
       {/* Additional News and Ads */}
       <Row className='mb-4'>
-        <Col md={4}>
+        <Col md={4} className='mt-2'>
         {articles.length > 0 && (
             <Link to={articles[0].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
@@ -107,7 +107,7 @@ useEffect(() => {
           </Link>
         )}
         </Col>
-        <Col md={4}>
+        <Col md={4} className='mt-2'>
         {articles.length > 1 && (
             <Link to={articles[1].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
@@ -120,7 +120,7 @@ useEffect(() => {
            </Link>
           )}
         </Col>
-        <Col md={4}>
+        <Col md={4} className='mt-2'>
         {articles.length > 2 && (
             <Link to={articles[2].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>

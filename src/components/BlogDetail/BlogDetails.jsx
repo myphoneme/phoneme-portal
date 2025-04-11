@@ -112,7 +112,9 @@ function BlogDetails() {
 
                 <p className={styles.lead}>
                   {post.post ? (
-                    <span dangerouslySetInnerHTML={{ __html: post.post.substring(0, 150) + "..." }} />
+                    // <span dangerouslySetInnerHTML={{ __html: post.post.substring(0, 200) + "..." }} />
+                    <span dangerouslySetInnerHTML={{ __html: post.post }} />
+
                   ) : (
                     "Content not available"
                     )}

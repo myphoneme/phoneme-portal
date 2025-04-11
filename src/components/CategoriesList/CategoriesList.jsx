@@ -52,7 +52,7 @@ function CategoriesList() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://fastapi.phoneme.in/categories');
+      const response = await fetch('http://192.168.1.11/categories');
       if (!response.ok) {
         throw new Error('Error fetching categories');
       }
@@ -81,8 +81,8 @@ function CategoriesList() {
 
   const handleSaveCategory = async (category) => {
     const url = category.id
-      ? `http://fastapi.phoneme.in/categories/${category.id}`
-      : 'http://fastapi.phoneme.in/categories';
+      ? `http://192.168.1.11/categories/${category.id}`
+      : 'http://192.168.1.11/categories';
 
     const method = category.id ? 'PUT' : 'POST';
 
@@ -125,7 +125,7 @@ function CategoriesList() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://fastapi.phoneme.in/categories/${categoryId}`, {
+      const response = await fetch(`http://192.168.1.11/categories/${categoryId}`, {
         method: 'DELETE',
       });
 
@@ -220,7 +220,6 @@ function CategoriesList() {
                     </button>
                   </div>
                 </div>
-
                 {/* <a
                   href={`/category/${category.id}`}
                   className={styles.link}
@@ -289,7 +288,7 @@ export default CategoriesList;
 
 //   const fetchCategories = async () => {
 //     try {
-//       const response = await fetch('http://fastapi.phoneme.in/categories');
+//       const response = await fetch('http://192.168.1.11/categories');
 //       if (!response.ok) {
 //         throw new Error('Error fetching categories');
 //       }
@@ -314,8 +313,8 @@ export default CategoriesList;
 
 //   const handleSaveCategory = async (category) => {
 //     const url = category.id
-//       ? `http://fastapi.phoneme.in/categories/${category.id}`
-//       : 'http://fastapi.phoneme.in/categories';
+//       ? `http://192.168.1.11/categories/${category.id}`
+//       : 'http://192.168.1.11/categories';
 
 //     const method = category.id ? 'PUT' : 'POST';
 
@@ -347,7 +346,7 @@ export default CategoriesList;
 //     if (!confirmDelete) return;
 
 //     try {
-//       const response = await fetch(`http://fastapi.phoneme.in/categories/${categoryId}`, {
+//       const response = await fetch(`http://192.168.1.11/categories/${categoryId}`, {
 //         method: 'DELETE',
 //       });
 

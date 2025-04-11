@@ -30,7 +30,7 @@ function Header() {
   };
 
   useEffect(() => {
-    fetch("http://fastapi.phoneme.in/posts")
+    fetch("http://192.168.1.11:8000/posts")
       .then(response => response.json())
       .then(data => setBlogs(data))
       .catch(error => console.error("Error fetching blogs:", error));

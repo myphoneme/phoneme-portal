@@ -19,8 +19,9 @@ const CreateBlog = () => {
     image: null,
   });
 
+
   useEffect(() => {
-    fetch('http://fastapi.phoneme.in/categories')
+    fetch('http://192.168.1.11:8000/categories')
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => {
@@ -29,7 +30,7 @@ const CreateBlog = () => {
       });
 
     if (id) {
-      fetch(`http://fastapi.phoneme.in/posts/${id}`)
+      fetch(`http://192.168.1.11:8000/posts/${id}`)
         .then((response) => response.json())
         .then((data) => {
           setFormData({
@@ -85,7 +86,7 @@ const CreateBlog = () => {
     }
 
     try {
-      const url = id ? `http://fastapi.phoneme.in/posts/${id}` : 'http://fastapi.phoneme.in/posts';
+      const url = id ? `http://192.168.1.11:8000/posts/${id}` : 'http://192.168.1.11:8000/posts';
       const method = id ? 'PUT' : 'POST';
 
       const response = await fetch(url, { method, body: data });
@@ -105,7 +106,7 @@ const CreateBlog = () => {
   const handleDelete = async () => {
     if (!id) return;
     try {
-      const response = await fetch(`http://fastapi.phoneme.in/posts/${id}`, { method: 'DELETE' });
+      const response = await fetch(`http://192.168.1.11:8000/posts/${id}`, { method: 'DELETE' });
       if (!response.ok) {
         const errorData = await response.json();
         setFlash({ message: errorData.detail || "Failed to delete blog", type: "error" });
@@ -197,7 +198,7 @@ export default CreateBlog;
 //   });
 
 //   useEffect(() => {
-//     fetch('http://fastapi.phoneme.in/categories')
+//     fetch('http://192.168.1.11:8000/categories')
 //       .then((response) => response.json())
 //       .then((data) => setCategories(data))
 //       .catch((error) => {
@@ -206,7 +207,7 @@ export default CreateBlog;
 //       });
 
 //     if (id) {
-//       fetch(`http://fastapi.phoneme.in/posts/${id}`)
+//       fetch(`http://192.168.1.11:8000/posts/${id}`)
 //         .then((response) => response.json())
 //         .then((data) => {
 //           setFormData({
@@ -265,8 +266,8 @@ export default CreateBlog;
 
 //     try {
 //       const url = id
-//         ? `http://fastapi.phoneme.in/posts/${id}`
-//         : 'http://fastapi.phoneme.in/posts';
+//         ? `http://192.168.1.11:8000/posts/${id}`
+//         : 'http://192.168.1.11:8000/posts';
 
 //       const method = id ? 'PUT' : 'POST';
 
@@ -307,7 +308,7 @@ export default CreateBlog;
 //     if (!id) return;
 
 //     try {
-//       const response = await fetch(`http://fastapi.phoneme.in/posts/${id}`, {
+//       const response = await fetch(`http://192.168.1.11:8000/posts/${id}`, {
 //         method: 'DELETE',
 //       });
 

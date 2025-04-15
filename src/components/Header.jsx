@@ -4,7 +4,7 @@ import { FaNewspaper, FaSearch, FaMoon, FaSun, FaPencilAlt} from 'react-icons/fa
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { globalContext } from "./Context";
-import '../index.css';
+// import '../index.css';
 
 function Header() {
   const navigate = useNavigate();
@@ -125,9 +125,9 @@ function Header() {
                   // style={{ maxHeight: '300px', overflowY: 'auto', zIndex: 1000 }}
                   className="position-absolute bg-white shadow-lg w-100"
                    style={{
-                    top: "100%",  // Pushes it below the search bar
+                    top: "100%",  
                     left: 0,
-                    zIndex: 1050,  // Ensures it stays on top
+                    zIndex: 1050, 
                     maxHeight: "300px",
                     overflowY: "auto",
                   }}
@@ -139,8 +139,10 @@ function Header() {
                       onClick={() => handleBlogClick(blog.id)}
                       className={`${mode === 'dark' ? 'bg-dark text-light' : ''} border-bottom`}
                       style={{ cursor: 'pointer',
-                      borderColor: mode === 'dark' ? '#555' : '#ddd'
-                       }}
+                      backdropFilter:'none',
+                      borderRadius: 0, // remove pill look
+                      marginBottom: '0px',
+                      }}
                     >
                       {blog.title}
                     </ListGroup.Item>
@@ -198,7 +200,6 @@ function Header() {
               </SignedIn>
             </div>
             </div>
-       
         </Navbar.Collapse>
       </Container>
     </Navbar>

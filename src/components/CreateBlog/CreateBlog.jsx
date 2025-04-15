@@ -152,7 +152,7 @@ const CreateBlog = () => {
               bullist numlist outdent indent | removeformat | help',
     content_style: `
       body {
-        background-color: ${mode === 'dark' ? '#1e1e1e' : '#ffffff'};
+        background-color: ${mode === '' ? '#1e1e1e' : '#ffffff'};
         color: ${mode === 'dark' ? '#f5f5f5' : '#000000'};
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 14px;
@@ -173,10 +173,6 @@ const CreateBlog = () => {
 };
 
 export default CreateBlog;
-
-
-
-
 // import React, { useEffect, useState } from 'react';
 // import { Editor } from '@tinymce/tinymce-react';
 // import { useParams, useNavigate } from 'react-router-dom';

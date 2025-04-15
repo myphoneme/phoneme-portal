@@ -13,7 +13,7 @@ const BlogList = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://192.168.1.11:8000/posts');
+        const response = await fetch('http://192.168.1.6:7100/posts');
         if (!response.ok) {
           throw new Error('Failed to fetch blogs');
         }
@@ -33,7 +33,7 @@ const BlogList = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this blog?')) return;
     try {
-      const response = await fetch(`http://192.168.1.11:8000/posts/${id}`, {
+      const response = await fetch(`http://192.168.1.6:7100/posts/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete blog');
@@ -74,7 +74,7 @@ const BlogList = () => {
                   <Col md={4}>
                   <div className={styles.imageContainer}>
                     <img
-                      src={`http://192.168.1.11:8000/${blog.image}`}
+                      src={`http://192.168.1.6:7100/${blog.image}`}
                       alt={blog.title}
                       className={styles.blogImage}
                     />
@@ -120,7 +120,7 @@ const BlogList = () => {
               {sortedBlogs.slice(0, 5).map((blog) => (
                 <div key={blog.id} className={`${styles.recentPost} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} onClick={() => handleReadMore(blog.id)}>
                   <img
-                    src={`http://192.168.1.11:8000/${blog.image}`}
+                    src={`http://192.168.1.6:7100/${blog.image}`}
                     alt={blog.title}
                     className={styles.recentPostImage}
                   />

@@ -15,7 +15,7 @@ const NewsDashboard = () => {
   const[isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
-    fetch('http://192.168.1.6:7100/posts')
+    fetch('http://fastapi.phoneme.in/posts')
       .then((response) => response.json())
       .then((data) => {
         setFeaturedBlogs(data.slice(0,6));
@@ -172,7 +172,7 @@ useEffect(() => {
                 <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
                     <Card.Img 
                     variant="top" 
-                    src={`http://192.168.1.6:7100/${blog.image}`}
+                    src={`http://fastapi.phoneme.in/${blog.image}`}
                     style={{ height: '200px', objectFit: 'cover' }}
                     />
                     <Card.Body>

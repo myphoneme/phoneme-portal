@@ -123,13 +123,15 @@ function Header() {
                 <ListGroup 
                   // className="position-absolute w-100 mt-1 shadow-lg"
                   // style={{ maxHeight: '300px', overflowY: 'auto', zIndex: 1000 }}
-                  className="position-absolute bg-white shadow-lg w-100"
+                  // className="position-absolute bg-dark shadow-lg w-100"
+                  className={mode === 'light' ? 'text-muted' : 'text-light'}
                    style={{
                     top: "100%",  
                     left: 0,
                     zIndex: 1050, 
                     maxHeight: "300px",
                     overflowY: "auto",
+                  
                   }}
                 >
                   {filteredBlogs.map((blog) => (

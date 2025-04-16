@@ -17,12 +17,12 @@ function Home() {
 
   useEffect(() => {
     // Fetch data from API using fetch
-    fetch('http://fastapi.phoneme.in/posts')
+    fetch('http://192.168.1.6:7100/posts')
       .then(response => response.json())
       .then(data => setPosts(data))
       .catch(error => console.error('Error fetching posts:', error));
 
-    fetch('http://fastapi.phoneme.in/categories')
+    fetch('http://192.168.1.6:7100/categories')
       .then(response => response.json())
       .then(data => setCategories(data))
       .catch(error => console.error('Error fetching categories:', error));
@@ -79,7 +79,7 @@ function Home() {
                   <Col md={4}>
                     <div>
                       <img
-                        src={`http://fastapi.phoneme.in/${post.image}`}
+                        src={`http://192.168.1.6:7100/${post.image}`}
                         alt={post.title}
                         className={styles.blogImage}
                       />
@@ -164,7 +164,7 @@ function Home() {
                    </div>
                    <div>
                       <img
-                        src={`http://fastapi.phoneme.in/${post.image}`}
+                        src={`http://192.168.1.6:7100/${post.image}`}
                         alt={post.title}
                         className={styles.recentPostImage}
                       />

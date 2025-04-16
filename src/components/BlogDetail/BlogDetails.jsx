@@ -33,12 +33,12 @@ function BlogDetails() {
 
   useEffect(() => {
     // Fetch the full post using the id from the URL
-    fetch(`http://fastapi.phoneme.in/posts/${id}`)
+    fetch(`http://192.168.1.6:7100/posts/${id}`)
       .then((response) => response.json())
       .then((data) => setPost(data))
       .catch((error) => console.error('Error fetching post details:', error));
 
-      fetch(`http://fastapi.phoneme.in/posts?limit=5`)
+      fetch(`http://192.168.1.6:7100/posts?limit=5`)
       .then((response) => response.json())
       .then((data) => {
         const sortedPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -88,7 +88,7 @@ function BlogDetails() {
           <Col lg={8} className='mt-4'>
             {/* <div className={styles.featuredImage}>
               <img
-                src={`http://fastapi.phoneme.in/${post.image}`} 
+                src={`http://192.168.1.6:7100/${post.image}`} 
                 alt="Featured"
               />
             </div> */}
@@ -101,7 +101,7 @@ function BlogDetails() {
               </div> */}
                <div className={styles.featuredImage}>
               <img
-                src={`http://fastapi.phoneme.in/${post.image}`} 
+                src={`http://192.168.1.6:7100/${post.image}`} 
                 alt="Featured"
               />
             </div>
@@ -204,7 +204,7 @@ function BlogDetails() {
                 {relatedPosts.map((blog, index) => (
                   <Link to={`/details/${blog.id}`} key={blog.id} className={styles.relatedPostLink}>
                   <div key={index} className={styles.relatedPost}>
-                    <img src={`http://fastapi.phoneme.in/${blog.image}`} alt={blog.title} />
+                    <img src={`http://192.168.1.6:7100/${blog.image}`} alt={blog.title} />
                     <div>
                       <h4>{blog.title}</h4>
                       <span><Calendar size={14} />  {new Date(blog.created_at).toLocaleDateString()}</span>

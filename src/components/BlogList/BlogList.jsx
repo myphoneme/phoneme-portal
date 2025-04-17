@@ -4,8 +4,11 @@ import { Edit2, Trash2, BookOpen, Calendar, User } from 'lucide-react';
 import styles from './BlogList.module.css';
 import { Link , useNavigate } from 'react-router-dom';
 import { globalContext } from '../Context';
+import { FlashMessage } from '../../FlashMessage';
+
 const BlogList = () => {
 
+  const [flash, setFlash] = useState({ message: "", type: "" });
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -38,7 +41,8 @@ const BlogList = () => {
       });
       if (!response.ok) throw new Error('Failed to delete blog');
       setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
-      alert('Blog deleted successfully');
+      // alert('Blog deleted  111 successfully');
+      setFlash({ message: "Blog deleted successfully", type: "delete" });
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
@@ -64,6 +68,11 @@ const BlogList = () => {
   >
   
    <Container>
+   <FlashMessage
+        message={flash.message}
+        type={flash.type}
+        onClose={() => setFlash({ message: "", type: "" })}
+      />
         <Row>
           {/* Users blog */}
           <Col lg={8}>

@@ -96,7 +96,8 @@ const CreateBlog = () => {
         setFlash({ message: errorData.detail || "Failed to create/update blog", type: "error" });
       } else {
         setFlash({ message: id ? "Blog updated successfully!" : "Blog created successfully!", type: id ? "update" : "add" });
-        setTimeout(() => navigate('/list'), 3000);
+        // setTimeout(() => navigate('/list'), 3000);
+        setTimeout(() => navigate('/list', { replace: true }), 3000);
       }
     } catch (error) {
       setFlash({ message: "An error occurred. Please try again", type: "error" });

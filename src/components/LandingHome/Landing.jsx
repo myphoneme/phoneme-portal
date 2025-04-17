@@ -4,15 +4,19 @@ import { FaRegThumbsUp, FaRegCommentAlt, FaShare, FaClock ,FaRegBookmark } from 
 import styles from './Landing.module.css';
 // import { Link } from 'react-router-dom';  
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { globalContext } from '../Context';
+import { useAuth } from "@clerk/clerk-react";
+
 
 const NewsDashboard = () => {
 
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
   const [articles, setArticles] = useState([]);
   const { mode } = useContext(globalContext);
-  const[isLoggedIn, setIsLoggedIn] = useState(false)
+  const[isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, isLoaded, isSignedIn } = useAuth(); // Using Clerk's useAuth hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('http://fastapi.phoneme.in/posts')
@@ -31,12 +35,30 @@ const NewsDashboard = () => {
         .catch(error => console.error(error));
 }, []);
 
+// useEffect(() => {
+//   const token = localStorage.getItem('accessToken');
+//   if (token) {
+//     setIsLoggedIn(true);
+//   }
+// }, []);
+
 useEffect(() => {
-  const token = localStorage.getItem('accessToken');
-  if (token) {
+  if (isLoaded && !isSignedIn) {
+    setIsLoggedIn(false);
+  } else if (isLoaded && isSignedIn) {
     setIsLoggedIn(true);
   }
-}, []);
+}, [isLoaded, isSignedIn]);
+
+// Handle redirection logic
+const handleReadMoreClick = (blogId) => {
+  if (isLoggedIn) {
+    navigate(`/details/${blogId}`); // Navigate to the blog details page
+  } else {
+    navigate('/login'); // Redirect to the login page
+  }
+};
+
   return (
     <div
   className={`${styles.mainWrap} ${mode === 'light' ? "bg-light text-dark" : "text-light"}`}
@@ -192,11 +214,14 @@ useEffect(() => {
                         </div>
                         {/* Link to the individual blog details page */}
                     {/* <Link to={`/details/${blog.id}`} className="btn btn-success mt-3"> */}
-                    <Link to = '/login' className='btn btn-success mt-3'>
+                    {/* <Link to = '/login' className='btn btn-success mt-3'> */}
                     {/* <Link to={isLoggedIn ? `/details/${blog.id}` : '/login'} className='btn btn-success mt-3'> */}
-                      Read More
-                    </Link>
-                        {/* <FaRegBookmark className="text-muted cursor-pointer" size={16} /> */}
+                      {/* Read More
+                    </Link> */}
+                  <button className="btn btn-success mt-0" onClick={() => handleReadMoreClick(blog.id)}
+                    style={{ width: '110px' }}>
+                        Read More
+                      </button>
                     </div>
                     
                     </Card.Body>

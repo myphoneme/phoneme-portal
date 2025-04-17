@@ -30,7 +30,7 @@ function Header() {
   };
 
   useEffect(() => {
-    fetch("http://192.168.1.6:7100/posts")
+    fetch("http://fastapi.phoneme.in/posts")
       .then(response => response.json())
       .then(data => setBlogs(data))
       .catch(error => console.error("Error fetching blogs:", error));
@@ -120,20 +120,21 @@ function Header() {
                 onClick={handleSearchSubmit}
               />
               {showDropdown && filteredBlogs.length > 0 && (
-                <ListGroup 
-                  // className="position-absolute w-100 mt-1 shadow-lg"
-                  // style={{ maxHeight: '300px', overflowY: 'auto', zIndex: 1000 }}
-                  // className="position-absolute bg-dark shadow-lg w-100"
-                  className={mode === 'light' ? 'text-muted' : 'text-light'}
-                   style={{
-                    top: "100%",  
-                    left: 0,
-                    zIndex: 1050, 
-                    maxHeight: "300px",
-                    overflowY: "auto",
-                  
-                  }}
-                >
+               <ListGroup 
+               className={`${
+                 mode === 'light' ? "bg-light text-dark" : "text-light"
+               }`}
+               style={{
+                 position: 'absolute', // Make sure position is absolute
+                 top: '100%',  // Adjust as per your design
+                 left: 0,
+                 zIndex: 1050, 
+                 maxHeight: '300px',
+                 overflowY: 'auto',
+                 backgroundColor: mode === 'dark' ? '#2c2c2c' : 'white', // Adding background color dynamically
+                 boxShadow: mode === 'dark' ? 'none' : '0px 4px 6px rgba(0, 0, 0, 0.1)' // Optional: Add shadow for light mode
+               }}
+             >
                   {filteredBlogs.map((blog) => (
                     <ListGroup.Item 
                       key={blog.id}

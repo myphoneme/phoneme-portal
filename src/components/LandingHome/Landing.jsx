@@ -29,10 +29,26 @@ const NewsDashboard = () => {
       });
   }, []); 
 
-  useEffect(() => {
-    axios.get("https://newsapi.org/v2/everything?q=trading&apiKey=75930e8401c24bca8b8ee0dfaec77cf9")
-        .then(response => setArticles(response.data.articles))
-        .catch(error => console.error(error));
+//   useEffect(() => {
+//     axios.get("https://newsapi.org/v2/everything?q=trading&apiKey=75930e8401c24bca8b8ee0dfaec77cf9")
+//         .then(response => setArticles(response.data.articles))
+//         .catch(error => console.error(error));
+// }, []);
+
+useEffect(() => {
+  fetch("https://fastapi.phoneme.in/news")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setArticles(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching news data:", error);
+    });
 }, []);
 
 // useEffect(() => {

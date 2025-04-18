@@ -19,7 +19,7 @@ const NewsDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://fastapi.phoneme.in/posts')
+    fetch('https://fastapi.phoneme.in/posts')
       .then((response) => response.json())
       .then((data) => {
         setFeaturedBlogs(data.slice(0,6));
@@ -194,7 +194,7 @@ const handleReadMoreClick = (blogId) => {
                 <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
                     <Card.Img 
                     variant="top" 
-                    src={`http://fastapi.phoneme.in/${blog.image}`}
+                    src={`https://fastapi.phoneme.in/${blog.image}`}
                     style={{ height: '200px', objectFit: 'cover' }}
                     />
                     <Card.Body>

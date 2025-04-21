@@ -4,7 +4,7 @@ import { FaNewspaper, FaSearch, FaMoon, FaSun, FaPencilAlt} from 'react-icons/fa
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { globalContext } from "./Context";
-// import '../index.css';
+import '../index.css';
 
 function Header() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [blogs, setBlogs] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [filteredBlogs, setFilteredBlogs] = useState([]); 
   const searchRef = useRef(null);
 
   const handleCreateBlog = () => {

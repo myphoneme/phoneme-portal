@@ -6,6 +6,7 @@ import { FlashMessage } from '../../FlashMessage';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+
 const CreateBlog = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const CreateBlog = () => {
             formData.append('file', file);
   
             try {
-              const res = await fetch('http://localhost:8000/upload', {
+              const res = await fetch('https://fastapi.phoneme.in/upload', {
                 method: 'POST',
                 body: formData
               });
@@ -189,6 +190,7 @@ const CreateBlog = () => {
             onChange={(value) => setFormData((prev) => ({ ...prev, body: value }))}
             modules={modules}
             placeholder="Write your blog content here..."
+            // className={styles.quillEditor}
           />
 
           <div className={styles.buttonGroup}>

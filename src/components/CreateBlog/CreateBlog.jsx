@@ -3,9 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './CreateBlog.module.css';
 import { globalContext } from '../Context';
 import { FlashMessage } from '../../FlashMessage';
-import ReactQuill from 'react-quill';
+import ReactQuill , {Quill} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-
+import ImageResize from 'quill-image-resize-module-react';
+Quill.register('modules/imageResize', ImageResize); // ✅ Register here
 
 const CreateBlog = () => {
   const { id } = useParams();
@@ -60,7 +61,12 @@ const CreateBlog = () => {
           };
         }
       }
+    },
+    imageResize: {
+      parchment: Quill.import('parchment'),
+      modules: ['Resize', 'DisplaySize'],
     }
+  
   }), []);
 
   useEffect(() => {

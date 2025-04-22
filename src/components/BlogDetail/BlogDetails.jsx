@@ -51,6 +51,8 @@ function BlogDetails() {
   if (!post) {
     return <p>Loading...</p>;
   }
+
+  
   
   return (
     <div  className={`${styles.blogDetailsContainer} ${mode === 'light' ? 'bg-light text-dark' : 'text-light'}`}
@@ -194,6 +196,37 @@ function BlogDetails() {
                   </p>
                 </div>
               </div>
+              {/* === */}
+              <h5>Comments</h5>
+              <div className={styles.mainpost}>
+                <div> <img src="https://up.yimg.com/ib/th?id=OIP.Kk4i-k-7bOfsgPv0SJtj5AHaHa&pid=Api&rs=1&c=1&qlt=95&w=119&h=119" alt="Study Spot" /></div>
+                <div class="card-content">
+                  <div className={styles.comm}>@hello</div>
+                </div>
+              </div>
+              
+              <div className={styles.mainpost}>
+                <div> <img src="https://wallpaperaccess.com/full/4322061.jpg" alt="Study Spot" /></div>
+                <div class="card-content">
+                  <div className={styles.comm}>Best Study Spots on Campus</div>
+                </div>
+              </div>
+              <div className={styles.mainpost}>
+                <div> <img src="https://up.yimg.com/ib/th?id=OIP.lguyAqtw00Ia5vuLUEEr9QHaFj&pid=Api&rs=1&c=1&qlt=95&w=165&h=123" alt="Study Spot" /></div>
+                <div class="card-content">
+                  <div className={styles.comm}>Best topic</div>
+                </div>
+              </div>
+              
+               <div className={styles.commentSection}>
+                 
+                  <div className={styles.commentForm}>
+                    <textarea
+                      placeholder="Write a comment..."
+                    />                 
+                  </div>
+                  <button className={styles.postbtn}>Comment</button>
+                </div>
             </div>
           </Col>
 

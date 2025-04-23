@@ -207,7 +207,7 @@ const handleReadMoreClick = (blogId) => {
             <Row>
             {featuredBlogs.map((blog, index) => (
                 <Col key={index} lg={4} md={6} className="mb-4">
-                <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
+                <Card className={`${styles.bodyCard} h-100 ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
                     <Card.Img 
                     variant="top" 
                     src={`https://fastapi.phoneme.in/${blog.image}`}

@@ -234,8 +234,7 @@
     align-items: center;
 
     /* justify-content: center; */
-    
-  }
+  } 
 
 
   .recentPostLink {
@@ -268,6 +267,7 @@
   }
   
   /* ================@media============= */
+
   @media only screen and (max-width: 1024px) {
     .blogPost {
       flex-direction: column;
@@ -292,7 +292,7 @@
       padding: 0;
     }
     .homeBlog{
-      padding: 0;
+      padding: 5px;
     }
     .blogTitle {
       font-size: 1.4rem;

@@ -99,8 +99,8 @@ function Header() {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto">
             <SignedIn>
-              <Nav.Link href="#" className={mode === 'light' ? 'text-dark' : 'text-light fw-medium'} onClick={handleBlogListClick}>Blog List</Nav.Link>
-              <Nav.Link href="#" className={mode === 'light' ? 'text-dark' : 'text-light fw-medium'} onClick={handleCategoryListClick}>Category List</Nav.Link>
+              <Nav.Link href="#" className={mode === 'light' ? 'text-dark' : 'text-light fw-medium'} onClick={handleBlogListClick}>Blogs</Nav.Link>
+              <Nav.Link href="#" className={mode === 'light' ? 'text-dark' : 'text-light fw-medium'} onClick={handleCategoryListClick}>Categories</Nav.Link>
             </SignedIn>
           </Nav>
           <SignedIn>

@@ -5,16 +5,18 @@ import styles from './BlogList.module.css';
 import { Link , useNavigate } from 'react-router-dom';
 import { globalContext } from '../Context';
 import { FlashMessage } from '../../FlashMessage';
+import Loading from '../Loading/Loading';
 
 const BlogList = () => {
 
   const [flash, setFlash] = useState({ message: "", type: "" });
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchBlogs = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch('https://fastapi.phoneme.in/posts');
         if (!response.ok) {
@@ -22,10 +24,13 @@ const BlogList = () => {
         }
         const data = await response.json();
         setBlogs(data); 
-        setLoading(false);
+     
       } catch (error) {
         setError(error.message);
-        setLoading(false);
+       
+      }
+      finally {
+        setIsLoading(false); // 🔄 stop spinner
       }
     };
     fetchBlogs();
@@ -51,12 +56,9 @@ const BlogList = () => {
     navigate(`/details/${id}`);  // Redirect to the details page for the clicked blog
   };
   
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  
+  if (isLoading) return <Loading />; // 👈 render spinner
+  if (error) return <div>Error: {error}</div>;
   const sortedBlogs = [...blogs].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   const { mode } = useContext(globalContext);//theme
 

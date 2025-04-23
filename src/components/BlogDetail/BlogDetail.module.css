@@ -187,7 +187,7 @@
   
   .articleContent h2 {
     font-size: 1.8rem;
-    color: #1a1a1a;
+    /* color: #1a1a1a; */
     margin: 2rem 0 1rem;
     font-weight: 700;
   }

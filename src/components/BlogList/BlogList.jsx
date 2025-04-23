@@ -6,6 +6,7 @@ import { Link , useNavigate } from 'react-router-dom';
 import { globalContext } from '../Context';
 import { FlashMessage } from '../../FlashMessage';
 import Loading from '../Loading/Loading';
+import { useLocation } from 'react-router-dom'; // for the post count click
 
 const BlogList = () => {
 
@@ -13,28 +14,60 @@ const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  const categoryId = queryParams.get('category_id');
+
   const navigate = useNavigate();
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch('https://fastapi.phoneme.in/posts');
-        if (!response.ok) {
-          throw new Error('Failed to fetch blogs');
+    // useEffect(() => {
+    //   const fetchBlogs = async () => {
+    //     setIsLoading(true);
+    //     try {
+    //       const response = await fetch('https://fastapi.phoneme.in/posts');
+    //       if (!response.ok) {
+    //         throw new Error('Failed to fetch blogs');
+    //       }
+    //       const data = await response.json();
+    //       setBlogs(data); 
+      
+    //     } catch (error) {
+    //       setError(error.message);
+        
+    //     }
+    //     finally {
+    //       setIsLoading(false); // 🔄 stop spinner
+    //     }
+    //   };
+    //   fetchBlogs();
+    // }, []);
+
+    useEffect(() => {
+      const fetchBlogs = async () => {
+        setIsLoading(true);
+        try {
+          let url = 'https://fastapi.phoneme.in/posts'; // Default URL to fetch all posts
+          if (categoryId) {
+            // If categoryId exists, use the specific endpoint to filter by category
+            url = `https://fastapi.phoneme.in/get_posts_by_category_id/${categoryId}`;
+          }
+  
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error('Failed to fetch blogs');
+          }
+          const data = await response.json();
+          setBlogs(data); // Set fetched blogs
+        } catch (error) {
+          setError(error.message); // Handle errors
+        } finally {
+          setIsLoading(false); // Stop loading indicator
         }
-        const data = await response.json();
-        setBlogs(data); 
-     
-      } catch (error) {
-        setError(error.message);
-       
-      }
-      finally {
-        setIsLoading(false); // 🔄 stop spinner
-      }
-    };
-    fetchBlogs();
-  }, []);
+      };
+  
+      fetchBlogs();
+    }, [categoryId]);
+
   const handleEdit = (id) => {
     navigate(`/createBlog/${id}`);
   };

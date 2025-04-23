@@ -17,6 +17,7 @@ import { FlashMessage } from '../../FlashMessage';
 import AddCategory from './AddCategory';
 import styles from './Categories.module.css';
 import { globalContext } from '../Context';
+import { Link } from 'react-router-dom';
 
 const iconMapping = {
   technology: Code,
@@ -50,21 +51,73 @@ function CategoriesList() {
   const [categoryToEdit, setCategoryToEdit] = useState(null);
   const [flash, setFlash] = useState({ message: "", type: "" });
 
+
+  const fetchPostCount = async (categoryId) => {
+    try {
+      const response = await fetch(`https://fastapi.phoneme.in/get_posts_by_category_id/${categoryId}`, {
+        method: 'GET',  // Using GET method as per your endpoint
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to fetch posts for category ID: ${categoryId}`);
+      }
+  
+      const data = await response.json();
+      return Array.isArray(data) ? data.length : 0;  // Return the count of posts
+    } catch (error) {
+      console.error(`Error fetching post count for category ${categoryId}:`, error);
+      return 0;
+    }
+  };
+
+  // const fetchCategories = async () => {
+  //   try {
+  //     const response = await fetch('https://fastapi.phoneme.in/categories');
+  //     if (!response.ok) {
+  //       throw new Error('Error fetching categories');
+  //     }
+  //     const data = await response.json();
+  //     const formattedData = await Promise.all(data.map(async (cat) => ({
+  //       id: cat.id,
+  //       name: cat.category_name,
+  //       description: `Explore posts related to ${cat.category_name}`,
+  //       // count: Math.floor(Math.random() * 50) + 1,
+  //       count: postCount,
+  //       icon: iconMapping[cat.category_name.toLowerCase()] || iconMapping.default,
+  //       image: await fetchImageForCategory(cat.category_name),
+  //     })));
+  //     setCategories(formattedData);
+  //   } catch (error) {
+  //     console.error('Error fetching categories:', error);
+  //     setFlash({
+  //       message: "Failed to fetch categories. Please try again.",
+  //       type: "error"
+  //     });
+  //   }
+  // };
+
   const fetchCategories = async () => {
     try {
       const response = await fetch('https://fastapi.phoneme.in/categories');
       if (!response.ok) {
         throw new Error('Error fetching categories');
       }
+  
       const data = await response.json();
-      const formattedData = await Promise.all(data.map(async (cat) => ({
-        id: cat.id,
-        name: cat.category_name,
-        description: `Explore posts related to ${cat.category_name}`,
-        count: Math.floor(Math.random() * 50) + 1,
-        icon: iconMapping[cat.category_name.toLowerCase()] || iconMapping.default,
-        image: await fetchImageForCategory(cat.category_name),
-      })));
+  
+      const formattedData = await Promise.all(data.map(async (cat) => {
+        // Fetch the post count for the current category
+        const postCount = await fetchPostCount(cat.id);
+        return {
+          id: cat.id,
+          name: cat.category_name,
+          description: `Explore posts related to ${cat.category_name}`,
+          count: postCount,  // Use postCount here
+          icon: iconMapping[cat.category_name.toLowerCase()] || iconMapping.default,
+          image: await fetchImageForCategory(cat.category_name),
+        };
+      }));
+  
       setCategories(formattedData);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -74,6 +127,7 @@ function CategoriesList() {
       });
     }
   };
+  
 
   useEffect(() => {
     fetchCategories();
@@ -197,7 +251,10 @@ function CategoriesList() {
                 <div className={styles.content}>
                   <div className={styles.titleRow}>
                     <h2 className={styles.title}>{category.name}</h2>
-                    <span className={styles.count}>{category.count} posts</span>
+                    {/* <span className={styles.count}>{category.count} posts</span> */}
+                    <Link to={`/list?category_id=${category.id}`} className={styles.count}>
+                    {category.count} posts
+                    </Link>
                   </div>
                   <p className={styles.description}>{category.description}</p>
                   <div className={styles.actions}>

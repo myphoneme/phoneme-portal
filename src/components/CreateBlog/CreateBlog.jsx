@@ -185,8 +185,6 @@ const CreateBlog = () => {
             ))}
           </select>
 
-          <label className={styles.label}>Upload Image:</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} className={styles.fileInput} />
 
           <label className={styles.label}>Content:</label>
           <ReactQuill
@@ -196,8 +194,11 @@ const CreateBlog = () => {
             onChange={(value) => setFormData((prev) => ({ ...prev, body: value }))}
             modules={modules}
             placeholder="Write your blog content here..."
-            // className={styles.quillEditor}
+            className={styles.quillEditor}
           />
+          
+          <label className={styles.label}>Upload Image:</label>
+          <input type="file" accept="image/*" onChange={handleImageChange} className={styles.fileInput} />
 
           <div className={styles.buttonGroup}>
             <button type="submit" className={styles.submitButton}>{id ? 'Update Blog' : 'Create Blog'}</button>

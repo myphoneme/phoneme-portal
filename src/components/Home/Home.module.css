@@ -292,7 +292,7 @@
       padding: 0;
     }
     .homeBlog{
-      padding: 5px;
+      padding: 8px;
     }
     .blogTitle {
       font-size: 1.4rem;
@@ -304,6 +304,20 @@
     .pagination button {
       padding: 8px 12px;
       font-size: 0.9rem;
+    }
+    .categoryTag{
+      width: 40%;
+      font-size: 12px;
+    }
+    .container{
+      padding: 0;
+      margin: 0;
+    }
+    .blogContainer{
+      padding: 12px;
+    }
+    .articleLink{
+      overflow: hidden;
     }
   } 
 

@@ -45,7 +45,7 @@ function Home() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div className={`${styles.blogContainer} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
-      <Container>
+      <Container className={styles.container}>
         {/* Categories Section */}
         <div className={`${styles.categorySection} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
           <h3 className={styles.sectionTitle}>Explore Categories</h3>

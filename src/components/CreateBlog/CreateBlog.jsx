@@ -175,10 +175,10 @@ const CreateBlog = () => {
         <h1 className={styles.heading}>{id ? 'Edit Blog' : 'Create a New Blog'}</h1>
         <form onSubmit={handleSubmit} className={styles.form}>
           <label className={styles.label}>Title:</label>
-          <input type="text" name="title" value={formData.title} onChange={handleChange} className={styles.input} placeholder="Enter Blog Title" required />
+          <input type="text" name="title" value={formData.title} onChange={handleChange} className={`${styles.input} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} placeholder="Enter Blog Title" required />
 
           <label className={styles.label}>Category:</label>
-          <select name="category" value={formData.category} onChange={handleChange} className={styles.select} required>
+          <select name="category" value={formData.category} onChange={handleChange} className={`${styles.select} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} required>
             <option value="">Select Category</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>{category.category_name}</option>

@@ -142,7 +142,7 @@
   font-size: 1rem;
   line-height: 1.5;
   background-color: var(--editor-bg);
-  color: var(--editor-color);
+  /* color: var(--editor-color); */
 }
 
 .quillEditor :global(.ql-toolbar) {
@@ -154,7 +154,7 @@
 .quillEditor :global(.ql-toolbar button),
 .quillEditor :global(.ql-toolbar .ql-picker-label),
 .quillEditor :global(.ql-toolbar .ql-picker-item) {
-  color: var(--editor-color);
+  /* color: var(--editor-color); */
   fill: var(--editor-color);
 }
 
@@ -176,6 +176,7 @@
 
 .quillEditor :global(.ql-picker-options) {
   background-color: var(--editor-toolbar-bg);
-  color: var(--editor-color);
+  /* color: var(--editor-color); */
   border: 1px solid #444;
 }
+

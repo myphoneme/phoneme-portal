@@ -335,3 +335,8 @@
     }
   } 
   
+  .fixrecent {
+    position: sticky;
+    top: 80px; /* Adjust based on your header height */
+    z-index: 2;
+  }

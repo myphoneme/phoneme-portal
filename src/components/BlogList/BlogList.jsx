@@ -15,6 +15,8 @@ const BlogList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const location = useLocation();
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 5;
 
   const queryParams = new URLSearchParams(location.search);
   const categoryId = queryParams.get('category_id');
@@ -95,6 +97,10 @@ const BlogList = () => {
   const sortedBlogs = [...blogs].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   const { mode } = useContext(globalContext);//theme
 
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = sortedBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
+
   return (
     // <div className={`${styles.mainContainer} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"} `}  style={mode === 'dark' ? { backgroundColor: '#1a1a1a' } : {}}>
     <div
@@ -112,7 +118,9 @@ const BlogList = () => {
           {/* Users blog */}
           <Col lg={8}>
           <h3>Users Blog</h3>
-            {blogs.map((blog) => (
+            {/* {blogs.map((blog) => ( */} 
+            {currentBlogs.map((blog) => (
+
               <div key={blog.id} className={`${styles.blogCard} ${mode === 'light' ? "bg-white text-dark" : "bg-dark text-light"}`}>
                 <Row >
                   <Col md={4}>
@@ -154,6 +162,22 @@ const BlogList = () => {
                 </Row>
               </div>
             ))}
+
+            {/* 👇 Pagination buttons */}
+{sortedBlogs.length > blogsPerPage && (
+  <div className={styles.pagination}>
+    {[...Array(Math.ceil(sortedBlogs.length / blogsPerPage))].map((_, index) => (
+      <button
+        key={index}
+        onClick={() => setCurrentPage(index + 1)}
+        className={`${styles.paginationButton} ${currentPage === index + 1 ? styles.activePage : ''}`}
+      >
+        {index + 1}
+      </button>
+    ))}
+  </div>
+)}
+
           </Col>
 
           {/* recent posts */}

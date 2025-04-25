@@ -55,9 +55,11 @@ function Home() {
     ? posts.filter(post => post.category?.id === selectedCategoryId)
     : posts;
   // Get the posts for the current page
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  // const indexOfLastPost = currentPage * postsPerPage;         //  pagination comment 
+  // const indexOfFirstPost = indexOfLastPost - postsPerPage;      //pagination comment 
+  // const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);   this is the pagination comment 
+  const currentPosts = filteredPosts;
+
   // Handle page change
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
@@ -157,7 +159,7 @@ function Home() {
               ))
             )}
             {/* Pagination Controls */}
-            {filteredPosts.length > postsPerPage && (
+            {/* {filteredPosts.length > postsPerPage && (
               <div className={styles.pagination}>
                 {[...Array(Math.ceil(filteredPosts.length / postsPerPage))].map((_, index) => (
                   <button
@@ -169,10 +171,11 @@ function Home() {
                   </button>
                 ))}
               </div>
-            )}
+            )} */}
           </Col>
           {/* Recent Posts Section - Right Side */}
           <Col md={4}>
+          <div className={styles.fixrecent}>
             <h3 className={styles.sectionTitle}>Recent Posts</h3>
             {posts
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) // Sort by created_at in descending order
@@ -204,6 +207,7 @@ function Home() {
                   </div>
                 </Link>
               ))}
+              </div>
           </Col>
         </Row>
       </Container>

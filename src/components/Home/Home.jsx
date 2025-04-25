@@ -10,6 +10,7 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [topCategories, setTopCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);  // Track current page
   const postsPerPage = 5;  // Number of posts per page
  
@@ -28,6 +29,22 @@ function Home() {
       .catch(error => console.error('Error fetching categories:', error));
 
   }, []);
+
+  useEffect(() => {
+    // Count posts per category
+    const categoryPostCounts = categories.map(category => {
+      const postCount = posts.filter(post => post.category?.id === category.id).length;
+      return { ...category, postCount };
+    });
+
+    // Sort categories by post count in descending order and select top 5
+    const sortedCategories = categoryPostCounts
+      .sort((a, b) => b.postCount - a.postCount)
+      .slice(0, 10);
+
+    setTopCategories(sortedCategories);
+  }, [categories, posts]);
+
 
   const handleCategoryClick = (categoryId) => {
     setSelectedCategoryId(categoryId); // Set the selected category ID in state
@@ -50,13 +67,27 @@ function Home() {
         <div className={`${styles.categorySection} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
           <h3 className={styles.sectionTitle}>Explore Categories</h3>
           <div className="d-flex flex-wrap">
-            {categories.length === 0 ? (
+            {/* {categories.length === 0 ? (
               <p>Loading categories...</p>
             ) : (
               categories.map((category) => (
                 <span
                   key={category.id}
                   // className={styles.categoryTag}
+                  className={`${styles.categoryTag} ${selectedCategoryId === category.id ? styles.activeCategory : ''}`}
+                  onClick={() => handleCategoryClick(category.id)}
+                >
+                  {category.category_name}
+                </span>
+              ))
+            )} */}
+
+            {topCategories.length === 0 ? (
+              <p>Loading categories...</p>
+            ) : (
+              topCategories.map((category) => (
+                <span
+                  key={category.id}
                   className={`${styles.categoryTag} ${selectedCategoryId === category.id ? styles.activeCategory : ''}`}
                   onClick={() => handleCategoryClick(category.id)}
                 >

@@ -414,6 +414,7 @@
     }
     .contentWrapper{
       padding: 8px;
+      overflow: hidden;
     }
   
     .authorBox {

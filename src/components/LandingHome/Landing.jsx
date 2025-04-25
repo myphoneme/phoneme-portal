@@ -132,7 +132,7 @@ const handleReadMoreClick = (blogId) => {
         {/* Main News Section with Slider */}
         <Col md={8}>
         {articles.length > 20 && (
-          <a href={articles[20].url} target="_blank" rel="noopener noreferrer" className={styles.newsLink}>
+          <a href={articles[20].url} target="_blank" rel="noopener noreferrer" className={`${styles.newsLink} ${styles.heightFul}`}>
           <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none'  } : {}}>
             <Card.Img variant="top" className={styles.mainImage} src={articles[20].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
@@ -169,7 +169,7 @@ const handleReadMoreClick = (blogId) => {
                       href={story.url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-decoration-none text-primary"
+                      className="text-decoration-none text-white"
                     >
                       {story.title}
                     </a>
@@ -235,9 +235,9 @@ const handleReadMoreClick = (blogId) => {
       </Row>
 
       <Row>
-        <Col md={6}>
+        <Col md={6} className='my-2'>
         {articles.length > 3 && (
-            <Link to={articles[3].url} target="_blank" className="text-decoration-none">
+            <Link to={articles[3].url} target="_blank"  className={styles.heightFul}>
           <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.mainImage} src={articles[3].urlToImage || "https://via.placeholder.com/150"} />
             <Card.Body>
@@ -247,8 +247,8 @@ const handleReadMoreClick = (blogId) => {
           </Link>
           )}
         </Col>
-        <Col md={6}>  {articles.length > 4 && (
-            <Link to={articles[4].url} target="_blank" className="text-decoration-none">
+        <Col md={6} className='my-2'>  {articles.length > 4 && (
+            <Link to={articles[4].url} target="_blank"  className={styles.heightFul}>
           <Card className={`${styles.bodyCard} ${styles.heightFul}  ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Img variant="top" className={styles.mainImage}  src={articles[4].urlToImage || "https://via.placeholder.com/150"}/>
             <Card.Body>
@@ -313,7 +313,7 @@ const handleReadMoreClick = (blogId) => {
           <h2>
           <span className="fw-bold">Some More News</span>
           </h2>
-        <Col md={3}>
+        <Col md={3} className='my-2'>
         {articles.length > 5 && (
            <Link to={articles[5].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
@@ -325,7 +325,7 @@ const handleReadMoreClick = (blogId) => {
           </Link>
         )}
         </Col>
-        <Col md={3}>
+        <Col md={3} className='my-2'>
         {articles.length > 6 && (
           <Link to={articles[6].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
@@ -337,7 +337,7 @@ const handleReadMoreClick = (blogId) => {
           </Link>
         )}
         </Col>
-        <Col md={6}>
+        <Col md={6} className='my-2'>
         {articles.length > 7 && (
           <Link to={articles[7].url} target="_blank" className="text-decoration-none h-100">
           <Card className={`${styles.bodyCard} ${styles.heightFul} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>

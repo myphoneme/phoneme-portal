@@ -35,6 +35,23 @@ const NewsDashboard = () => {
 //         .catch(error => console.error(error));
 // }, []);
 
+// useEffect(() => {
+//   fetch("https://fastapi.phoneme.in/news")
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Network response was not ok");
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       setArticles(data);
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching news data:", error);
+//     });
+// }, []);
+
+
 useEffect(() => {
   fetch("https://fastapi.phoneme.in/news")
     .then((response) => {
@@ -44,7 +61,33 @@ useEffect(() => {
       return response.json();
     })
     .then((data) => {
-      setArticles(data);
+      // Step 1: Get articles with and without images
+      const newsWithImages = data.filter(item => item.urlToImage);
+      const newsWithoutImages = data.filter(item => !item.urlToImage);
+
+      // Step 2: Find the latest date
+      const latestDate = Math.max(...data.map(item => new Date(item.publishedAt || item.date || item.created_at || item.updated_at)));
+      const latestNews = data.filter(item => {
+        const itemDate = new Date(item.publishedAt || item.date || item.created_at || item.updated_at).getTime();
+        return itemDate === latestDate;
+      });
+
+      // Step 3: Filter latest news with images
+      const latestNewsWithImages = latestNews.filter(item => item.urlToImage);
+
+      // Step 4: Replace articles without images
+      const getRandomReplacement = () => {
+        return latestNewsWithImages[Math.floor(Math.random() * latestNewsWithImages.length)];
+      };
+
+      const finalArticles = data.map(item => {
+        if (item.urlToImage) return item;
+        const replacement = getRandomReplacement();
+        return replacement || item; // fallback in case no image news is available
+      });
+
+      // Step 5: Update state
+      setArticles(finalArticles);
     })
     .catch((error) => {
       console.error("Error fetching news data:", error);
@@ -108,14 +151,33 @@ const handleReadMoreClick = (blogId) => {
         {/* Top Stories and Market Section */}
         <Col md={4}>
           <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}} >
-            <Card.Body>
+            {/* <Card.Body>
               <Card.Title>Top Stories</Card.Title>
               <ul>
                 <li>Justice Yashwant Varma stripped of judicial work: Delhi HC issues circular</li>
                 <li>Can't speak whatever he wants: Maharashtra govt vs oppn over Kunal...</li>
                 <li>VIDEO: Bulldozer Action Against Nagpur Violence Key Accused</li>
               </ul> 
+            </Card.Body> */}
+  
+            <Card.Body>
+              <Card.Title>Top Stories</Card.Title>
+              <ul className="list-unstyled">
+                {articles.slice(9,12).map((story, index) => (
+                  <li key={index}>
+                    <a 
+                      href={story.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-decoration-none text-primary"
+                    >
+                      {story.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </Card.Body>
+
           </Card>
           <Card className={`${styles.bodyCard} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`} style={mode === 'dark' ? { boxShadow: 'none' } : {}}>
             <Card.Body>

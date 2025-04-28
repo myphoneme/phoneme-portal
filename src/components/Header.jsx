@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Navbar, Container, Form, Button, Nav, ListGroup } from 'react-bootstrap';
-import { FaNewspaper, FaSearch, FaMoon, FaSun, FaPencilAlt} from 'react-icons/fa';  // Ensure FaSun is imported
+import { FaNewspaper, FaSearch, FaMoon, FaSun, FaPencilAlt , FaHome} from 'react-icons/fa';  // Ensure FaSun is imported
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { globalContext } from "./Context";
@@ -194,6 +194,15 @@ function Header() {
                 >
                   <FaPencilAlt size={18} />
                 </Button>
+                 
+                <Button
+                  variant={mode === 'light' ? 'light' : 'secondary'}
+                  style={{ backgroundColor: 'transparent', border:'0', margin:'0' }}
+                  onClick={() => navigate('/home')}
+                >
+                  <FaHome size={18} />
+                </Button>
+
                 <Button
                   variant={mode === 'light' ? 'light' : 'secondary'}
                   style={{ backgroundColor: 'transparent', border:'0', color:'#000', margin:'0' }}

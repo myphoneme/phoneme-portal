@@ -54,10 +54,6 @@ function Home() {
   const filteredPosts = selectedCategoryId
     ? posts.filter(post => post.category?.id === selectedCategoryId)
     : posts;
-  // Get the posts for the current page
-  // const indexOfLastPost = currentPage * postsPerPage;         //  pagination comment 
-  // const indexOfFirstPost = indexOfLastPost - postsPerPage;      //pagination comment 
-  // const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);   this is the pagination comment 
   const currentPosts = filteredPosts;
 
   // Handle page change
@@ -69,21 +65,7 @@ function Home() {
         <div className={`${styles.categorySection} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>
           <h3 className={styles.sectionTitle}>Explore Categories</h3>
           <div className="d-flex flex-wrap">
-            {/* {categories.length === 0 ? (
-              <p>Loading categories...</p>
-            ) : (
-              categories.map((category) => (
-                <span
-                  key={category.id}
-                  // className={styles.categoryTag}
-                  className={`${styles.categoryTag} ${selectedCategoryId === category.id ? styles.activeCategory : ''}`}
-                  onClick={() => handleCategoryClick(category.id)}
-                >
-                  {category.category_name}
-                </span>
-              ))
-            )} */}
-
+           
             {topCategories.length === 0 ? (
               <p>Loading categories...</p>
             ) : (
@@ -158,20 +140,6 @@ function Home() {
                 </article>
               ))
             )}
-            {/* Pagination Controls */}
-            {/* {filteredPosts.length > postsPerPage && (
-              <div className={styles.pagination}>
-                {[...Array(Math.ceil(filteredPosts.length / postsPerPage))].map((_, index) => (
-                  <button
-                    key={index + 1}
-                    onClick={() => paginate(index + 1)}
-                    className={currentPage === index + 1 ? styles.activePage : ''}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
-              </div>
-            )} */}
           </Col>
           {/* Recent Posts Section - Right Side */}
           <Col md={4}>

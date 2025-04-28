@@ -194,7 +194,7 @@ const CreateBlog = () => {
             onChange={(value) => setFormData((prev) => ({ ...prev, body: value }))}
             modules={modules}
             placeholder="Write your blog content here..."
-            className={styles.quillEditor}
+            className={`${styles.quillEditor} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}
           />
           
           <label className={styles.label}>Upload Image:</label>

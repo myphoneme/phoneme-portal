@@ -194,7 +194,7 @@ const handleReadMoreClick = (blogId) => {
               <Card.Title>Markets</Card.Title>
               <p>NIFTY <span className="text-success">+1.24%</span></p>
               <p>SENSEX <span className="text-success">+1.29%</span></p>
-              <p>Gold <span className="text-success">+0.28%</span></p>
+              {/* <p>Gold <span className="text-success">+0.28%</span></p> */}
               {/* <p>Silver <span className="text-success">+0.80%</span></p>
               <p>USD/INR <span className="text-danger">-0.28%</span></p> */}
             </Card.Body>

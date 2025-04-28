@@ -165,14 +165,24 @@ const handleReadMoreClick = (blogId) => {
               <ul className="list-unstyled">
                 {articles.slice(9,12).map((story, index) => (
                   <li key={index}>
-                    <a 
+                    {/* <a 
                       href={story.url} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-decoration-none text-white"
                     >
+                      
+                      {story.title}
+                    </a> */}
+                    <a
+                      href={story.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: 'inherit', textDecoration: 'none' }}
+                    >
                       {story.title}
                     </a>
+
                   </li>
                 ))}
               </ul>

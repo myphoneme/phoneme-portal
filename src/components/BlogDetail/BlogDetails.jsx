@@ -32,6 +32,11 @@ function BlogDetails() {
   const { mode } = useContext(globalContext);//theme
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  
     // Fetch the full post using the id from the URL
     fetch(`https://fastapi.phoneme.in/posts/${id}`)
       .then((response) => response.json())

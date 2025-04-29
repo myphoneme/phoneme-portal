@@ -140,8 +140,11 @@
     padding: 2rem;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     position: relative;
+    overflow: hidden;
   }
-  
+  .contentWrapper img {
+    width: 100%
+  }
   .socialShare {
     position: sticky;
     top: 2rem;

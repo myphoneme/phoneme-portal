@@ -119,6 +119,7 @@
 
 .quillEditor {
   min-height: 300px;
+  /* color: #fff */
 }
 
 /* This targets the actual text area inside the editor */
@@ -176,7 +177,9 @@
 
 .quillEditor :global(.ql-picker-options) {
   background-color: var(--editor-toolbar-bg);
-  /* color: var(--editor-color); */
   border: 1px solid #444;
+}
+.ql-snow.ql-toolbar button{
+  background-color: #fff;
 }
 

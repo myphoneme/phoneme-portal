@@ -18,6 +18,8 @@ import AddCategory from './AddCategory';
 import styles from './Categories.module.css';
 import { globalContext } from '../Context';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading'; // ★ Added Loading component import
+
 
 const iconMapping = {
   technology: Code,
@@ -50,6 +52,7 @@ function CategoriesList() {
   const [showModal, setShowModal] = useState(false);
   const [categoryToEdit, setCategoryToEdit] = useState(null);
   const [flash, setFlash] = useState({ message: "", type: "" });
+  const [isLoading, setIsLoading] = useState(false); // ★ Added isLoading state
 
 
   const fetchPostCount = async (categoryId) => {
@@ -72,6 +75,7 @@ function CategoriesList() {
 
 
   const fetchCategories = async () => {
+    setIsLoading(true); // ★ Set loading state to true before fetching
     try {
       const response = await fetch('https://fastapi.phoneme.in/categories');
       if (!response.ok) {
@@ -100,6 +104,8 @@ function CategoriesList() {
         message: "Failed to fetch categories. Please try again.",
         type: "error"
       });
+    } finally {
+      setIsLoading(false); // ★ Set loading state to false after fetching
     }
   };
   
@@ -179,6 +185,8 @@ function CategoriesList() {
       });
     }
   };
+  if (isLoading) return <Loading />; // ★ Render Loading component if isLoading is true
+
 
   return (
     <div className={`${styles.container} ${mode === 'light' ? "bg-light text-dark" : "bg-dark text-light"}`}>

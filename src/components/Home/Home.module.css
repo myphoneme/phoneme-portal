@@ -56,9 +56,11 @@
     backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     transition: transform 0.3s ease;
-    
+    overflow: hidden;
     margin: 25px 0;
+    
   }
+  
   
   .blogPost:hover {
     transform: translateY(-5px);
@@ -229,7 +231,7 @@
     display: block;
     text-decoration: none; 
     color: inherit; 
-    display: flex;
+    /* display: flex; */
     margin: 0;
     align-items: center;
 

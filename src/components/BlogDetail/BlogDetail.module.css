@@ -119,6 +119,7 @@
     /* background-color: #f1f1f1; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 20px 30px;
+    background-color: #fff;
   }
   
   .featuredImage {
@@ -138,7 +139,7 @@
     background: white;
     border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    /* box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); */
     position: relative;
     overflow: hidden;
   }
@@ -328,7 +329,7 @@
     border-radius: 15px;
     padding: 1.5rem;
     margin-bottom: 2rem;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    /* box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); */
   }
   
   .sidebarSection h3 {

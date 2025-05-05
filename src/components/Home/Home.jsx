@@ -112,13 +112,32 @@ function Home() {
                         <div className={styles.homeBlog}>
                           <h1 className={styles.blogTitle}>{post.title}</h1>
                           <div className={styles.blogContent}>
-                            <p>
+                            {/* <p>
                                {post.post ? (
                                 <span dangerouslySetInnerHTML={{ __html: post.post.substring(0, 150) + "..." }} />
                               ) : (
                                 "Content not available"
                                 )}
-                            </p>
+                            </p> */}
+                          <p>
+                            {post.post ? (
+                              <span
+                                dangerouslySetInnerHTML={{
+                                  __html: post.post
+                                    .replace(/<img[^>]*>/gi, "")             // Remove images
+                                    .replace(/<br\s*\/?>/gi, "")             // Remove all <br>
+                                    .replace(/<p>\s*<\/p>/gi, "")            // Remove empty <p> tags
+                                    .replace(/\n+/g, "")                     // Remove all \n
+                                    .replace(/<[^>]+>/g, "")                 // Strip all HTML tags
+                                    .slice(0, 150) + "..."                   // Finally, slice plain text
+                                }}
+                              />
+                            ) : (
+                              "Content not available"
+                            )}
+                          </p>
+
+
                           </div>
                           <div className={styles.blogMeta}>
                             <span>
